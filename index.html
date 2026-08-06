@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PasirPogorCell - Daftar Barang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --radius-card: 20px;
+            --radius-modal: 28px;
+            --radius-btn: 40px;
+            --transition-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.16);
+            --shadow-modal: 0 40px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            padding: 0 20px 80px;
+            background: linear-gradient(145deg, #0b2b1e 0%, #1a5a4a 30%, #1e6b7a 60%, #1a4a5a 100%);
+            background-attachment: fixed;
+            transition: background 0.6s ease, color 0.3s;
+            position: relative;
+        }
+        body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.07) 0%, transparent 60%), radial-gradient(circle at 80% 70%, rgba(0,255,200,0.05) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(74,222,128,0.03) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+        body::after { content: ''; position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
+
+        .container { max-width: 1240px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* ===== LIGHT THEME ===== */
+        [data-theme="light"] body { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 40%, #a7f3d0 100%) !important; }
+        [data-theme="light"] body::before { opacity: 0.2; }
+        [data-theme="light"] .header { background: rgba(255,255,255,0.78); border-color: rgba(0,196,106,0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
+        [data-theme="light"] .header .logo { color: #064e3b; text-shadow: none; }
+        [data-theme="light"] .header .logo span { color: #059669; }
+        [data-theme="light"] .header .sub { color: #4b6b5a; }
+        [data-theme="light"] .header .info-badge { background: #ffffff; color: #064e3b; border: 1.5px solid #059669; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        [data-theme="light"] .header .info-badge .jam-icon { color: #059669; }
+        [data-theme="light"] .theme-toggle { background: #e8f5ee; color: #064e3b; border-color: #059669; }
+        [data-theme="light"] .theme-toggle:hover { background: #d1f0e3; }
+        [data-theme="light"] .controls { background: rgba(255,255,255,0.85); border-color: rgba(0,196,106,0.12); box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+        [data-theme="light"] .search-box input { background: #f8fafc; border-color: #dce0e6; color: #1a2634; }
+        [data-theme="light"] .search-box input:focus { border-color: #059669; background: #fff; box-shadow: 0 0 0 4px rgba(5,150,105,0.12); }
+        [data-theme="light"] .search-box .icon { color: #8a9bb5; }
+        [data-theme="light"] .filter-group .filter-btn { color: #4a6b5a; border-color: #dce0e6; }
+        [data-theme="light"] .filter-group .filter-btn:hover { border-color: #059669; color: #059669; background: rgba(5,150,105,0.06); }
+        [data-theme="light"] .filter-group .filter-btn.active { background: #059669; border-color: #059669; color: #fff; box-shadow: 0 4px 14px rgba(5,150,105,0.3); }
+        [data-theme="light"] .result-info { color: #4a6b5a; text-shadow: none; }
+        [data-theme="light"] .result-info span { color: #059669; }
+        [data-theme="light"] .product-card { background: rgba(255,255,255,0.92); border-color: rgba(0,196,106,0.10); box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+        [data-theme="light"] .product-card:hover { background: #ffffff; box-shadow: 0 20px 60px rgba(0,0,0,0.08); border-color: rgba(5,150,105,0.2); }
+        [data-theme="light"] .product-number { background: rgba(0,0,0,0.06); color: #4a6b5a; }
+        [data-theme="light"] .product-image { background: #f0f3f7; }
+        [data-theme="light"] .product-name { color: #064e3b; }
+        [data-theme="light"] .product-category { color: #7a8a9a; }
+        [data-theme="light"] .product-price { color: #059669; }
+        [data-theme="light"] .product-price .currency { color: #5e6f8d; }
+        [data-theme="light"] .product-stok { color: #4a6b5a; }
+        [data-theme="light"] .product-stok .stok-tersedia { color: #059669; }
+        [data-theme="light"] .product-stok .stok-habis { color: #94a3b8; }
+        [data-theme="light"] .btn-detail { background: #eef1f5; color: #1a2634; }
+        [data-theme="light"] .btn-detail:hover { background: #dce0e6; transform: translateY(-2px); }
+        [data-theme="light"] .btn-wa { background: #25d366; color: #fff; }
+        [data-theme="light"] .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+        [data-theme="light"] .badge-habis { background: #94a3b8; color: #fff; }
+        [data-theme="light"] .badge-stok { background: #059669; color: #fff; }
+        [data-theme="light"] .badge-hot { background: #f59e0b; color: #fff; }
+        [data-theme="light"] .modal { background: #ffffff; }
+        [data-theme="light"] .modal-close { color: #8a9bb5; }
+        [data-theme="light"] .modal-close:hover { color: #1a2634; transform: rotate(90deg); }
+        [data-theme="light"] .modal-name { color: #064e3b; }
+        [data-theme="light"] .modal-category { color: #7a8a9a; }
+        [data-theme="light"] .modal-price { color: #059669; }
+        [data-theme="light"] .modal-price .currency { color: #5e6f8d; }
+        [data-theme="light"] .modal-stok { color: #4a6b5a; }
+        [data-theme="light"] .modal-stok .stok-tersedia { color: #059669; }
+        [data-theme="light"] .modal-stok .stok-habis { color: #94a3b8; }
+        [data-theme="light"] .modal-desc { background: #f8f9fb; color: #1a2634; border-left-color: #059669; }
+        [data-theme="light"] .modal-copy-btn { background: #f0f2f5; color: #1a2634; }
+        [data-theme="light"] .modal-copy-btn:hover { background: #e2e6ec; transform: translateY(-2px); }
+        [data-theme="light"] .modal-wa { background: #25d366; color: #fff; }
+        [data-theme="light"] .modal-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+        [data-theme="light"] .order-modal .modal-title { color: #064e3b; }
+        [data-theme="light"] .order-modal .modal-sub { color: #5e6f8d; }
+        [data-theme="light"] .order-modal .order-rules { background: #fef9e7; border-left-color: #f59e0b; color: #1a2634; }
+        [data-theme="light"] .order-modal .order-rules strong { color: #d97706; }
+        [data-theme="light"] .order-modal .form-group label { color: #1a2634; }
+        [data-theme="light"] .order-modal .form-group input,
+        [data-theme="light"] .order-modal .form-group textarea,
+        [data-theme="light"] .order-modal .form-group select { background: #f8f9fb; border-color: #e2e6ec; color: #1a2634; }
+        [data-theme="light"] .order-modal .form-group input:focus,
+        [data-theme="light"] .order-modal .form-group textarea:focus,
+        [data-theme="light"] .order-modal .form-group select:focus { border-color: #059669; background: #fff; box-shadow: 0 0 0 4px rgba(5,150,105,0.10); }
+        [data-theme="light"] .order-modal .btn-submit { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; box-shadow: 0 4px 20px rgba(245,158,11,0.35); }
+        [data-theme="light"] .order-modal .btn-submit:hover { box-shadow: 0 8px 30px rgba(245,158,11,0.45); transform: translateY(-2px); }
+        [data-theme="light"] .footer { background: rgba(255,255,255,0.80); border-color: rgba(0,196,106,0.15); color: #4a6b5a; box-shadow: 0 -2px 12px rgba(0,0,0,0.03); }
+        [data-theme="light"] .footer strong { color: #064e3b; }
+        [data-theme="light"] .footer .wa-link { color: #059669; font-weight: 700; }
+        [data-theme="light"] .footer .wa-link:hover { color: #047857; }
+        [data-theme="light"] .footer .jam-footer { color: #6b8a7a; }
+        [data-theme="light"] .wa-float { background: #25d366; box-shadow: 0 6px 28px rgba(37,211,102,0.4); }
+        [data-theme="light"] .wa-float:hover { box-shadow: 0 10px 40px rgba(37,211,102,0.55); }
+        [data-theme="light"] .pulse-ring { border: 2px solid rgba(37,211,102,0.4); }
+        [data-theme="light"] .dropdown-btn { background: rgba(248,250,252,0.8); border-color: #dce0e6; color: #1a2634; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        [data-theme="light"] .dropdown-btn:hover { border-color: #059669; background: rgba(255,255,255,0.9); }
+        [data-theme="light"] .dropdown-btn:focus { border-color: #059669; box-shadow: 0 0 0 4px rgba(5,150,105,0.12); }
+        [data-theme="light"] .dropdown-btn .dropdown-arrow { color: #8a9bb5; }
+        [data-theme="light"] .dropdown-btn:hover .dropdown-arrow { color: #059669; }
+        [data-theme="light"] .dropdown-menu { background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); border-color: rgba(0,0,0,0.06); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+        [data-theme="light"] .dropdown-item { color: #4a6b5a; }
+        [data-theme="light"] .dropdown-item:hover { background: rgba(5,150,105,0.08); color: #059669; }
+        [data-theme="light"] .dropdown-item.active { background: rgba(5,150,105,0.10); color: #059669; }
+
+        /* ===== DARK THEME ===== */
+        [data-theme="dark"] body { background: #0a0a0f; }
+        [data-theme="dark"] body::before { opacity: 0.15; }
+        [data-theme="dark"] .header { background: rgba(18,18,30,0.88); border-color: rgba(255,255,255,0.06); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+        [data-theme="dark"] .header .logo { color: #e5e7eb; }
+        [data-theme="dark"] .header .logo span { color: #4ade80; }
+        [data-theme="dark"] .header .sub { color: #9ca3af; }
+        [data-theme="dark"] .header .info-badge { background: rgba(255,255,255,0.06); color: #d1d5db; border-color: rgba(255,255,255,0.06); }
+        [data-theme="dark"] .header .info-badge .jam-icon { color: #4ade80; }
+        [data-theme="dark"] .theme-toggle { background: rgba(255,255,255,0.08); color: #e5e7eb; border-color: rgba(255,255,255,0.06); }
+        [data-theme="dark"] .theme-toggle:hover { background: rgba(255,255,255,0.14); }
+        [data-theme="dark"] .controls { background: rgba(18,18,30,0.88); border-color: rgba(255,255,255,0.06); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+        [data-theme="dark"] .search-box input { background: #141425; border-color: #2a2a3e; color: #e5e7eb; }
+        [data-theme="dark"] .search-box input:focus { border-color: #4ade80; background: #1a1a32; box-shadow: 0 0 0 4px rgba(74,222,128,0.10); }
+        [data-theme="dark"] .search-box .icon { color: #6b7280; }
+        [data-theme="dark"] .filter-group .filter-btn { color: #9ca3af; border-color: #2a2a3e; }
+        [data-theme="dark"] .filter-group .filter-btn:hover { border-color: #4ade80; color: #4ade80; background: rgba(74,222,128,0.06); }
+        [data-theme="dark"] .filter-group .filter-btn.active { background: #4ade80; border-color: #4ade80; color: #0a0a0a; box-shadow: 0 4px 14px rgba(74,222,128,0.25); }
+        [data-theme="dark"] .result-info { color: #9ca3af; text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+        [data-theme="dark"] .result-info span { color: #4ade80; }
+        [data-theme="dark"] .product-card { background: rgba(18,18,30,0.88); border-color: rgba(255,255,255,0.05); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        [data-theme="dark"] .product-card:hover { background: rgba(26,26,44,0.95); box-shadow: 0 20px 60px rgba(0,0,0,0.5); border-color: rgba(74,222,128,0.15); }
+        [data-theme="dark"] .product-number { background: rgba(0,0,0,0.6); color: #d1d5db; }
+        [data-theme="dark"] .product-image { background: #141425; }
+        [data-theme="dark"] .product-name { color: #e5e7eb; }
+        [data-theme="dark"] .product-category { color: #9ca3af; }
+        [data-theme="dark"] .product-price { color: #4ade80; }
+        [data-theme="dark"] .product-price .currency { color: #9ca3af; }
+        [data-theme="dark"] .product-stok { color: #9ca3af; }
+        [data-theme="dark"] .product-stok .stok-tersedia { color: #4ade80; }
+        [data-theme="dark"] .product-stok .stok-habis { color: #6b7280; }
+        [data-theme="dark"] .btn-detail { background: #2a2a3e; color: #e5e7eb; }
+        [data-theme="dark"] .btn-detail:hover { background: #3a3a52; transform: translateY(-2px); }
+        [data-theme="dark"] .btn-wa { background: #25d366; color: #fff; }
+        [data-theme="dark"] .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+        [data-theme="dark"] .badge-habis { background: #374151; color: #9ca3af; }
+        [data-theme="dark"] .badge-stok { background: #4ade80; color: #0a0a0a; }
+        [data-theme="dark"] .badge-hot { background: #f59e0b; color: #0a0a0a; }
+        [data-theme="dark"] .modal { background: #1a1a2e; }
+        [data-theme="dark"] .modal-close { color: #9ca3af; }
+        [data-theme="dark"] .modal-close:hover { color: #e5e7eb; transform: rotate(90deg); }
+        [data-theme="dark"] .modal-name { color: #e5e7eb; }
+        [data-theme="dark"] .modal-category { color: #9ca3af; }
+        [data-theme="dark"] .modal-price { color: #4ade80; }
+        [data-theme="dark"] .modal-price .currency { color: #9ca3af; }
+        [data-theme="dark"] .modal-stok { color: #9ca3af; }
+        [data-theme="dark"] .modal-stok .stok-tersedia { color: #4ade80; }
+        [data-theme="dark"] .modal-stok .stok-habis { color: #6b7280; }
+        [data-theme="dark"] .modal-desc { background: #111122; color: #d1d5db; border-left-color: #4ade80; }
+        [data-theme="dark"] .modal-copy-btn { background: #2a2a3e; color: #e5e7eb; }
+        [data-theme="dark"] .modal-copy-btn:hover { background: #3a3a52; transform: translateY(-2px); }
+        [data-theme="dark"] .modal-wa { background: #25d366; color: #fff; }
+        [data-theme="dark"] .modal-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+        [data-theme="dark"] .order-modal .modal-title { color: #e5e7eb; }
+        [data-theme="dark"] .order-modal .modal-sub { color: #9ca3af; }
+        [data-theme="dark"] .order-modal .order-rules { background: #1f1f30; border-left-color: #f59e0b; color: #d1d5db; }
+        [data-theme="dark"] .order-modal .order-rules strong { color: #fbbf24; }
+        [data-theme="dark"] .order-modal .form-group label { color: #e5e7eb; }
+        [data-theme="dark"] .order-modal .form-group input,
+        [data-theme="dark"] .order-modal .form-group textarea,
+        [data-theme="dark"] .order-modal .form-group select { background: #111122; border-color: #2a2a3e; color: #e5e7eb; }
+        [data-theme="dark"] .order-modal .form-group input:focus,
+        [data-theme="dark"] .order-modal .form-group textarea:focus,
+        [data-theme="dark"] .order-modal .form-group select:focus { border-color: #4ade80; background: #1a1a2e; box-shadow: 0 0 0 4px rgba(74,222,128,0.08); }
+        [data-theme="dark"] .order-modal .btn-submit { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; box-shadow: 0 4px 20px rgba(245,158,11,0.3); }
+        [data-theme="dark"] .order-modal .btn-submit:hover { box-shadow: 0 8px 30px rgba(245,158,11,0.4); transform: translateY(-2px); }
+        [data-theme="dark"] .footer { background: rgba(18,18,30,0.6); border-color: rgba(255,255,255,0.04); color: #9ca3af; }
+        [data-theme="dark"] .footer strong { color: #e5e7eb; }
+        [data-theme="dark"] .footer .wa-link { color: #4ade80; }
+        [data-theme="dark"] .footer .wa-link:hover { color: #86efac; }
+        [data-theme="dark"] .footer .jam-footer { color: #6b7280; }
+        [data-theme="dark"] .wa-float { background: #25d366; box-shadow: 0 6px 28px rgba(37,211,102,0.35); }
+        [data-theme="dark"] .wa-float:hover { box-shadow: 0 10px 40px rgba(37,211,102,0.5); }
+        [data-theme="dark"] .dropdown-btn { background: rgba(20,20,37,0.7); border-color: #2a2a3e; color: #e5e7eb; }
+        [data-theme="dark"] .dropdown-btn:hover { border-color: #4ade80; background: rgba(26,26,50,0.8); }
+        [data-theme="dark"] .dropdown-menu { background: rgba(26,26,46,0.92); border-color: rgba(255,255,255,0.06); box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
+        [data-theme="dark"] .dropdown-item { color: #d1d5db; }
+        [data-theme="dark"] .dropdown-item:hover { background: rgba(74,222,128,0.10); color: #4ade80; }
+        [data-theme="dark"] .dropdown-item.active { background: rgba(74,222,128,0.12); color: #4ade80; }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            text-align: center;
+            padding: 36px 28px 28px;
+            margin-bottom: 32px;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: var(--radius-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 20%, rgba(74,222,128,0.06) 0%, transparent 50%); pointer-events: none; }
+        .header .logo { font-size: 34px; font-weight: 900; letter-spacing: -0.5px; color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.15); transition: color 0.3s; position: relative; }
+        .header .logo span { color: #7ae9c0; transition: color 0.3s; }
+        .header .sub { font-size: 15px; color: rgba(255,255,255,0.75); margin-top: 4px; font-weight: 400; transition: color 0.3s; letter-spacing: 0.3px; }
+        .header .info-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 18px; margin-top: 14px; }
+        .header .info-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.10); color: #fff; font-weight: 500; font-size: 13px; padding: 6px 18px; border-radius: 40px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.06); transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.2s; }
+        .header .info-badge:hover { transform: translateY(-2px); }
+        .header .info-badge .jam-icon { font-size: 15px; transition: color 0.3s; }
+        .header .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 18px; position: relative; }
+        .header .btn-group .order-link { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-weight: 700; font-size: 14px; padding: 12px 32px; border-radius: var(--radius-btn); text-decoration: none; transition: all 0.3s var(--transition-smooth); border: none; cursor: pointer; font-family: inherit; position: relative; overflow: hidden; background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 4px 20px rgba(245,158,11,0.35); }
+        .header .btn-group .order-link:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 30px rgba(245,158,11,0.45); }
+        .header .btn-group .order-link::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.4s; }
+        .header .btn-group .order-link:hover::after { opacity: 1; }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .theme-toggle:hover { transform: rotate(30deg) scale(1.08); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+        .theme-toggle .icon-sun { display: none; }
+        .theme-toggle .icon-moon { display: block; }
+        [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+        [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+        /* ============================================================
+           CONTROLS - PERBAIKAN DROPDOWN
+           ============================================================ */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 22px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+            /* === PERBAIKAN === */
+            overflow: visible !important;
+            z-index: 10;
+            position: relative;
+        }
+        .controls-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            flex: 1;
+        }
+        .controls-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            overflow: visible !important;
+            position: relative;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+            max-width: 340px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 11px 16px 11px 44px;
+            border: 1.5px solid #2a2a3e;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            background: #141425;
+            transition: all 0.3s var(--transition-smooth);
+            color: #e5e7eb;
+            outline: none;
+        }
+        .search-box input::placeholder { color: #6b7280; }
+        .search-box .icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 16px;
+            pointer-events: none;
+            transition: color 0.3s;
+        }
+        .search-box input:focus+.icon,
+        .search-box input:focus~.icon { color: #4ade80; }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .filter-group .filter-btn {
+            padding: 8px 18px;
+            border: 1.5px solid #2a2a3e;
+            border-radius: 30px;
+            background: transparent;
+            font-size: 12px;
+            font-weight: 600;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+            font-family: inherit;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .filter-group .filter-btn:active { transform: scale(0.94); }
+
+        .result-info {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.10);
+            transition: color 0.3s, text-shadow 0.3s;
+            letter-spacing: 0.2px;
+        }
+        .result-info span { font-weight: 700; transition: color 0.3s; }
+
+        /* ============================================================
+           CUSTOM DROPDOWN - MINIMALIS & MODERN
+           ============================================================ */
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            min-width: 140px;
+            z-index: 20;
+        }
+        .dropdown-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+            padding: 10px 18px 10px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            border: 1.5px solid #2a2a3e;
+            border-radius: 30px;
+            background: rgba(20,20,37,0.7);
+            backdrop-filter: blur(4px);
+            color: #e5e7eb;
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+            outline: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            user-select: none;
+            white-space: nowrap;
+        }
+        .dropdown-btn:hover { border-color: #4ade80; background: rgba(26,26,50,0.8); }
+        .dropdown-btn:focus { border-color: #4ade80; box-shadow: 0 0 0 4px rgba(74,222,128,0.12); }
+        .dropdown-btn .dropdown-label { flex: 1; text-align: left; }
+        .dropdown-btn .dropdown-arrow { font-size: 12px; color: #6b7280; transition: transform 0.3s, color 0.3s; line-height: 1; }
+        .dropdown-btn:hover .dropdown-arrow { color: #4ade80; }
+        .dropdown-btn.open .dropdown-arrow { transform: rotate(180deg); color: #4ade80; }
+
+        /* ----- DROPDOWN MENU ----- */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            min-width: 100%;
+            background: rgba(26,26,46,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+            padding: 6px 4px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px) scale(0.96);
+            transition: all 0.25s var(--transition-smooth);
+            z-index: 9999 !important;
+            overflow: visible;
+        }
+        .dropdown-menu.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        .dropdown-item {
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #d1d5db;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s var(--transition-smooth);
+            white-space: nowrap;
+        }
+        .dropdown-item:hover { background: rgba(74,222,128,0.10); color: #4ade80; }
+        .dropdown-item.active { background: rgba(74,222,128,0.12); color: #4ade80; font-weight: 600; }
+        .dropdown-item.active::after { content: " ✓"; font-weight: 700; }
+
+        /* ----- RESPONSIVE DROPDOWN ----- */
+        @media (max-width: 768px) {
+            .custom-dropdown { min-width: 120px; width: 100%; }
+            .dropdown-btn { padding: 9px 14px 9px 16px; font-size: 12px; }
+            .dropdown-item { padding: 8px 14px; font-size: 12px; }
+        }
+
+        /* ============================================================
+           PRODUCT GRID & CARD
+           ============================================================ */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 28px;
+        }
+        .product-card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.4s var(--transition-smooth);
+            border: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px) scale(0.97);
+            animation: cardEntrance 0.6s var(--transition-smooth) forwards;
+        }
+        .product-card:nth-child(1) { animation-delay: 0.02s; }
+        .product-card:nth-child(2) { animation-delay: 0.06s; }
+        .product-card:nth-child(3) { animation-delay: 0.10s; }
+        .product-card:nth-child(4) { animation-delay: 0.14s; }
+        .product-card:nth-child(5) { animation-delay: 0.18s; }
+        .product-card:nth-child(6) { animation-delay: 0.22s; }
+        .product-card:nth-child(7) { animation-delay: 0.26s; }
+        .product-card:nth-child(8) { animation-delay: 0.30s; }
+        .product-card:nth-child(9) { animation-delay: 0.34s; }
+        .product-card:nth-child(10) { animation-delay: 0.38s; }
+        .product-card:nth-child(11) { animation-delay: 0.42s; }
+        .product-card:nth-child(12) { animation-delay: 0.46s; }
+        .product-card:nth-child(13) { animation-delay: 0.50s; }
+        .product-card:nth-child(14) { animation-delay: 0.54s; }
+        .product-card:nth-child(15) { animation-delay: 0.58s; }
+        .product-card:nth-child(16) { animation-delay: 0.62s; }
+        .product-card:nth-child(17) { animation-delay: 0.66s; }
+        .product-card:nth-child(18) { animation-delay: 0.70s; }
+        .product-card:nth-child(19) { animation-delay: 0.74s; }
+        .product-card:nth-child(20) { animation-delay: 0.78s; }
+        @keyframes cardEntrance { 0% { opacity: 0; transform: translateY(30px) scale(0.97); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .product-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 60px rgba(0,0,0,0.12); border-color: rgba(74,222,128,0.12); }
+        .product-number {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.50);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 20px;
+            z-index: 2;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+        }
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #141425;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--transition-smooth);
+        }
+        .product-card:hover .product-image img { transform: scale(1.06); }
+        .product-image .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 16px;
+            border-radius: 30px;
+            color: #fff;
+            z-index: 1;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.20);
+            backdrop-filter: blur(4px);
+        }
+        .badge-stok { background: #059669; }
+        .badge-habis { background: #6b7280; }
+        .badge-hot { background: #f59e0b; }
+        .product-info {
+            padding: 18px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-name { font-size: 15px; font-weight: 700; color: #e5e7eb; line-height: 1.3; margin-bottom: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-category { font-size: 12px; color: #9ca3af; font-weight: 500; margin-bottom: 8px; letter-spacing: 0.2px; }
+        .product-price-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+        .product-price { font-size: 20px; font-weight: 800; color: #4ade80; }
+        .product-price .currency { font-size: 13px; font-weight: 600; color: #9ca3af; }
+        .product-stok { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+        .product-stok .stok-angka { font-weight: 700; }
+        .product-stok .stok-tersedia { color: #4ade80; }
+        .product-stok .stok-habis { color: #6b7280; }
+        .product-stok .stok-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 2px; animation: pulse-dot 2s ease-in-out infinite; }
+        .product-stok .stok-dot.tersedia { background: #4ade80; }
+        .product-stok .stok-dot.habis { background: #6b7280; animation: none; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+        .product-action { display: flex; gap: 8px; margin-top: 14px; }
+        .btn-detail, .btn-wa { flex: 1; padding: 10px 0; border: none; border-radius: 10px; font-size: 12px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.3s var(--transition-smooth); text-align: center; text-decoration: none; letter-spacing: 0.3px; text-transform: uppercase; position: relative; overflow: hidden; }
+        .btn-detail:active, .btn-wa:active { transform: scale(0.94); }
+        .btn-detail { background: #2a2a3e; color: #e5e7eb; }
+        .btn-detail:hover { background: #3a3a52; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+        .btn-wa { background: #25d366; color: #fff; }
+        .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(37,211,102,0.3); }
+
+        /* ============================================================
+           MODAL DETAIL
+           ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-overlay.active .modal { animation: modalIn 0.4s var(--transition-smooth) forwards; }
+        @keyframes modalIn { 0% { opacity: 0; transform: scale(0.92) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal {
+            background: #1a1a2e;
+            max-width: 560px;
+            width: 100%;
+            border-radius: var(--radius-modal);
+            padding: 34px 32px 32px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+            position: relative;
+            max-height: 92vh;
+            overflow-y: auto;
+            transition: background 0.3s;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .modal::-webkit-scrollbar { width: 4px; }
+        .modal::-webkit-scrollbar-track { background: transparent; }
+        .modal::-webkit-scrollbar-thumb { background: rgba(74,222,128,0.3); border-radius: 10px; }
+        .modal-close {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            font-size: 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #9ca3af;
+            transition: all 0.3s var(--transition-smooth);
+            line-height: 1;
+            padding: 4px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover { color: #e5e7eb; transform: rotate(90deg); background: rgba(255,255,255,0.05); }
+        .modal-image {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+            border-radius: 14px;
+            background: #141425;
+            margin-bottom: 18px;
+            transition: transform 0.4s;
+        }
+        .modal-image:hover { transform: scale(1.01); }
+        .modal-name { font-size: 22px; font-weight: 800; color: #e5e7eb; margin-bottom: 2px; }
+        .modal-category { font-size: 14px; color: #9ca3af; font-weight: 500; margin-bottom: 6px; }
+        .modal-price { font-size: 30px; font-weight: 800; color: #4ade80; margin: 6px 0 12px; }
+        .modal-price .currency { font-size: 16px; font-weight: 600; color: #9ca3af; }
+        .modal-stok { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+        .modal-stok .stok-angka { font-weight: 800; }
+        .modal-stok .stok-tersedia { color: #4ade80; }
+        .modal-stok .stok-habis { color: #6b7280; }
+        .modal-stok .stok-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; animation: pulse-dot 2s ease-in-out infinite; }
+        .modal-stok .stok-dot.tersedia { background: #4ade80; }
+        .modal-stok .stok-dot.habis { background: #6b7280; animation: none; }
+        .modal-desc { background: #111122; border-radius: 12px; padding: 16px 20px; margin: 12px 0 20px; color: #d1d5db; font-size: 14px; line-height: 1.7; border-left: 4px solid #4ade80; }
+        .modal-desc:empty::before { content: "Tidak ada keterangan tambahan."; color: #6b7280; font-style: italic; }
+        .modal-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+        .modal-wa {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25d366;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 12px 30px;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            transition: all 0.3s var(--transition-smooth);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            flex: 1;
+            justify-content: center;
+        }
+        .modal-wa:hover { background: #1ebe5c; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(37,211,102,0.3); }
+        .modal-copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2a2a3e;
+            color: #e5e7eb;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 12px 24px;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            transition: all 0.3s var(--transition-smooth);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .modal-copy-btn:hover { background: #3a3a52; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+
+        /* ============================================================
+           ORDER MODAL
+           ============================================================ */
+        .order-modal .modal { max-width: 600px; }
+        .order-modal .modal-title { font-size: 24px; font-weight: 800; color: #e5e7eb; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+        .order-modal .modal-title span { font-size: 28px; }
+        .order-modal .modal-sub { color: #9ca3af; font-size: 14px; margin-bottom: 20px; }
+        .order-modal .order-rules { background: #1f1f30; border-left: 4px solid #f59e0b; padding: 16px 20px; border-radius: 10px; margin-bottom: 22px; font-size: 13px; line-height: 1.8; color: #d1d5db; }
+        .order-modal .order-rules strong { color: #fbbf24; }
+        .order-modal .form-group { margin-bottom: 16px; }
+        .order-modal .form-group label { display: block; font-size: 13px; font-weight: 600; color: #e5e7eb; margin-bottom: 5px; }
+        .order-modal .form-group label .required { color: #ef4444; margin-left: 2px; }
+        .order-modal .form-group input,
+        .order-modal .form-group textarea,
+        .order-modal .form-group select { width: 100%; padding: 11px 16px; border: 1.5px solid #2a2a3e; border-radius: 12px; font-size: 14px; font-family: inherit; background: #111122; transition: all 0.3s; color: #e5e7eb; outline: none; }
+        .order-modal .form-group input:focus,
+        .order-modal .form-group textarea:focus,
+        .order-modal .form-group select:focus { border-color: #4ade80; background: #1a1a2e; box-shadow: 0 0 0 4px rgba(74,222,128,0.06); }
+        .order-modal .form-group textarea { resize: vertical; min-height: 80px; }
+        .order-modal .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .order-modal .form-hint { font-size: 12px; color: #6b7280; margin-top: 4px; }
+        .order-modal .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+            font-family: inherit;
+            box-shadow: 0 4px 20px rgba(245,158,11,0.3);
+            margin-top: 8px;
+        }
+        .order-modal .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,158,11,0.4); }
+        .order-modal .btn-submit:active { transform: scale(0.97); }
+        .order-modal .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+
+        /* ============================================================
+           WA FLOAT & FOOTER
+           ============================================================ */
+        .wa-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: #25d366;
+            color: #fff;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 28px rgba(37,211,102,0.35);
+            transition: all 0.3s var(--transition-smooth);
+            text-decoration: none;
+            z-index: 999;
+            animation: waFloat 3s ease-in-out infinite;
+        }
+        .wa-float:hover { transform: scale(1.10); box-shadow: 0 10px 40px rgba(37,211,102,0.5); }
+        .wa-float svg { width: 32px; height: 32px; fill: #fff; }
+        @keyframes waFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        .wa-float .pulse-ring {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid rgba(37,211,102,0.25);
+            animation: pulseRing 2.5s ease-out infinite;
+            pointer-events: none;
+        }
+        @keyframes pulseRing { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+
+        .footer {
+            margin-top: 52px;
+            padding: 32px 24px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.04);
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
+        }
+        .footer strong { color: #fff; }
+        .footer .wa-link { color: #7ae9c0; font-weight: 600; text-decoration: none; }
+        .footer .wa-link:hover { text-decoration: underline; color: #aaffdd; }
+        .footer .jam-footer { display: block; margin-top: 4px; font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; }
+        .footer .jam-footer .jam-icon { font-size: 14px; }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .controls { flex-direction: column; align-items: stretch; padding: 16px 18px; }
+            .controls-left { flex-direction: column; align-items: stretch; }
+            .controls-right { justify-content: center; }
+            .search-box { max-width: 100%; }
+            .filter-group { justify-content: center; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 18px; }
+            .product-name { font-size: 13px; }
+            .product-price { font-size: 17px; }
+            .modal { padding: 26px 20px 24px; }
+            .modal-name { font-size: 19px; }
+            .modal-price { font-size: 24px; }
+            .header .logo { font-size: 26px; }
+            .product-number { font-size: 10px; padding: 2px 10px; top: 8px; right: 8px; }
+            .header { padding: 24px 16px 20px; }
+            .header .btn-group { flex-direction: column; align-items: center; }
+            .header .btn-group .order-link { width: 100%; justify-content: center; max-width: 320px; }
+            .theme-toggle { top: 14px; right: 14px; width: 42px; height: 42px; font-size: 18px; }
+            .order-modal .form-row { grid-template-columns: 1fr; }
+            .modal-actions { flex-direction: column; }
+            .modal-wa { flex: none; width: 100%; }
+            .modal-copy-btn { width: 100%; justify-content: center; }
+            .wa-float { width: 54px; height: 54px; bottom: 20px; right: 20px; }
+            .wa-float svg { width: 28px; height: 28px; }
+        }
+        @media (max-width: 480px) {
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+            .product-info { padding: 14px 14px 16px; }
+            .product-action { flex-direction: column; gap: 6px; }
+            .btn-detail, .btn-wa { padding: 8px 0; font-size: 10px; }
+            .filter-group .filter-btn { padding: 6px 12px; font-size: 10px; }
+            .header { padding: 18px 12px 16px; }
+            .header .logo { font-size: 22px; }
+            .header .sub { font-size: 12px; }
+            .header .info-badge { font-size: 11px; padding: 4px 12px; }
+            .product-number { font-size: 8px; padding: 1px 7px; top: 6px; right: 6px; }
+            .modal { padding: 20px 16px 18px; border-radius: 20px; }
+            .modal-name { font-size: 17px; }
+            .modal-price { font-size: 22px; }
+            .modal-desc { font-size: 13px; padding: 12px 14px; }
+            .order-modal .modal-title { font-size: 20px; }
+            .order-modal .order-rules { font-size: 12px; padding: 12px 14px; }
+            .controls { padding: 12px 14px; gap: 10px; }
+            .search-box input { padding: 9px 12px 9px 38px; font-size: 13px; }
+            .search-box .icon { left: 12px; font-size: 14px; }
+            .wa-float { width: 48px; height: 48px; bottom: 16px; right: 16px; }
+            .wa-float svg { width: 24px; height: 24px; }
+            .footer { padding: 20px 16px; font-size: 12px; margin-top: 32px; }
+        }
+        @media (max-width: 380px) {
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .product-info { padding: 10px 10px 12px; }
+            .product-name { font-size: 11px; }
+            .product-price { font-size: 14px; }
+            .product-category { font-size: 10px; }
+            .product-stok { font-size: 10px; }
+            .btn-detail, .btn-wa { font-size: 9px; padding: 6px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== THEME TOGGLE ===== -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle tema">
+            <span class="icon-sun">☀️</span>
+            <span class="icon-moon">🌙</span>
+        </button>
+
+        <!-- ===== HEADER ===== -->
+        <header class="header">
+            <div class="logo">Pasir<span>Pogor</span>Cell</div>
+            <p class="sub">📋 Katalog Barang · Cek Ketersediaan &amp; Harga</p>
+            <div class="info-row">
+                <span class="info-badge"><span class="jam-icon">🕐</span> 06.30 – 21.30 WIB</span>
+                <span class="info-badge">📱 0838-4484-3020</span>
+            </div>
+            <div class="btn-group">
+                <button class="order-link" id="openOrderBtn">📦 Pesan Barang</button>
+            </div>
+        </header>
+
+        <!-- ===== CONTROLS ===== -->
+        <div class="controls">
+            <div class="controls-left">
+                <div class="search-box">
+                    <span class="icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Cari barang..." />
+                </div>
+                <div class="filter-group" id="filterGroup">
+                    <button class="filter-btn active" data-filter="Semua">Semua</button>
+                    <button class="filter-btn" data-filter="Elektronik">Elektronik</button>
+                    <button class="filter-btn" data-filter="Aksesoris Gadget">Aksesoris Gadget</button>
+                    <button class="filter-btn" data-filter="Alat Tulis">Alat Tulis</button>
+                    <button class="filter-btn" data-filter="Perlengkapan">Perlengkapan</button>
+                </div>
+            </div>
+            <div class="controls-right">
+                <!-- DROPDOWN URUTKAN -->
+                <div class="custom-dropdown" id="sortDropdown">
+                    <button class="dropdown-btn" id="sortBtn">
+                        <span class="dropdown-label" id="sortLabel">Urutkan</span>
+                        <span class="dropdown-arrow">▾</span>
+                    </button>
+                    <div class="dropdown-menu" id="sortMenu">
+                        <div class="dropdown-item active" data-value="default">Urutkan</div>
+                        <div class="dropdown-item" data-value="asc">Termurah</div>
+                        <div class="dropdown-item" data-value="desc">Termahal</div>
+                    </div>
+                </div>
+                <!-- DROPDOWN STOK -->
+                <div class="custom-dropdown" id="stokDropdown">
+                    <button class="dropdown-btn" id="stokBtn">
+                        <span class="dropdown-label" id="stokLabel">Semua Stok</span>
+                        <span class="dropdown-arrow">▾</span>
+                    </button>
+                    <div class="dropdown-menu" id="stokMenu">
+                        <div class="dropdown-item active" data-value="semua">Semua Stok</div>
+                        <div class="dropdown-item" data-value="tersedia">Tersedia</div>
+                        <div class="dropdown-item" data-value="habis">Habis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-info" id="resultInfo">Menampilkan <span id="resultCount">0</span> barang</div>
+        <div class="product-grid" id="productGrid"></div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <strong>PasirPogorCell</strong> —
+            WA: <a href="https://wa.me/6283844843020" target="_blank" class="wa-link">0838-4484-3020</a>
+            <span class="jam-footer"><span class="jam-icon">🕐</span> Jam Operasional: 06.30 – 21.30 WIB</span>
+        </footer>
+    </div>
+
+    <!-- ===== WA FLOAT ===== -->
+    <a href="https://wa.me/6283844843020" target="_blank" class="wa-float" aria-label="Hubungi WhatsApp">
+        <span class="pulse-ring"></span>
+        <svg viewBox="0 0 24 24"><path d="M12.032 21.965c-2.007 0-3.866-.61-5.398-1.65l-4.23 1.388 1.426-4.148c-1.2-1.723-1.916-3.822-1.916-6.088 0-5.854 4.763-10.618 10.618-10.618 5.854 0 10.618 4.763 10.618 10.618 0 5.855-4.764 10.618-10.618 10.618zm0-19.236c-4.755 0-8.618 3.864-8.618 8.618 0 1.782.543 3.434 1.47 4.805l-.947 2.756 2.827-.928c1.314.846 2.904 1.344 4.618 1.344 4.755 0 8.618-3.864 8.618-8.618 0-4.754-3.863-8.618-8.618-8.618zm4.998 11.493c-.146-.246-.537-.394-.922-.437-.384-.043-.884-.04-1.142.054-.258.095-.462.338-.568.588-.106.25-.406.434-.69.324-.284-.11-1.16-.427-2.218-1.37-.82-.732-1.375-1.634-1.536-1.91-.16-.276-.017-.426.12-.563.123-.123.274-.321.411-.482.138-.16.184-.274.276-.457.092-.183.046-.343-.023-.48-.069-.137-.6-1.444-.822-1.978-.216-.52-.438-.433-.6-.44-.154-.008-.33-.01-.506-.01-.176 0-.462.066-.704.33-.242.264-.924.903-.924 2.203 0 1.3.946 2.557 1.078 2.734.132.177 1.86 2.84 4.506 3.984.63.272 1.12.435 1.504.556.632.201 1.207.173 1.662.105.507-.076 1.562-.638 1.782-1.254.22-.616.22-1.144.154-1.254z"/></svg>
+    </a>
+
+    <!-- ===== MODAL DETAIL ===== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <img class="modal-image" id="modalImage" src="" alt="Produk" />
+            <div class="modal-name" id="modalName"></div>
+            <div class="modal-category" id="modalCategory"></div>
+            <div class="modal-price" id="modalPrice"></div>
+            <div class="modal-stok" id="modalStok"></div>
+            <div class="modal-desc" id="modalDescription"></div>
+            <div class="modal-actions">
+                <a href="#" id="modalWaLink" target="_blank" class="modal-wa">💬 Tanya via WhatsApp</a>
+                <button class="modal-copy-btn" id="modalCopyBtn">📋 Salin Nama</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL PESAN BARANG ===== -->
+    <div class="modal-overlay order-modal" id="orderModal">
+        <div class="modal">
+            <button class="modal-close" id="orderModalClose">&times;</button>
+            <div class="modal-title"><span>📦</span> Pesan Barang</div>
+            <div class="modal-sub">Mau pesan barang yang tidak tersedia? Kami bantu carikan!</div>
+            <div class="order-rules">
+                <strong>📋 Ketentuan Pre-Order:</strong><br />
+                • ⏳ Waktu tunggu <strong>3–7 hari</strong> setelah order<br />
+                • 💰 Pembayaran <strong>di muka (full)</strong> — tunai atau transfer<br />
+                • ✅ Garansi barang jika tidak sesuai — <strong>tanpa repot</strong> mengembalikan sendiri<br />
+                • 🛡️ Jaminan kualitas dari PasirPogorCell<br />
+                • 📦 Bisa pesan <strong>barang apa saja</strong> (random / request)
+            </div>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label>Nama Barang yang Dipesan <span class="required">*</span></label>
+                    <input type="text" id="orderNamaBarang" placeholder="Contoh: Kipas Angin Miyako 16 inch" required />
+                </div>
+                <div class="form-group">
+                    <label>Spesifikasi / Detail Barang</label>
+                    <textarea id="orderSpesifikasi" placeholder="Warna, ukuran, merek, atau keterangan tambahan..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Harga yang Diharapkan</label>
+                        <input type="number" id="orderHarga" placeholder="Contoh: 50000" />
+                        <div class="form-hint">Kosongkan jika biarkan toko yang menentukan</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Jumlah <span class="required">*</span></label>
+                        <input type="number" id="orderJumlah" placeholder="Contoh: 2" min="1" value="1" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nama Anda <span class="required">*</span></label>
+                        <input type="text" id="orderNama" placeholder="Nama lengkap" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor WhatsApp <span class="required">*</span></label>
+                        <input type="tel" id="orderWa" placeholder="08xxxxxxxxxx" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Metode Pembayaran <span class="required">*</span></label>
+                    <select id="orderMetode" required>
+                        <option value="">Pilih metode...</option>
+                        <option value="Tunai">Tunai (langsung ke toko)</option>
+                        <option value="Transfer Bank">Transfer Bank</option>
+                        <option value="E-Wallet">E-Wallet (OVO/DANA/GoPay)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Catatan Tambahan</label>
+                    <textarea id="orderCatatan" placeholder="Informasi lain yang perlu diketahui..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit" id="orderSubmitBtn">📨 Kirim Pesanan via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // 1. THEME
+        // ============================================================
+        (function initTheme() {
+            const saved = localStorage.getItem('theme');
+            const doc = document.documentElement;
+            if (saved) {
+                doc.setAttribute('data-theme', saved);
+            } else {
+                doc.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        })();
+
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', function() {
+            const doc = document.documentElement;
+            const current = doc.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            doc.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        // ============================================================
+        // 2. DATA PRODUK
+        // ============================================================
+        const PRODUK_IMAGES = {
+            "Kipas Mini MIISOO": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/14_Miisoo_Mini_Fan_Portable.jpg",
+            "Baterai ABC Biru Size AA 1.5V": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/24_ABC_Dry_Cell_AA.jpg",
+            "Baterai ABC AAA (A3) (harga per 1pcs)": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/15_Baterai_ABC_AAA.jpg",
+            "Charger Robot Micro USB": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/03_Robot_Charger_Power_QC3.jpg",
+            "Kabel Micro USB KIVEE": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/12_Kivee_Micro_USB_100cm.jpg",
+            "Pulpen Amilio 0.5mm": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/01_Aimilo_Pulpen_Gel_0.5mm.jpg",
+            "Pulpen Joyko 0.5mm": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/02_Joyko_Gel_Pen_JK-100NT.jpg",
+            "JOYKO Pensil P-88 2B": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/21_Joyko_Pencil_P-88_2B.jpg",
+            "Pensil Warna JOYKO (12 warna)": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/09_Joyko_Color_Pencil_CP-0133-12.jpg",
+            "JOYKO Penanda Berwarna Highlighter HL-88": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/22_Joyko_Highlighter_HL-88.jpg",
+            "Buku SIDU SKOLA 1 pack (10 buku)": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/13_SiDU_Buku_Tulis_Skola_A5.jpg",
+            "Rautan pensil, JOYKO": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/20_Joyko_Sharpener_SP-362PTL.jpg",
+            "Pulpen Joyko i-Tech 2, 0.28mm": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/16_Joyko_Gel_Pen_GP-266_iTech2.jpg",
+            "Penghapus Joyko": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/18_Joyko_Eraser_ER-30W.jpg",
+            "Buku CAMPUS 1 pack (10 buku)": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/19_Favourite_Campus_Pouch.jpg",
+            "Lem Korea": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/04_Lem_Handsome_Cairan_20gr.jpg",
+            "Staples Joyko": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/05_Joyko_Stapler_HD-879R2.jpg",
+            "Lakban Bening": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/11_Lakban_Fragile.jpg",
+            "Gunting Montana STI 180": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/06_Gunting_Montana_STI_180.jpg",
+            "Gunting Montana STI 165": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/07_Gunting_Montana_STI_165.jpg",
+            "Gunting Montana STI 145": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/08_Gunting_Montana_STI_145.jpg",
+            "Refill Staples MONTANA": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/10_Montana_Staples_No10.jpg",
+            "Lakban Hitam": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/17_Goldtape_Vinyl_Tape_Hitam.jpg",
+            "Lakban Coklat 45mm x 100 Yard": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/25_Giant_Tape_Bening.jpg",
+            "Deli I-Select Spidol Warna 12 Warna": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/cc5ab3513a543ffac80fef3175a0ff951366e6c5/23_Deli_Felt_Pen_UC150.jpg",
+            "KIVEE 18W QC3.0 Fast Charger 18W High Power Smart Safety": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/5764662c006e459dcadb734097dd11461b59399a/KIVEE_18W_QC3.0_Fast_Charger_18W_High_Power_Smart_Safety.jpg",
+            "KIVEE 120W USB Type-C Cable Daya Tinggi 120W Pengisian Cepat": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/5764662c006e459dcadb734097dd11461b59399a/KIVEE_120W_USB_Type-C_Cable_Daya_Tinggi_120W_Pengisian_Cepat.jpg",
+            "KIVEE 2.1A Type-C USB Cable 100CM Fast Charging": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/5764662c006e459dcadb734097dd11461b59399a/KIVEE_2.1A_Type-C_USB_Cable_100CM_Fast_Charging.jpg",
+            "SENTER MINI 3 MODE Kompak Terang Serbaguna USB Rechargeable": "https://raw.githubusercontent.com/adenaskolani5-jpg/PasirPogorCell/403548955c11649bd2300dc799c31478a8990027/SENTER_MINI_3_MODE_Kompak_Terang_Serbaguna_USB_Rechargeable.jpg"
+        };
+
+        const PRODUK_DATA = {
+            "Elektronik": [
+                { nama: "Kipas Mini MIISOO", harga: 20000, labelType: "stok", stok: 2,
+                  description: "Kipas angin mini portabel, baterai 2000mAh, 3 kecepatan, silent." },
+                { nama: "Baterai ABC Biru Size AA 1.5V", harga: 5000, labelType: "stok", stok: 25,
+                  description: "Baterai ABC, AAA." },
+                { nama: "Baterai ABC AAA (A3) (harga per 1pcs)", harga: 5000, label: null, labelType: null, stok: 20,
+                  description: "Baterai alkaline ukuran A3 (AAA), tahan lama, isi 2 pcs." },
+                { nama: "SENTER MINI 3 MODE Kompak Terang Serbaguna USB Rechargeable", harga: 25000, label: null, labelType: null, stok: 4,
+                  description: "Senter mini 3 mode (terang/redup/kedip), kompak, ringan, USB rechargeable, cocok untuk aktivitas outdoor, darurat, atau kebutuhan sehari-hari." }
+            ],
+            "Aksesoris Gadget": [
+                { nama: "Charger Robot Micro USB", harga: 30000, label: null, labelType: null, stok: 0,
+                  description: "Charger kabel micro USB panjang 1 meter, mendukung arus 2A fast charging." },
+                { nama: "Kabel Micro USB KIVEE", harga: 15000, label: null, labelType: null, stok: 2,
+                  description: "Kabel micro USB." },
+                { nama: "KIVEE 18W QC3.0 Fast Charger 18W High Power Smart Safety", harga: 45000, label: null, labelType: null, stok: 3,
+                  description: `-Model: KV-AE87. -Daya: USB:18W. -Port USB: 1. -Bahan: ABS + VO bahan tahan api. -Masukan: AC 100-240V 50-60HZ 0.5A. -Keluaran: DC 5V3A/9V2.22A /12V1.5A. -Size: 90±0.3mm L42±0.3mm W*31±0.3mm H. -Product net weight: 65g.` },
+                { nama: "KIVEE 120W USB Type-C Cable Daya Tinggi 120W Pengisian Cepat", harga: 25000, label: null, labelType: null, stok: 5,
+                  description: "Kabel USB Type-C 120W, mendukung pengisian cepat daya tinggi, panjang 1 meter." },
+                { nama: "KIVEE 2.1A Type-C USB Cable 100CM Fast Charging", harga: 18000, label: null, labelType: null, stok: 8,
+                  description: "Kabel USB Type-C 2.1A, fast charging, panjang 100cm." }
+            ],
+            "Alat Tulis": [
+                { nama: "Pulpen Amilio 0.5mm", harga: 2000, label: null, labelType: null, stok: 12,
+                  description: "Pulpen gel hitam 0.5 mm, tinta cepat kering, nyaman digenggam." },
+                { nama: "Pulpen Joyko 0.5mm", harga: 5000, label: null, labelType: null, stok: 13,
+                  description: "Pulpen standar 0.5 mm, tinta tidak mudah luntur, cocok untuk sekolah." },
+                { nama: "JOYKO Pensil P-88 2B", harga: 2000, label: null, labelType: null, stok: 12,
+                  description: ">Tipe: 2B >Bentuk: Hexagonal Grip >Kayu berkualitas tinggi >For Computer Scanning (Untuk Dipindai Oleh Komputer) >Thick and Strong Lead (Isi Pensil yang Tebal dan Kuat) >For Drawing and Sketching (Untuk Menggambar dan Membuat Sketsa) >Smooth Writing (Lembut Untuk Ditulis)." },
+                { nama: "Deli I-Select Spidol Warna 12 Warna", harga: 10000, label: null, labelType: null, stok: 7,
+                  description: "Merek: Deli. Informasi dan Spesifikasi Produk: - Kode SKU: EC169. - Catatan: REPACKAGING. - Material: Tip Serat Fiber dan PP Barrel. - Tip: Bullet 1mm-1.2mm. - Pilihan Varian 12, 18, 24 Warna. - Round Barrel. - Cocok digunakan untuk menulis, menggambar, dan mewarnai" },
+                { nama: "Pensil Warna JOYKO (12 warna)", harga: 15000, labelType: "stok", stok: 4,
+                  description: "Set pensil warna 12 warna, pigmen cerah, batang kayu berkualitas." },
+                { nama: "JOYKO Penanda Berwarna Highlighter HL-88", harga: 5000, labelType: "stok", stok: 7,
+                  description: "JOYKO Penanda Berwarna Highlighter HL-88." },
+                { nama: "Buku SIDU SKOLA 1 pack (10 buku)", harga: 35000, labelType: "stok", stok: 6,
+                  description: "Paket 5 buku tulis 38 lembar, cover motif, kertas berkualitas." },
+                { nama: "Rautan pensil, JOYKO", harga: 2000, labelType: "stok", stok: 22,
+                  description: "JOYKO Sharpener Rautan 1 Pack SP-362PTL" },
+                { nama: "Pulpen Joyko i-Tech 2, 0.28mm", harga: 5000, label: null, labelType: null, stok: 18,
+                  description: "Pulpen gel tipis 0.28 mm, cocok untuk tulisan rapi dan detail." },
+                { nama: "Penghapus Joyko", harga: 3000, label: null, labelType: null, stok: 10,
+                  description: "Penghapus putih, lembut, tidak meninggalkan bekas pada kertas." },
+                { nama: "Buku CAMPUS 1 pack (10 buku)", harga: 40000, labelType: "stok", stok: 6,
+                  description: "Paket 5 buku tulis 48 lembar, ukuran A5, cover polos." }
+            ],
+            "Perlengkapan": [
+                { nama: "Lem Korea", harga: 5000, label: null, labelType: null, stok: 61,
+                  description: "Lem serbaguna, daya rekat kuat." },
+                { nama: "Staples Joyko", harga: 15000, label: null, labelType: null, stok: 5,
+                  description: "Staples ukuran sedang, kapasitas 20 lembar, body plastik kokoh." },
+                { nama: "Lakban Coklat 45mm x 100 Yard", harga: 10000, label: null, labelType: null, stok: 6,
+                  description: "Lakban Coklat 45mm x 100 Yard ini adalah solusi tepat untuk kebutuhan packing Anda. Dengan lebar 45 mm dan panjang 100 Yard, lakban ini memiliki daya rekat yang kuat dan tidak mudah sobek. Cocok untuk berbagai keperluan, baik untuk usaha online maupun kebutuhan sehari-hari." },
+                { nama: "Gunting Montana STI 180", harga: 1000, label: null, labelType: null, stok: 8,
+                  description: "Gunting stainless steel, panjang 18 cm, pegangan ergonomis." },
+                { nama: "Gunting Montana STI 165", harga: 8000, label: null, labelType: null, stok: 8,
+                  description: "Gunting serbaguna 16.5 cm, bilah tajam untuk kertas dan karton." },
+                { nama: "Gunting Montana STI 145", harga: 5000, label: null, labelType: null, stok: 5,
+                  description: "Gunting kecil 14.5 cm, cocok untuk keperluan detail dan anak-anak." },
+                { nama: "Refill Staples MONTANA", harga: 3000, label: null, labelType: null, stok: 23,
+                  description: "Isi staples ukuran 24/6, isi 100 pcs, cocok untuk staples standar." },
+                { nama: "Lakban Bening", harga: 2000, label: null, labelType: null, stok: 11,
+                  description: "Lakban bening lebar 48 mm, transparan dan kuat." },
+                { nama: "Lakban Hitam", harga: 2000, label: null, labelType: null, stok: 8,
+                  description: "Lakban hitam lebar 48 mm, untuk packing atau masking." }
+            ]
+        };
+
+        // ============================================================
+        // 3. MERGE & RENDER
+        // ============================================================
+        function getAllProducts() {
+            const result = [];
+            let id = 1;
+            Object.keys(PRODUK_DATA).forEach(kategori => {
+                PRODUK_DATA[kategori].forEach(item => {
+                    result.push({
+                        id: id++,
+                        ...item,
+                        category: kategori,
+                        image: PRODUK_IMAGES[item.nama] || "https://via.placeholder.com/400x400?text=Gambar+error"
+                    });
+                });
+            });
+            return result;
+        }
+
+        const products = getAllProducts();
+
+        let currentFilter = "Semua";
+        let currentSearch = "";
+        let currentSort = "default";
+        let currentStok = "semua";
+
+        function renderProducts() {
+            const grid = document.getElementById("productGrid");
+            const countEl = document.getElementById("resultCount");
+            if (!grid) return;
+
+            let filtered = products.filter(p => {
+                const matchCategory = currentFilter === "Semua" || p.category === currentFilter;
+                const searchLower = currentSearch.toLowerCase();
+                const matchSearch = p.nama.toLowerCase().includes(searchLower) ||
+                    p.category.toLowerCase().includes(searchLower) ||
+                    (p.description && p.description.toLowerCase().includes(searchLower));
+                const matchStok = currentStok === "semua" ||
+                    (currentStok === "tersedia" && p.stok > 0) ||
+                    (currentStok === "habis" && p.stok === 0);
+                return matchCategory && matchSearch && matchStok;
+            });
+
+            if (currentSort === "asc") filtered.sort((a, b) => a.harga - b.harga);
+            else if (currentSort === "desc") filtered.sort((a, b) => b.harga - a.harga);
+
+            countEl.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:70px 20px; color:rgba(255,255,255,0.7);">
+                        <p style="font-size:22px; font-weight:700; margin-bottom:6px;">😕 Barang tidak ditemukan</p>
+                        <p style="font-size:14px; opacity:0.6;">Coba kata kunci lain atau reset filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = "";
+            filtered.forEach((p, index) => {
+                const formattedPrice = p.harga.toLocaleString("id-ID");
+                const stokTersedia = p.stok > 0;
+                const nomorUrut = String(index + 1).padStart(2, '0');
+
+                let badgeHtml = "";
+                if (p.label) {
+                    let cls = p.labelType === "stok" ? "badge-stok" : "badge-hot";
+                    badgeHtml = `<span class="badge ${cls}">${p.label}</span>`;
+                } else if (!stokTersedia) {
+                    badgeHtml = `<span class="badge badge-habis">Habis</span>`;
+                }
+
+                const stokText = stokTersedia ? `${p.stok} pcs` : "0 pcs (Habis)";
+                const stokCls = stokTersedia ? "stok-tersedia" : "stok-habis";
+                const dotCls = stokTersedia ? "tersedia" : "habis";
+
+                const waLink = `https://wa.me/6283844843020?text=Halo%20PasirPogorCell%2C%20saya%20tertarik%20dengan%20barang%20${encodeURIComponent(p.nama)}%20-%20Rp${formattedPrice}`;
+
+                html += `
+                    <div class="product-card" data-id="${p.id}">
+                        <span class="product-number">#${nomorUrut}</span>
+                        <div class="product-image">
+                            <img src="${p.image}" alt="${p.nama}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x400?text=Gambar+error'" />
+                            ${badgeHtml}
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">${p.nama}</div>
+                            <div class="product-category">${p.category}</div>
+                            <div class="product-price-row">
+                                <div class="product-price">
+                                    <span class="currency">Rp</span> ${formattedPrice}
+                                </div>
+                            </div>
+                            <div class="product-stok">
+                                <span class="stok-dot ${dotCls}"></span>
+                                <span>Stok: <span class="stok-angka ${stokCls}">${stokText}</span></span>
+                            </div>
+                            <div class="product-action">
+                                <button class="btn-detail" data-id="${p.id}">Detail</button>
+                                <a href="${waLink}" target="_blank" class="btn-wa">WA</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+
+            // re-trigger entrance animation
+            document.querySelectorAll('.product-card').forEach((el, i) => {
+                el.style.animation = 'none';
+                requestAnimationFrame(() => {
+                    el.style.animation = `cardEntrance 0.6s ${0.02 + i * 0.04}s var(--transition-smooth) forwards`;
+                });
+            });
+        }
+
+        // ============================================================
+        // 4. MODAL DETAIL
+        // ============================================================
+        const modalOverlay = document.getElementById("modalOverlay");
+        const modalClose = document.getElementById("modalClose");
+        const modalImage = document.getElementById("modalImage");
+        const modalName = document.getElementById("modalName");
+        const modalCategory = document.getElementById("modalCategory");
+        const modalPrice = document.getElementById("modalPrice");
+        const modalStok = document.getElementById("modalStok");
+        const modalDescription = document.getElementById("modalDescription");
+        const modalWaLink = document.getElementById("modalWaLink");
+        const modalCopyBtn = document.getElementById("modalCopyBtn");
+
+        function openModal(productId) {
+            const p = products.find(prod => prod.id === productId);
+            if (!p) return;
+            modalImage.src = p.image;
+            modalImage.alt = p.nama;
+            modalImage.onerror = function() { this.src = 'https://via.placeholder.com/600x600?text=Gambar+error'; };
+            modalName.textContent = p.nama;
+            modalCategory.textContent = p.category;
+
+            const formatted = p.harga.toLocaleString("id-ID");
+            modalPrice.innerHTML = `<span class="currency">Rp</span> ${formatted}`;
+
+            const stokTersedia = p.stok > 0;
+            const stokText = stokTersedia ? `${p.stok} pcs` : "0 pcs (Habis)";
+            const stokCls = stokTersedia ? "stok-tersedia" : "stok-habis";
+            const dotCls = stokTersedia ? "tersedia" : "habis";
+            modalStok.innerHTML = `<span class="stok-dot ${dotCls}"></span> Stok: <span class="stok-angka ${stokCls}">${stokText}</span>`;
+
+            modalDescription.textContent = p.description || "";
+            modalWaLink.href = `https://wa.me/6283844843020?text=Halo%20PasirPogorCell%2C%20saya%20tertarik%20dengan%20barang%20${encodeURIComponent(p.nama)}%20-%20Rp${formatted}`;
+
+            modalCopyBtn.onclick = function() {
+                navigator.clipboard.writeText(p.nama).then(() => {
+                    const original = modalCopyBtn.textContent;
+                    modalCopyBtn.textContent = '✅ Tersalin!';
+                    setTimeout(() => { modalCopyBtn.textContent = original; }, 2000);
+                }).catch(() => {
+                    alert('Gagal menyalin, silakan copy manual.');
+                });
+            };
+
+            modalOverlay.classList.add("active");
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove("active");
+        }
+
+        document.addEventListener("click", function(e) {
+            if (e.target.classList.contains("btn-detail")) {
+                const id = parseInt(e.target.dataset.id);
+                openModal(id);
+            }
+        });
+        modalClose.addEventListener("click", closeModal);
+        modalOverlay.addEventListener("click", function(e) {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // ============================================================
+        // 5. ORDER MODAL
+        // ============================================================
+        const orderModal = document.getElementById("orderModal");
+        const orderModalClose = document.getElementById("orderModalClose");
+        const openOrderBtn = document.getElementById("openOrderBtn");
+        const orderForm = document.getElementById("orderForm");
+
+        function openOrderModal() {
+            orderModal.classList.add("active");
+        }
+
+        function closeOrderModal() {
+            orderModal.classList.remove("active");
+        }
+
+        openOrderBtn.addEventListener("click", openOrderModal);
+        orderModalClose.addEventListener("click", closeOrderModal);
+        orderModal.addEventListener("click", function(e) {
+            if (e.target === orderModal) closeOrderModal();
+        });
+
+        orderForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const namaBarang = document.getElementById("orderNamaBarang").value.trim();
+            const spesifikasi = document.getElementById("orderSpesifikasi").value.trim();
+            const harga = document.getElementById("orderHarga").value.trim();
+            const jumlah = document.getElementById("orderJumlah").value.trim();
+            const nama = document.getElementById("orderNama").value.trim();
+            const wa = document.getElementById("orderWa").value.trim();
+            const metode = document.getElementById("orderMetode").value;
+            const catatan = document.getElementById("orderCatatan").value.trim();
+
+            if (!namaBarang || !nama || !wa || !metode || !jumlah) {
+                alert('Mohon isi semua field yang bertanda * (wajib)!');
+                return;
+            }
+
+            let pesan = `📦 *PESANAN PRE-ORDER - PasirPogorCell*%0A%0A`;
+            pesan += `📌 *Barang:* ${namaBarang}%0A`;
+            if (spesifikasi) pesan += `📝 *Spesifikasi:* ${spesifikasi}%0A`;
+            if (harga) pesan += `💰 *Harga yang diharapkan:* Rp ${parseInt(harga).toLocaleString('id-ID')}%0A`;
+            pesan += `🔢 *Jumlah:* ${jumlah} pcs%0A`;
+            pesan += `👤 *Nama:* ${nama}%0A`;
+            pesan += `📱 *WhatsApp:* ${wa}%0A`;
+            pesan += `💳 *Metode Pembayaran:* ${metode}%0A`;
+            if (catatan) pesan += `📝 *Catatan:* ${catatan}%0A`;
+            pesan += `%0A⏳ *Estimasi datang:* 3-7 hari%0A`;
+            pesan += `💰 *Pembayaran:* di muka (full)%0A`;
+            pesan += `✅ *Garansi:* kualitas terjamin & tidak sesuai bisa diklaim`;
+
+            const waUrl = `https://wa.me/6283844843020?text=${pesan}`;
+            window.open(waUrl, '_blank');
+
+            orderForm.reset();
+            document.getElementById("orderJumlah").value = "1";
+            setTimeout(closeOrderModal, 500);
+        });
+
+        // ============================================================
+        // 6. CONTROLS
+        // ============================================================
+        document.getElementById("searchInput").addEventListener("input", function() {
+            currentSearch = this.value.trim();
+            renderProducts();
+        });
+
+        document.querySelectorAll("#filterGroup .filter-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                document.querySelectorAll("#filterGroup .filter-btn").forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+                currentFilter = this.dataset.filter;
+                renderProducts();
+            });
+        });
+
+        // ============================================================
+        // 7. CUSTOM DROPDOWN
+        // ============================================================
+        // SORT
+        const sortBtn = document.getElementById('sortBtn');
+        const sortMenu = document.getElementById('sortMenu');
+        const sortLabel = document.getElementById('sortLabel');
+        const sortItems = sortMenu.querySelectorAll('.dropdown-item');
+
+        sortBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('open');
+            sortMenu.classList.toggle('open');
+        });
+
+        sortItems.forEach(item => {
+            item.addEventListener('click', function() {
+                sortItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                sortLabel.textContent = this.textContent;
+                currentSort = this.dataset.value;
+                renderProducts();
+                sortBtn.classList.remove('open');
+                sortMenu.classList.remove('open');
+            });
+        });
+
+        // STOK
+        const stokBtn = document.getElementById('stokBtn');
+        const stokMenu = document.getElementById('stokMenu');
+        const stokLabel = document.getElementById('stokLabel');
+        const stokItems = stokMenu.querySelectorAll('.dropdown-item');
+
+        stokBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('open');
+            stokMenu.classList.toggle('open');
+        });
+
+        stokItems.forEach(item => {
+            item.addEventListener('click', function() {
+                stokItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                stokLabel.textContent = this.textContent;
+                currentStok = this.dataset.value;
+                renderProducts();
+                stokBtn.classList.remove('open');
+                stokMenu.classList.remove('open');
+            });
+        });
+
+        // TUTUP SAAT KLIK DI LUAR
+        document.addEventListener('click', function(e) {
+            if (!sortBtn.contains(e.target) && !sortMenu.contains(e.target)) {
+                sortBtn.classList.remove('open');
+                sortMenu.classList.remove('open');
+            }
+            if (!stokBtn.contains(e.target) && !stokMenu.contains(e.target)) {
+                stokBtn.classList.remove('open');
+                stokMenu.classList.remove('open');
+            }
+        });
+
+        // ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                sortBtn.classList.remove('open');
+                sortMenu.classList.remove('open');
+                stokBtn.classList.remove('open');
+                stokMenu.classList.remove('open');
+                if (modalOverlay.classList.contains('active')) closeModal();
+                if (orderModal.classList.contains('active')) closeOrderModal();
+            }
+        });
+
+        // ============================================================
+        // 8. RENDER AWAL
+        // ============================================================
+        renderProducts();
+    </script>
+</body>
+</html>
