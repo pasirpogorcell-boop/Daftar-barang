@@ -2501,6 +2501,122 @@ body.dark .status-badge {
 body.dark .status-badge .dot {
     background: #68d391 !important;
 }
+/* ===== PERBAIKAN BUKU PELANGGAN ===== */
+#pelanggan-list {
+    max-height: calc(100vh - 320px) !important;
+    overflow-y: auto !important;
+    min-height: 200px !important;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 480px) {
+    #pelanggan-list {
+        max-height: calc(100vh - 280px) !important;
+        min-height: 150px !important;
+    }
+}
+
+/* Animasi form muncul */
+#form-pelanggan-container {
+    animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tampilan daftar pelanggan full */
+body.dark #pelanggan-list {
+    background: #1a1a2e !important;
+    border-color: #2a2a44 !important;
+}
+/* ===== PERBAIKAN FORM TOGGLE UNTUK SEMUA MENU ===== */
+#form-produk-container,
+#form-kasbon-container,
+#form-supplier-container,
+#form-hutang-container,
+#form-promo-container,
+#form-titipan-container,
+#form-pelanggan-container {
+    animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Daftar full height untuk semua menu */
+#stok-list,
+#kasbon-list,
+#supplier-list,
+#hutang-list,
+#promo-list,
+#pelanggan-list {
+    max-height: calc(100vh - 320px) !important;
+    overflow-y: auto !important;
+    min-height: 200px !important;
+}
+
+@media (max-width: 480px) {
+    #stok-list,
+    #kasbon-list,
+    #supplier-list,
+    #hutang-list,
+    #promo-list,
+    #pelanggan-list {
+        max-height: calc(100vh - 280px) !important;
+        min-height: 150px !important;
+    }
+}
+
+/* Dark mode untuk form */
+body.dark #form-produk-container,
+body.dark #form-kasbon-container,
+body.dark #form-supplier-container,
+body.dark #form-hutang-container,
+body.dark #form-promo-container,
+body.dark #form-titipan-container,
+body.dark #form-pelanggan-container {
+    background: #1a1a2e !important;
+    border-color: #2a2a44 !important;
+}
+
+body.dark #form-produk-container h4,
+body.dark #form-kasbon-container h4,
+body.dark #form-supplier-container h4,
+body.dark #form-hutang-container h4,
+body.dark #form-promo-container h4,
+body.dark #form-titipan-container h4,
+body.dark #form-pelanggan-container h4 {
+    color: #e8edf5 !important;
+}
+
+/* Tombol toggle form */
+.btn-toggle-form {
+    transition: all 0.3s ease;
+}
+
+.btn-toggle-form.active {
+    background: #b45309 !important;
+}
+
+.btn-toggle-form.active:hover {
+    background: #92400e !important;
+}
     </style>
 </head>
 <body>
@@ -2751,9 +2867,8 @@ body.dark .status-badge .dot {
 
             <!-- DAFTAR TRANSAKSI -->
             <div class="bg-white rounded-2xl p-3 border border-[#eef2f6] no-print">
-                <div class="flex justify-between items-center mb-3">
-  <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-list mr-2"></i>Daftar Transaksi</h4>
-  <button id="btn-hapus-semua-struk" class="text-[11px] bg-[#fde8e8] text-[#b91c1c] border border-[#f5cdcd] px-3 py-1.5 rounded-full font-bold hover:bg-[#b91c1c] hover:text-white transition"><i class="fas fa-trash mr-1"></i> Hapus Semua</button>
+<div class="mb-3">
+    <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-user-plus mr-1"></i>Form Pelanggan Baru</h4>
 </div>
                 <div id="struk-list" style="max-height:300px;overflow-y:auto;">
                     <p class="text-center text-[#6b7a8a] py-4">Belum ada transaksi.</p>
@@ -2865,58 +2980,93 @@ body.dark .status-badge .dot {
             </div>
         </div>
 
-        <!-- VIEW STOK -->
-        <div id="view-stok" class="view-container">
-            <div class="flex items-center gap-3 mb-5">
-                <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-boxes text-[#1e3a5f] mr-2"></i>Manajemen Stok</h2>
-                <span class="ml-auto text-sm text-[#c4531a] bg-orange-light px-3 py-1 rounded-full border border-[#fddbc2] no-print" id="badge-stok2">0 menipis</span>
-            </div>
-            <div class="info-box no-print">
-                <div class="info-title"><i class="fas fa-boxes mr-1"></i>Manajemen Stok untuk apa?</div>
-                <div class="info-desc">Untuk mencatat semua barang warung, harga jual, harga beli, jumlah stok, dan tanggal kadaluarsa.</div>
-                <div class="info-step"><b>Cara pakai:</b> Isi Nama-Harga Jual-Harga Beli-Stok-Expired → Tambah Produk.</div>
-            </div>
-            <div class="form-card no-print">
-                <div class="grid-2">
-                    <input type="text" id="input-nama" placeholder="Nama barang" />
-                    <input type="number" id="input-harga" placeholder="Harga jual" />
-                    <input type="number" id="input-harga-beli" placeholder="Harga beli" />
-                    <input type="number" id="input-stok" placeholder="Stok" />
-                    <input type="date" id="input-expired" class="col-span-2" />
-                </div>
-                <button id="btn-tambah-produk">+ Tambah Produk</button>
-            </div>
-            <div id="stok-list" class="space-y-1"></div>
-        </div>
+<!-- ==================== VIEW STOK ==================== -->
+<div id="view-stok" class="view-container">
+    <div class="flex items-center gap-3 mb-5">
+        <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
+        <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-boxes text-[#1e3a5f] mr-2"></i>Manajemen Stok</h2>
+        <span class="ml-auto text-sm text-[#c4531a] bg-orange-light px-3 py-1 rounded-full border border-[#fddbc2] no-print" id="badge-stok2">0 menipis</span>
+    </div>
 
-        <!-- VIEW KASBON -->
-        <div id="view-kasbon" class="view-container">
-            <div class="flex items-center gap-3 mb-5">
-                <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-book text-[#b45309] mr-2"></i>Buku Kasbon</h2>
-                <span class="ml-auto text-sm text-[#b91c1c] bg-[#fde8e8] px-3 py-1 rounded-full border border-[#f5cdcd] no-print" id="kasbon-count">0 orang</span>
-            </div>
-            <div class="info-box no-print">
-                <div class="info-title"><i class="fas fa-book mr-1"></i>Buku Kasbon untuk apa?</div>
-                <div class="info-desc">Catat siapa yang ngutang, berapa jumlahnya, dan catatan terkait hutang (opsional).</div>
-                <div class="info-step"><b>Cara pakai:</b> Isi Nama, Catatan (opsional), Jumlah, Tanggal → Simpan.</div>
-            </div>
-            <div id="search-kasbon-container" class="mb-3" style="display:none;">
-                <input type="text" id="search-kasbon" placeholder="🔍 Cari nama atau catatan..." class="w-full p-3 rounded-xl border border-[#dce3ec] bg-white dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0] dark:placeholder-[#6b7a8a]" />
-            </div>
-            <div id="kasbon-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6] mb-4" style="max-height:400px;overflow-y:auto;"></div>
-            <div class="sticky-footer no-print" style="margin-top:0;">
-                <h4 class="font-semibold text-[#1a2634] text-sm mb-2"><i class="fas fa-plus-circle mr-1"></i>Tambah Kasbon</h4>
-                <div class="input-group" style="margin-top:0;gap:6px;">
-                    <input type="text" id="kasbon-nama" placeholder="Nama" class="flex-1 min-w-[70px] p-2.5 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                    <input type="text" id="kasbon-catatan" placeholder="Catatan (opsional)" class="flex-1 min-w-[100px] p-2.5 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                    <input type="number" id="kasbon-jumlah" placeholder="Jumlah (Rp)" class="flex-1 min-w-[70px] p-2.5 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                    <input type="date" id="kasbon-tanggal" class="flex-1 min-w-[70px] p-2.5 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                    <button id="btn-tambah-kasbon" class="bg-[#1e3a5f] text-white font-bold py-2.5 px-3 rounded-xl text-sm whitespace-nowrap"><i class="fas fa-save mr-1"></i> Simpan</button>
-                </div>
-            </div>
+    <div class="info-box no-print">
+        <div class="info-title"><i class="fas fa-boxes mr-1"></i>Manajemen Stok untuk apa?</div>
+        <div class="info-desc">Untuk mencatat semua barang warung, harga jual, harga beli, jumlah stok, dan tanggal kadaluarsa.</div>
+        <div class="info-step"><b>Cara pakai:</b> Klik + Tambah Produk → isi data → Simpan.</div>
+    </div>
+
+    <!-- TOMBOL TAMBAH PRODUK -->
+    <button id="btn-toggle-form-produk" class="w-full bg-[#1e3a5f] text-white font-bold py-3 rounded-xl btn-tap mb-4 no-print">
+        <i class="fas fa-plus-circle mr-2"></i> + Tambah Produk
+    </button>
+
+    <!-- FORM TAMBAH PRODUK (tersembunyi) -->
+    <div id="form-produk-container" class="form-card no-print" style="display:none; padding:16px; border-radius:14px; border:1px solid #eef2f6; margin-bottom:16px;">
+        <div class="flex justify-between items-center mb-3">
+            <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-box mr-1"></i>Form Produk Baru</h4>
+            <button id="btn-close-form-produk" class="text-[#6b7a8a] hover:text-[#b91c1c] text-lg"><i class="fas fa-times"></i></button>
         </div>
+        <div class="grid grid-cols-2 gap-3">
+            <input type="text" id="input-nama" placeholder="Nama barang" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <input type="number" id="input-harga" placeholder="Harga jual" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <input type="number" id="input-harga-beli" placeholder="Harga beli" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <input type="number" id="input-stok" placeholder="Stok" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <input type="date" id="input-expired" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0] col-span-2" />
+        </div>
+        <button id="btn-tambah-produk" class="bg-[#0f6e4a] text-white font-bold py-3 rounded-xl w-full mt-3"><i class="fas fa-save mr-1"></i> Simpan Produk</button>
+    </div>
+
+    <!-- DAFTAR STOK (full sampai bawah) -->
+    <div id="stok-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6]" style="max-height: calc(100vh - 320px); overflow-y: auto; min-height: 200px;">
+        <p class="text-center text-[#6b7a8a] py-4">Belum ada produk.</p>
+    </div>
+</div>
+
+<!-- ==================== VIEW KASBON ==================== -->
+<div id="view-kasbon" class="view-container">
+    <div class="flex items-center gap-3 mb-5">
+        <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
+        <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-book text-[#b45309] mr-2"></i>Buku Kasbon</h2>
+        <span class="ml-auto text-sm text-[#b91c1c] bg-[#fde8e8] px-3 py-1 rounded-full border border-[#f5cdcd] no-print" id="kasbon-count">0 orang</span>
+    </div>
+
+    <div class="info-box no-print">
+        <div class="info-title"><i class="fas fa-book mr-1"></i>Buku Kasbon untuk apa?</div>
+        <div class="info-desc">Catat siapa yang ngutang, berapa jumlahnya, dan catatan terkait hutang (opsional).</div>
+        <div class="info-step"><b>Cara pakai:</b> Klik + Tambah Kasbon → isi data → Simpan.</div>
+    </div>
+
+    <!-- SEARCH KASBON -->
+    <div id="search-kasbon-container" class="mb-3" style="display:none;">
+        <input type="text" id="search-kasbon" placeholder="🔍 Cari nama atau catatan..." class="w-full p-3 rounded-xl border border-[#dce3ec] bg-white dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0] dark:placeholder-[#6b7a8a]" />
+    </div>
+
+    <!-- TOMBOL TAMBAH KASBON -->
+    <button id="btn-toggle-form-kasbon" class="w-full bg-[#1e3a5f] text-white font-bold py-3 rounded-xl btn-tap mb-4 no-print">
+        <i class="fas fa-plus-circle mr-2"></i> + Tambah Kasbon
+    </button>
+
+    <!-- FORM TAMBAH KASBON -->
+    <div id="form-kasbon-container" class="form-card no-print" style="display:none; padding:16px; border-radius:14px; border:1px solid #eef2f6; margin-bottom:16px;">
+        <div class="flex justify-between items-center mb-3">
+            <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-user-plus mr-1"></i>Form Kasbon Baru</h4>
+            <button id="btn-close-form-kasbon" class="text-[#6b7a8a] hover:text-[#b91c1c] text-lg"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="grid grid-cols-1 gap-3">
+            <input type="text" id="kasbon-nama" placeholder="Nama" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <input type="text" id="kasbon-catatan" placeholder="Catatan (opsional)" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <div class="grid grid-cols-2 gap-3">
+                <input type="number" id="kasbon-jumlah" placeholder="Jumlah (Rp)" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+                <input type="date" id="kasbon-tanggal" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            </div>
+            <button id="btn-tambah-kasbon" class="bg-[#0f6e4a] text-white font-bold py-3 rounded-xl w-full"><i class="fas fa-save mr-1"></i> Simpan Kasbon</button>
+        </div>
+    </div>
+
+    <!-- DAFTAR KASBON (full sampai bawah) -->
+    <div id="kasbon-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6]" style="max-height: calc(100vh - 320px); overflow-y: auto; min-height: 200px;">
+        <p class="text-center text-[#6b7a8a] py-4">Belum ada kasbon.</p>
+    </div>
+</div>
 
         <!-- VIEW LAINNYA (ringkas) -->
         <div id="view-modal" class="view-container">
@@ -2942,49 +3092,87 @@ body.dark .status-badge .dot {
             <div id="transaksi-list" class="space-y-1"></div>
         </div>
 
-        <div id="view-supplier" class="view-container">
-            <div class="flex items-center gap-3 mb-5">
-                <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-truck text-[#1e3a5f] mr-2"></i>Supplier</h2>
-                <span class="ml-auto text-sm text-[#6b7a8a] bg-white px-3 py-1 rounded-full border border-[#eef2f6] no-print" id="supplier-count">0 kontak</span>
-            </div>
-            <div class="info-box no-print">
-                <div class="info-title"><i class="fas fa-truck mr-1"></i>Daftar Supplier untuk apa?</div>
-                <div class="info-desc">Simpan kontak agen, sales, atau grosir langganan.</div>
-                <div class="info-step"><b>Cara pakai:</b> Isi Nama Supplier, No HP, dan keterangan → Tambah.</div>
-            </div>
-            <div class="form-card no-print">
-                <div class="grid-2">
-                    <input type="text" id="supplier-nama" placeholder="Nama supplier" />
-                    <input type="text" id="supplier-telp" placeholder="Telepon" />
-                    <input type="text" id="supplier-ket" placeholder="Keterangan (opsional)" class="col-span-2" />
-                </div>
-                <button id="btn-tambah-supplier">+ Tambah Supplier</button>
-            </div>
-            <div id="supplier-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6] space-y-1"></div>
-        </div>
+<!-- ==================== VIEW SUPPLIER ==================== -->
+<div id="view-supplier" class="view-container">
+    <div class="flex items-center gap-3 mb-5">
+        <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
+        <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-truck text-[#1e3a5f] mr-2"></i>Supplier</h2>
+        <span class="ml-auto text-sm text-[#6b7a8a] bg-white px-3 py-1 rounded-full border border-[#eef2f6] no-print" id="supplier-count">0 kontak</span>
+    </div>
 
-        <div id="view-hutang" class="view-container">
-            <div class="flex items-center gap-3 mb-5">
-                <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-hand-holding-usd text-[#b45309] mr-2"></i>Hutang Supplier</h2>
-                <span class="ml-auto text-sm text-[#b91c1c] bg-[#fde8e8] px-3 py-1 rounded-full border border-[#f5cdcd] no-print" id="hutang-count">Rp 0</span>
-            </div>
-            <div class="info-box no-print">
-                <div class="info-title"><i class="fas fa-hand-holding-usd mr-1"></i>Hutang Supplier untuk apa?</div>
-                <div class="info-desc">Catat utang ke distributor atau agen.</div>
-                <div class="info-step"><b>Cara pakai:</b> Isi nama supplier, jumlah, jatuh tempo → Simpan.</div>
-            </div>
-            <div class="form-card no-print">
-                <div class="grid-2">
-                    <input type="text" id="hutang-nama" placeholder="Nama supplier" />
-                    <input type="number" id="hutang-jumlah" placeholder="Jumlah (Rp)" />
-                    <input type="date" id="hutang-jatuh-tempo" />
-                </div>
-                <button id="btn-tambah-hutang">+ Tambah Hutang</button>
-            </div>
-            <div id="hutang-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6] space-y-1"></div>
+    <div class="info-box no-print">
+        <div class="info-title"><i class="fas fa-truck mr-1"></i>Daftar Supplier untuk apa?</div>
+        <div class="info-desc">Simpan kontak agen, sales, atau grosir langganan.</div>
+        <div class="info-step"><b>Cara pakai:</b> Klik + Tambah Supplier → isi data → Simpan.</div>
+    </div>
+
+    <!-- TOMBOL TAMBAH SUPPLIER -->
+    <button id="btn-toggle-form-supplier" class="w-full bg-[#1e3a5f] text-white font-bold py-3 rounded-xl btn-tap mb-4 no-print">
+        <i class="fas fa-plus-circle mr-2"></i> + Tambah Supplier
+    </button>
+
+    <!-- FORM TAMBAH SUPPLIER -->
+    <div id="form-supplier-container" class="form-card no-print" style="display:none; padding:16px; border-radius:14px; border:1px solid #eef2f6; margin-bottom:16px;">
+        <div class="flex justify-between items-center mb-3">
+            <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-truck mr-1"></i>Form Supplier Baru</h4>
+            <button id="btn-close-form-supplier" class="text-[#6b7a8a] hover:text-[#b91c1c] text-lg"><i class="fas fa-times"></i></button>
         </div>
+        <div class="grid grid-cols-1 gap-3">
+            <input type="text" id="supplier-nama" placeholder="Nama supplier" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <div class="grid grid-cols-2 gap-3">
+                <input type="text" id="supplier-telp" placeholder="Telepon" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+                <input type="text" id="supplier-ket" placeholder="Keterangan (opsional)" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            </div>
+            <button id="btn-tambah-supplier" class="bg-[#0f6e4a] text-white font-bold py-3 rounded-xl w-full"><i class="fas fa-save mr-1"></i> Simpan Supplier</button>
+        </div>
+    </div>
+
+    <!-- DAFTAR SUPPLIER -->
+    <div id="supplier-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6]" style="max-height: calc(100vh - 320px); overflow-y: auto; min-height: 200px;">
+        <p class="text-center text-[#6b7a8a] py-4">Belum ada supplier.</p>
+    </div>
+</div>
+
+<!-- ==================== VIEW HUTANG SUPPLIER ==================== -->
+<div id="view-hutang" class="view-container">
+    <div class="flex items-center gap-3 mb-5">
+        <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
+        <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-hand-holding-usd text-[#b45309] mr-2"></i>Hutang Supplier</h2>
+        <span class="ml-auto text-sm text-[#b91c1c] bg-[#fde8e8] px-3 py-1 rounded-full border border-[#f5cdcd] no-print" id="hutang-count">Rp 0</span>
+    </div>
+
+    <div class="info-box no-print">
+        <div class="info-title"><i class="fas fa-hand-holding-usd mr-1"></i>Hutang Supplier untuk apa?</div>
+        <div class="info-desc">Catat utang ke distributor atau agen.</div>
+        <div class="info-step"><b>Cara pakai:</b> Klik + Tambah Hutang → isi data → Simpan.</div>
+    </div>
+
+    <!-- TOMBOL TAMBAH HUTANG -->
+    <button id="btn-toggle-form-hutang" class="w-full bg-[#1e3a5f] text-white font-bold py-3 rounded-xl btn-tap mb-4 no-print">
+        <i class="fas fa-plus-circle mr-2"></i> + Tambah Hutang
+    </button>
+
+    <!-- FORM TAMBAH HUTANG -->
+    <div id="form-hutang-container" class="form-card no-print" style="display:none; padding:16px; border-radius:14px; border:1px solid #eef2f6; margin-bottom:16px;">
+        <div class="flex justify-between items-center mb-3">
+            <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-hand-holding-usd mr-1"></i>Form Hutang Baru</h4>
+            <button id="btn-close-form-hutang" class="text-[#6b7a8a] hover:text-[#b91c1c] text-lg"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="grid grid-cols-1 gap-3">
+            <input type="text" id="hutang-nama" placeholder="Nama supplier" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <div class="grid grid-cols-2 gap-3">
+                <input type="number" id="hutang-jumlah" placeholder="Jumlah (Rp)" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+                <input type="date" id="hutang-jatuh-tempo" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            </div>
+            <button id="btn-tambah-hutang" class="bg-[#0f6e4a] text-white font-bold py-3 rounded-xl w-full"><i class="fas fa-save mr-1"></i> Simpan Hutang</button>
+        </div>
+    </div>
+
+    <!-- DAFTAR HUTANG -->
+    <div id="hutang-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6]" style="max-height: calc(100vh - 320px); overflow-y: auto; min-height: 200px;">
+        <p class="text-center text-[#6b7a8a] py-4">Belum ada hutang supplier.</p>
+    </div>
+</div>
 
         <div id="view-laporan" class="view-container">
             <div class="flex items-center gap-3 mb-5">
@@ -3014,74 +3202,156 @@ body.dark .status-badge .dot {
             <div class="bg-white rounded-2xl p-4 border border-[#eef2f6] space-y-2" id="kadaluarsa-list"></div>
         </div>
 
-        <div id="view-titipan" class="view-container">
-            <div class="flex items-center gap-3 mb-5">
-                <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-handshake text-[#1e3a5f] mr-2"></i>Titipan Barang</h2>
-                <span class="ml-auto text-sm text-[#0f6e4a] bg-[#e3f5ec] px-3 py-1 rounded-full border border-[#b8e0cd] no-print" id="titipan-count">0 titipan</span>
-            </div>
-            <div class="form-card no-print">
-                <div class="grid-2">
-                    <input type="text" id="titipan-nama-item" placeholder="Nama barang" />
-                    <input type="number" id="titipan-harga-jual" placeholder="Harga jual per unit" />
-                    <input type="number" id="titipan-komisi" placeholder="Komisi per unit" />
-                </div>
-                <button id="btn-tambah-item-titipan">+ Tambah Item Titipan</button>
-            </div>
-            <div id="titipan-item-list" class="space-y-2"></div>
-            <button class="btn-reset-titipan no-print" id="resetTitipanBtn">⟳ Reset Semua Data</button>
-            <div class="titipan-stats" id="titipanStats">
-                <div class="titipan-stat-card"><div class="titipan-stat-label">Pendapatan</div><div class="titipan-stat-value" id="titipanIncome">Rp 0</div></div>
-                <div class="titipan-stat-card"><div class="titipan-stat-label">Keuntungan (Komisi)</div><div class="titipan-stat-value" id="titipanProfit">Rp 0</div></div>
-                <div class="titipan-stat-card"><div class="titipan-stat-label">Setoran</div><div class="titipan-stat-value" id="titipanSetoran">Rp 0</div></div>
-            </div>
-            <div class="table-wrapper-titipan">
-                <table><thead><tr><th>Item</th><th>Terjual</th><th>Rusak</th><th>Pendapatan</th><th>Komisi</th><th>Setoran</th></tr></thead>
-                    <tbody id="titipanTableBody"><tr><td colspan="6" style="text-align:center;color:#6b7a8a;padding:0.8rem;">Tambahkan item dan isi stok</td></tr></tbody>
-                </table>
-            </div>
-        </div>
+<!-- ==================== VIEW TITIPAN ==================== -->
+<div id="view-titipan" class="view-container">
+    <div class="flex items-center gap-3 mb-5">
+        <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
+        <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-handshake text-[#1e3a5f] mr-2"></i>Titipan Barang</h2>
+        <span class="ml-auto text-sm text-[#0f6e4a] bg-[#e3f5ec] px-3 py-1 rounded-full border border-[#b8e0cd] no-print" id="titipan-count">0 titipan</span>
+    </div>
 
-        <div id="view-promosi" class="view-container">
-            <div class="flex items-center gap-3 mb-5">
-                <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-tags text-[#b45309] mr-2"></i>Promosi & Diskon</h2>
-                <span class="ml-auto text-sm text-[#6b7a8a] bg-white px-3 py-1 rounded-full border border-[#eef2f6] no-print" id="promo-count">0 promo</span>
-            </div>
-            <div class="form-card no-print">
-                <input type="text" id="promo-judul" placeholder="Judul promo" />
-                <input type="text" id="promo-deskripsi" placeholder="Deskripsi" />
-                <input type="text" id="promo-syarat" placeholder="Syarat (opsional)" />
-                <button id="btn-tambah-promo">+ Tambah Promo</button>
-            </div>
-            <div id="promo-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6] space-y-1"></div>
-        </div>
+    <div class="info-box no-print">
+        <div class="info-title"><i class="fas fa-handshake mr-1"></i>Titipan & Setoran</div>
+        <div class="info-desc">Kelola barang titipan (konsinyasi) dan hitung setoran otomatis.</div>
+        <div class="info-step"><b>Cara pakai:</b> Klik + Tambah Item Titipan → isi data → Simpan.</div>
+    </div>
 
-        <div id="view-pelanggan" class="view-container">
-            <div class="flex items-center gap-3 mb-5">
-                <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-address-book text-[#1e3a5f] mr-2"></i>Buku Pelanggan</h2>
-                <span class="ml-auto text-sm text-[#0f6e4a] bg-[#e3f5ec] px-3 py-1 rounded-full border border-[#b8e0cd] no-print" id="pelanggan-count">0 pelanggan</span>
-            </div>
-            <div id="search-pelanggan-container" class="mb-3" style="display:none;">
-                <input type="text" id="search-pelanggan" placeholder="🔍 Cari nama atau nomor..." class="w-full p-3 rounded-xl border border-[#dce3ec] bg-white dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0] dark:placeholder-[#6b7a8a]" />
-            </div>
-            <div id="pelanggan-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6] mb-4" style="max-height:400px;overflow-y:auto;"></div>
-            <div class="sticky-footer no-print" style="margin-top:0;">
-                <h4 class="font-semibold text-[#1a2634] text-sm mb-2"><i class="fas fa-plus-circle mr-1"></i>Tambah Pelanggan</h4>
-                <div class="input-group" style="margin-top:0;gap:6px;">
-                    <input type="text" id="pelanggan-nama" placeholder="Nama pelanggan" class="flex-1 min-w-[80px] p-2.5 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                    <select id="pelanggan-jenis" class="flex-1 min-w-[70px] p-2.5 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]">
-                        <option value="HP">📱 HP/WA</option>
-                        <option value="ID Game">🎮 ID Game</option>
-                        <option value="No kWh">⚡ No kWh</option>
-                        <option value="Lainnya">📝 Lainnya</option>
-                    </select>
-                    <input type="text" id="pelanggan-nomor" placeholder="Nomor" class="flex-1 min-w-[80px] p-2.5 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                    <button id="btn-tambah-pelanggan" class="bg-[#1e3a5f] text-white font-bold py-2.5 px-4 rounded-xl text-sm whitespace-nowrap"><i class="fas fa-save mr-1"></i> Simpan</button>
-                </div>
-            </div>
+    <!-- TOMBOL TAMBAH ITEM TITIPAN -->
+    <button id="btn-toggle-form-titipan" class="w-full bg-[#1e3a5f] text-white font-bold py-3 rounded-xl btn-tap mb-4 no-print">
+        <i class="fas fa-plus-circle mr-2"></i> + Tambah Item Titipan
+    </button>
+
+    <!-- FORM TAMBAH ITEM TITIPAN -->
+    <div id="form-titipan-container" class="form-card no-print" style="display:none; padding:16px; border-radius:14px; border:1px solid #eef2f6; margin-bottom:16px;">
+        <div class="flex justify-between items-center mb-3">
+            <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-handshake mr-1"></i>Form Item Titipan Baru</h4>
+            <button id="btn-close-form-titipan" class="text-[#6b7a8a] hover:text-[#b91c1c] text-lg"><i class="fas fa-times"></i></button>
         </div>
+        <div class="grid grid-cols-1 gap-3">
+            <input type="text" id="titipan-nama-item" placeholder="Nama barang" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <div class="grid grid-cols-2 gap-3">
+                <input type="number" id="titipan-harga-jual" placeholder="Harga jual per unit" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+                <input type="number" id="titipan-komisi" placeholder="Komisi per unit" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            </div>
+            <button id="btn-tambah-item-titipan" class="bg-[#0f6e4a] text-white font-bold py-3 rounded-xl w-full"><i class="fas fa-save mr-1"></i> Simpan Item</button>
+        </div>
+    </div>
+
+    <!-- DAFTAR ITEM TITIPAN -->
+    <div id="titipan-item-list" class="space-y-2"></div>
+
+    <!-- Reset -->
+    <button class="btn-reset-titipan no-print" id="resetTitipanBtn">⟳ Reset Semua Data</button>
+
+    <!-- Statistik -->
+    <div class="titipan-stats" id="titipanStats">
+        <div class="titipan-stat-card"><div class="titipan-stat-label">Pendapatan</div><div class="titipan-stat-value" id="titipanIncome">Rp 0</div></div>
+        <div class="titipan-stat-card"><div class="titipan-stat-label">Keuntungan (Komisi)</div><div class="titipan-stat-value" id="titipanProfit">Rp 0</div></div>
+        <div class="titipan-stat-card"><div class="titipan-stat-label">Setoran</div><div class="titipan-stat-value" id="titipanSetoran">Rp 0</div></div>
+    </div>
+
+    <!-- Tabel detail -->
+    <div class="table-wrapper-titipan">
+        <table>
+            <thead><tr><th>Item</th><th>Terjual</th><th>Rusak</th><th>Pendapatan</th><th>Komisi</th><th>Setoran</th></tr></thead>
+            <tbody id="titipanTableBody">
+                <tr><td colspan="6" style="text-align:center; color:#6b7a8a; padding:0.8rem;">Tambahkan item dan isi stok</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="titipan-auto-save no-print">✅ Data tersimpan otomatis di browser Anda</div>
+</div>
+
+<!-- ==================== VIEW PROMOSI ==================== -->
+<div id="view-promosi" class="view-container">
+    <div class="flex items-center gap-3 mb-5">
+        <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
+        <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-tags text-[#b45309] mr-2"></i>Promosi & Diskon</h2>
+        <span class="ml-auto text-sm text-[#6b7a8a] bg-white px-3 py-1 rounded-full border border-[#eef2f6] no-print" id="promo-count">0 promo</span>
+    </div>
+
+    <div class="info-box no-print">
+        <div class="info-title"><i class="fas fa-tags mr-1"></i>Promosi & Diskon untuk apa?</div>
+        <div class="info-desc">Buat daftar promo biar pembeli tertarik, misal Beli 2 Gratis 1 atau Diskon 10%.</div>
+        <div class="info-step"><b>Cara pakai:</b> Klik + Tambah Promo → isi data → Simpan.</div>
+    </div>
+
+    <!-- TOMBOL TAMBAH PROMO -->
+    <button id="btn-toggle-form-promo" class="w-full bg-[#1e3a5f] text-white font-bold py-3 rounded-xl btn-tap mb-4 no-print">
+        <i class="fas fa-plus-circle mr-2"></i> + Tambah Promo
+    </button>
+
+    <!-- FORM TAMBAH PROMO -->
+    <div id="form-promo-container" class="form-card no-print" style="display:none; padding:16px; border-radius:14px; border:1px solid #eef2f6; margin-bottom:16px;">
+        <div class="flex justify-between items-center mb-3">
+            <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-tag mr-1"></i>Form Promo Baru</h4>
+            <button id="btn-close-form-promo" class="text-[#6b7a8a] hover:text-[#b91c1c] text-lg"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="grid grid-cols-1 gap-3">
+            <input type="text" id="promo-judul" placeholder="Judul promo" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <input type="text" id="promo-deskripsi" placeholder="Deskripsi" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <input type="text" id="promo-syarat" placeholder="Syarat (opsional)" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <button id="btn-tambah-promo" class="bg-[#0f6e4a] text-white font-bold py-3 rounded-xl w-full"><i class="fas fa-save mr-1"></i> Simpan Promo</button>
+        </div>
+    </div>
+
+    <!-- DAFTAR PROMO -->
+    <div id="promo-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6]" style="max-height: calc(100vh - 320px); overflow-y: auto; min-height: 200px;">
+        <p class="text-center text-[#6b7a8a] py-4">Belum ada promo.</p>
+    </div>
+</div>
+
+<!-- ==================== VIEW BUKU PELANGGAN ==================== -->
+<div id="view-pelanggan" class="view-container">
+    <div class="flex items-center gap-3 mb-5">
+        <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
+        <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-address-book text-[#1e3a5f] mr-2"></i>Buku Pelanggan</h2>
+        <span class="ml-auto text-sm text-[#0f6e4a] bg-[#e3f5ec] px-3 py-1 rounded-full border border-[#b8e0cd] no-print" id="pelanggan-count">0 pelanggan</span>
+    </div>
+
+    <div class="info-box no-print">
+        <div class="info-title"><i class="fas fa-address-book mr-1"></i>Buku Pelanggan untuk apa?</div>
+        <div class="info-desc">Simpan data pelanggan tetap (nama dan kontak) dengan jenis nomor yang bisa dipilih (HP, ID Game, No kWh, dll).</div>
+        <div class="info-step"><b>Cara pakai:</b> Klik tombol + Tambah Pelanggan → isi data → Simpan.</div>
+    </div>
+
+    <!-- SEARCH PELANGGAN -->
+    <div id="search-pelanggan-container" class="mb-3" style="display:none;">
+        <input type="text" id="search-pelanggan" placeholder="🔍 Cari nama atau nomor..." class="w-full p-3 rounded-xl border border-[#dce3ec] bg-white dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0] dark:placeholder-[#6b7a8a]" />
+    </div>
+
+    <!-- TOMBOL TAMBAH PELANGGAN (hanya tombol) -->
+    <button id="btn-toggle-form-pelanggan" class="w-full bg-[#1e3a5f] text-white font-bold py-3 rounded-xl btn-tap mb-4 no-print">
+        <i class="fas fa-plus-circle mr-2"></i> + Tambah Pelanggan
+    </button>
+
+    <!-- FORM TAMBAH PELANGGAN (tersembunyi, muncul saat tombol diklik) -->
+    <div id="form-pelanggan-container" class="form-card no-print" style="display:none; padding:16px; border-radius:14px; border:1px solid #eef2f6; margin-bottom:16px;">
+        <div class="flex justify-between items-center mb-3">
+            <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-user-plus mr-1"></i>Form Pelanggan Baru</h4>
+            <button id="btn-close-form-pelanggan" class="text-[#6b7a8a] hover:text-[#b91c1c] text-lg"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="grid grid-cols-1 gap-3">
+            <input type="text" id="pelanggan-nama" placeholder="Nama pelanggan" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            <div class="grid grid-cols-2 gap-3">
+                <select id="pelanggan-jenis" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]">
+                    <option value="HP">📱 HP/WA</option>
+                    <option value="ID Game">🎮 ID Game</option>
+                    <option value="No kWh">⚡ No kWh</option>
+                    <option value="Lainnya">📝 Lainnya</option>
+                </select>
+                <input type="text" id="pelanggan-nomor" placeholder="Nomor" class="w-full p-3 rounded-xl border border-[#dce3ec] text-sm dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+            </div>
+            <button id="btn-tambah-pelanggan" class="bg-[#0f6e4a] text-white font-bold py-3 rounded-xl w-full"><i class="fas fa-save mr-1"></i> Simpan Pelanggan</button>
+        </div>
+    </div>
+
+    <!-- DAFTAR PELANGGAN (full sampai bawah) -->
+    <div id="pelanggan-list" class="bg-white rounded-2xl p-3 border border-[#eef2f6]" style="max-height: calc(100vh - 320px); overflow-y: auto; min-height: 200px;">
+        <p class="text-center text-[#6b7a8a] py-4">Belum ada pelanggan.</p>
+    </div>
+</div>
 
         <div id="view-profil" class="view-container">
             <div class="flex items-center gap-3 mb-5">
@@ -4075,102 +4345,104 @@ const KEYS = {
                 });
             }
 
-            function renderPelanggan() {
-                const container = document.getElementById('pelanggan-list');
-                if (!container) return;
+function renderPelanggan() {
+    const container = document.getElementById('pelanggan-list');
+    if (!container) return;
 
-                const searchInput = document.getElementById('search-pelanggan');
-                const filter = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    const searchInput = document.getElementById('search-pelanggan');
+    const filter = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-                let filtered = pelanggan;
-                if (filter !== '') {
-                    filtered = pelanggan.filter(item => {
-                        const nama = (item.nama || '').toLowerCase();
-                        const nomor = (item.nomor || '').toLowerCase();
-                        const jenis = (item.jenis || '').toLowerCase();
-                        return nama.includes(filter) || nomor.includes(filter) || jenis.includes(filter);
-                    });
-                }
+    let filtered = pelanggan;
+    if (filter !== '') {
+        filtered = pelanggan.filter(item => {
+            const nama = (item.nama || '').toLowerCase();
+            const nomor = (item.nomor || '').toLowerCase();
+            const jenis = (item.jenis || '').toLowerCase();
+            return nama.includes(filter) || nomor.includes(filter) || jenis.includes(filter);
+        });
+    }
 
-                const searchContainer = document.getElementById('search-pelanggan-container');
-                if (searchContainer) {
-                    searchContainer.style.display = pelanggan.length > 0 ? 'block' : 'none';
-                }
+    const searchContainer = document.getElementById('search-pelanggan-container');
+    if (searchContainer) {
+        searchContainer.style.display = pelanggan.length > 0 ? 'block' : 'none';
+    }
 
-                if (filtered.length === 0) {
-                    container.innerHTML = filter === '' ?
-                        '<p class="text-center text-[#6b7a8a] py-3">Belum ada pelanggan.</p>' :
-                        '<p class="text-center text-[#6b7a8a] py-3">Tidak ada data yang cocok dengan pencarian.</p>';
-                    return;
-                }
+    if (filtered.length === 0) {
+        container.innerHTML = filter === '' ?
+            '<p class="text-center text-[#6b7a8a] py-4">Belum ada pelanggan. Klik tombol + di atas untuk menambah.</p>' :
+            '<p class="text-center text-[#6b7a8a] py-4">Tidak ada data yang cocok dengan pencarian.</p>';
+        return;
+    }
 
-                let html = '';
-                filtered.forEach(item => {
-                    const jenisMap = {
-                        'HP': '📱 HP',
-                        'ID Game': '🎮 ID Game',
-                        'No kWh': '⚡ No kWh',
-                        'Lainnya': '📝 Lainnya'
-                    };
-                    const labelJenis = item.jenis && jenisMap[item.jenis] ? jenisMap[item.jenis] : item
-                        .jenis;
+    let html = '';
+    filtered.forEach(item => {
+        const jenisMap = {
+            'HP': '📱 HP/WA',
+            'ID Game': '🎮 ID Game',
+            'No kWh': '⚡ No kWh',
+            'Lainnya': '📝 Lainnya'
+        };
+        const labelJenis = item.jenis && jenisMap[item.jenis] ? jenisMap[item.jenis] : item.jenis;
 
-                    html += `
-                            <div class="pelanggan-item">
-                                <div>
-                                    <div class="nama">${item.nama}</div>
-                                    <div class="kontak-wrapper">
-                                        ${labelJenis ? `<span class="jenis-label">${labelJenis}</span>` : ''}
-                                        <span class="nomor-teks">${item.nomor}</span>
-                                        <button class="copy-btn" data-nomor="${item.nomor}" title="Salin nomor">
-                                            <i class="fas fa-copy"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="list-item-actions">
-                                    <button class="del-pelanggan" data-id="${item.id}"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </div>
-                        `;
+        html += `
+            <div class="pelanggan-item" style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:12px;border:1px solid #eef2f6;margin-bottom:8px;flex-wrap:wrap;gap:6px;">
+                <div>
+                    <div class="nama" style="font-weight:600;font-size:15px;color:#1a2634;">${item.nama}</div>
+                    <div class="kontak-wrapper" style="display:flex;flex-direction:column;gap:2px;margin-top:2px;">
+                        ${labelJenis ? `<span class="jenis-label" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:#1e3a5f;background:#eef2f6;padding:0 8px;border-radius:30px;letter-spacing:0.3px;">${labelJenis}</span>` : ''}
+                        <div style="display:flex;align-items:center;gap:6px;">
+                            <span class="nomor-teks" style="font-size:14px;font-weight:600;color:#1a2634;background:#f0f7ff;padding:2px 10px;border-radius:30px;border:1px solid #dbeafe;display:inline-block;">${item.nomor}</span>
+                            <button class="copy-btn" data-nomor="${item.nomor}" title="Salin nomor" style="background:transparent;border:none;color:#1e3a5f;cursor:pointer;padding:4px 8px;border-radius:6px;font-size:14px;transition:0.2s;">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item-actions" style="display:flex;gap:6px;align-items:center;">
+                    <button class="del-pelanggan" data-id="${item.id}" style="background:#fde8e8;border:none;border-radius:30px;width:30px;height:30px;font-size:13px;cursor:pointer;color:#b91c1c;"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+
+    // Event copy
+    container.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const nomor = this.dataset.nomor;
+            if (!nomor) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(nomor).then(() => {
+                    this.classList.add('copied');
+                    this.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        this.classList.remove('copied');
+                        this.innerHTML = '<i class="fas fa-copy"></i>';
+                    }, 1500);
+                }).catch(() => {
+                    fallbackCopy(nomor, this);
                 });
-                container.innerHTML = html;
-
-                container.querySelectorAll('.copy-btn').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const nomor = this.dataset.nomor;
-                        if (!nomor) return;
-                        if (navigator.clipboard && navigator.clipboard.writeText) {
-                            navigator.clipboard.writeText(nomor).then(() => {
-                                this.classList.add('copied');
-                                this.innerHTML = '<i class="fas fa-check"></i>';
-                                setTimeout(() => {
-                                    this.classList.remove('copied');
-                                    this.innerHTML = '<i class="fas fa-copy"></i>';
-                                }, 1500);
-                            }).catch(() => {
-                                fallbackCopy(nomor, this);
-                            });
-                        } else {
-                            fallbackCopy(nomor, this);
-                        }
-                    });
-                });
-
-                container.querySelectorAll('.del-pelanggan').forEach(btn => {
-                    btn.addEventListener('click', async function() {
-                        const id = parseInt(this.dataset.id);
-                        const ok = await showModal('Hapus Pelanggan',
-                            'Yakin ingin menghapus pelanggan ini?', 'Hapus', 'Batal', true);
-                        if (ok) {
-                            pelanggan = pelanggan.filter(p => p.id !== id);
-                            setData(KEYS.pelanggan, pelanggan);
-                            renderPelanggan();
-                            updateSummary();
-                        }
-                    });
-                });
+            } else {
+                fallbackCopy(nomor, this);
             }
+        });
+    });
+
+    // Event hapus
+    container.querySelectorAll('.del-pelanggan').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const id = parseInt(this.dataset.id);
+            const ok = await showModal('Hapus Pelanggan', 'Yakin ingin menghapus pelanggan ini?', 'Hapus', 'Batal', true);
+            if (ok) {
+                pelanggan = pelanggan.filter(p => p.id !== id);
+                setData(KEYS.pelanggan, pelanggan);
+                renderPelanggan();
+                updateSummary();
+            }
+        });
+    });
+}
 
             function fallbackCopy(text, btn) {
                 const textarea = document.createElement('textarea');
@@ -4645,6 +4917,94 @@ document.querySelectorAll('.menu-item[data-view]').forEach(item => {
         }
         showView(this.dataset.view);
     });
+});
+// ===== PERBAIKAN: Setup Toggle Form untuk Semua Menu =====
+function setupToggleForm(toggleBtnId, formContainerId, closeBtnId) {
+    const toggleBtn = document.getElementById(toggleBtnId);
+    const formContainer = document.getElementById(formContainerId);
+    const closeBtn = document.getElementById(closeBtnId);
+
+    if (!toggleBtn || !formContainer) return;
+
+    // Simpan teks asli
+    toggleBtn.dataset.originalText = toggleBtn.innerHTML;
+
+    // Toggle form saat tombol diklik
+    toggleBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+            formContainer.style.display = 'block';
+            this.innerHTML = '<i class="fas fa-minus-circle mr-2"></i> Tutup Form';
+            this.classList.remove('bg-[#1e3a5f]');
+            this.classList.add('bg-[#b45309]');
+            setTimeout(() => {
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        } else {
+            formContainer.style.display = 'none';
+            this.innerHTML = this.dataset.originalText;
+            this.classList.remove('bg-[#b45309]');
+            this.classList.add('bg-[#1e3a5f]');
+        }
+    });
+
+    // Close button
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            formContainer.style.display = 'none';
+            if (toggleBtn) {
+                toggleBtn.innerHTML = toggleBtn.dataset.originalText;
+                toggleBtn.classList.remove('bg-[#b45309]');
+                toggleBtn.classList.add('bg-[#1e3a5f]');
+            }
+        });
+    }
+}
+
+// ===== Setup semua toggle form =====
+setupToggleForm('btn-toggle-form-produk', 'form-produk-container', 'btn-close-form-produk');
+setupToggleForm('btn-toggle-form-kasbon', 'form-kasbon-container', 'btn-close-form-kasbon');
+setupToggleForm('btn-toggle-form-supplier', 'form-supplier-container', 'btn-close-form-supplier');
+setupToggleForm('btn-toggle-form-hutang', 'form-hutang-container', 'btn-close-form-hutang');
+setupToggleForm('btn-toggle-form-promo', 'form-promo-container', 'btn-close-form-promo');
+setupToggleForm('btn-toggle-form-titipan', 'form-titipan-container', 'btn-close-form-titipan');
+setupToggleForm('btn-toggle-form-pelanggan', 'form-pelanggan-container', 'btn-close-form-pelanggan');
+
+// ===== TAMBAH PELANGGAN =====
+document.getElementById('btn-tambah-pelanggan')?.addEventListener('click', function() {
+    const nama = document.getElementById('pelanggan-nama').value.trim();
+    const jenis = document.getElementById('pelanggan-jenis').value;
+    const nomor = document.getElementById('pelanggan-nomor').value.trim();
+
+    if (!nama || !nomor || !jenis) {
+        showModal('Perhatian', 'Nama, jenis, dan nomor harus diisi!', 'OK', 'Tutup');
+        return;
+    }
+
+    const newId = generateId(pelanggan);
+    pelanggan.push({ id: newId, nama, jenis, nomor });
+    setData(KEYS.pelanggan, pelanggan);
+
+    // Reset form
+    document.getElementById('pelanggan-nama').value = '';
+    document.getElementById('pelanggan-nomor').value = '';
+
+    // Tutup form - menggunakan fungsi dari setupToggleForm
+    const formContainer = document.getElementById('form-pelanggan-container');
+    const toggleBtn = document.getElementById('btn-toggle-form-pelanggan');
+    if (formContainer) {
+        formContainer.style.display = 'none';
+    }
+    if (toggleBtn) {
+        toggleBtn.innerHTML = toggleBtn.dataset.originalText || '<i class="fas fa-plus-circle mr-2"></i> + Tambah Pelanggan';
+        toggleBtn.classList.remove('bg-[#b45309]');
+        toggleBtn.classList.add('bg-[#1e3a5f]');
+    }
+
+    renderPelanggan();
+    updateSummary();
+    showModal('Berhasil', '✅ Pelanggan "' + nama + '" ditambahkan!', 'OK', 'Tutup');
 });
 
                 document.getElementById('btn-info-app')?.addEventListener('click', function() {
