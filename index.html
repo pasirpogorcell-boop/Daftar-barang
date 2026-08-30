@@ -2780,20 +2780,20 @@ body.dark #form-pelanggan-container h4 {
                             <div class="grid grid-cols-3 gap-2">
                                 <div>
                                     <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Nama Item</label>
-                                    <input type="text" id="struk-item-name" value="Nasi Goreng Spesial" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
+                                    <input type="text" id="struk-item-name" value="Charger" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Qty</label>
                                     <input type="number" id="struk-qty" value="2" min="1" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Harga (@)</label>
+                                    <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Harga</label>
                                     <input type="number" id="struk-price" value="25000" min="0" step="1000" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Informasi Tambahan</label>
-                                <textarea id="struk-custom-info" rows="2" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition resize-y dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]">Promo Beli 2 Gratis 1</textarea>
+                                <textarea id="struk-custom-info" rows="2" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition resize-y dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]">Diskon 10%</textarea>
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Footer / Ucapan</label>
@@ -2823,14 +2823,14 @@ body.dark #form-pelanggan-container h4 {
                                 <!-- BODY -->
                                 <div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#000;letter-spacing:0.3px;">
                                     <span style="font-weight:600;">Item</span>
-                                    <span style="font-weight:400;" id="preview-item-name">Nasi Goreng Spesial</span>
+                                    <span style="font-weight:400;" id="preview-item-name">Charger</span>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#000;letter-spacing:0.3px;">
                                     <span style="font-weight:600;">Qty</span>
                                     <span style="font-weight:400;" id="preview-qty">2</span>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#000;letter-spacing:0.3px;">
-                                    <span style="font-weight:600;">Harga @</span>
+                                    <span style="font-weight:600;">Harga</span>
                                     <span style="font-weight:400;" id="preview-price">Rp 25.000</span>
                                 </div>
 
@@ -4474,7 +4474,7 @@ function renderPelanggan() {
                 const storeName = document.getElementById('struk-store-name').value || 'Warung Berkah';
                 const storeInfo = document.getElementById('struk-store-info').value ||
                 'Jl. Merdeka No. 88, Jakarta | (021) 1234-5678';
-                const itemName = document.getElementById('struk-item-name').value || 'Nasi Goreng Spesial';
+                const itemName = document.getElementById('struk-item-name').value || 'Charger';
                 let qty = parseInt(document.getElementById('struk-qty').value) || 1;
                 if (qty < 1) qty = 1;
                 let price = parseInt(document.getElementById('struk-price').value) || 0;
