@@ -3501,8 +3501,78 @@ const KEYS = {
     appSettings: 'warungku_app_settings',
     target: 'warungku_target',
     menuOrder: 'warungku_menu_order',
-    logo: 'warungku_logo'
+    logo: 'warungku_logo',
+    strukData: 'warungku_struk_data'
 };
+
+const defaultStrukData = {
+    storeName: 'Warung Berkah',
+    storeInfo: 'Jl. Merdeka No. 88, Jakarta | (021) 1234-5678',
+    itemName: 'Charger',
+    qty: 2,
+    price: 25000,
+    customInfo: 'Diskon 10%',
+    footerText: 'Terima kasih telah berbelanja di warung kami'
+};
+
+function loadStrukData() {
+    const saved = localStorage.getItem(KEYS.strukData);
+    let data = defaultStrukData;
+    if (saved) {
+        try {
+            const parsed = JSON.parse(saved);
+            // merge dengan default agar tidak ada field yang hilang
+            data = { ...defaultStrukData, ...parsed };
+        } catch (e) {}
+    }
+    
+    // Autosave untuk semua field struk
+const strukFields = [
+    'struk-store-name',
+    'struk-store-info',
+    'struk-item-name',
+    'struk-qty',
+    'struk-price',
+    'struk-custom-info',
+    'struk-footer-text'
+];
+strukFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.addEventListener('input', function() {
+            saveStrukData();
+            updateStrukPreview();
+        });
+        el.addEventListener('change', function() {
+            saveStrukData();
+            updateStrukPreview();
+        });
+    }
+});
+    // Isi ke input
+    document.getElementById('struk-store-name').value = data.storeName;
+    document.getElementById('struk-store-info').value = data.storeInfo;
+    document.getElementById('struk-item-name').value = data.itemName;
+    document.getElementById('struk-qty').value = data.qty;
+    document.getElementById('struk-price').value = data.price;
+    document.getElementById('struk-custom-info').value = data.customInfo;
+    document.getElementById('struk-footer-text').value = data.footerText;
+    // Update preview
+    updateStrukPreview();
+}
+
+function saveStrukData() {
+    const data = {
+        storeName: document.getElementById('struk-store-name').value,
+        storeInfo: document.getElementById('struk-store-info').value,
+        itemName: document.getElementById('struk-item-name').value,
+        qty: parseInt(document.getElementById('struk-qty').value) || 0,
+        price: parseInt(document.getElementById('struk-price').value) || 0,
+        customInfo: document.getElementById('struk-custom-info').value,
+        footerText: document.getElementById('struk-footer-text').value
+    };
+    localStorage.setItem(KEYS.strukData, JSON.stringify(data));
+}
 
             const defaultProduk = [];
             const defaultKasbon = [];
@@ -5567,19 +5637,12 @@ loadMenuOrder();
                 // Fitur struk
                 document.getElementById('btn-update-struk')?.addEventListener('click', updateStrukPreview);
 
-                document.querySelectorAll(
-                        '#struk-store-name, #struk-store-info, #struk-item-name, #struk-qty, #struk-price, #struk-custom-info, #struk-footer-text'
-                        )
-                    .forEach(el => {
-                        el.addEventListener('input', updateStrukPreview);
-                        el.addEventListener('change', updateStrukPreview);
-                    });
-
                 document.getElementById('btn-preview-download')?.addEventListener('click', downloadStrukPreview);
                 document.getElementById('btn-preview-cetak')?.addEventListener('click', cetakStrukPreview);
 
                 // Terapkan dark mode
                 applyDarkMode(appSettings.darkMode || false);
+                loadStrukData();
 
                 // Render awal
                 renderKasir();
