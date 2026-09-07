@@ -2617,6 +2617,56 @@ body.dark #form-pelanggan-container h4 {
 .btn-toggle-form.active:hover {
     background: #92400e !important;
 }
+/* ===== FIX FINAL STRUK - KERTAS TETAP PUTIH 100% ===== */
+/* Semua panel luar jadi gelap pas dark mode */
+body.dark #view-struk > div.bg-white:not(:has(#struk-preview)),
+body.dark #view-struk > div[class*="bg-white"]:not(:has(#struk-preview)) {
+    background: #1a1a2e !important;
+    border-color: #2a2a44 !important;
+}
+
+/* Form luar & tombol wrapper jadi gelap */
+body.dark #view-struk div[class*="bg-[#f8fafc]"]:not(#struk-preview):not(#struk-preview *) {
+    background: #1e1e38 !important;
+    border-color: #2a2a44 !important;
+}
+
+/* Input di luar struk saja yang gelap */
+body.dark #view-struk > div input,
+body.dark #view-struk > div textarea {
+    background: #252540 !important;
+    color: #e8edf5 !important;
+    border-color: #3a3a5a !important;
+}
+
+/* ============== KERTAS STRUK ANTI-HITAM - SELALU PUTIH ============== */
+body.dark #view-struk #struk-preview {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000 !important;
+    box-shadow: 4px 4px 0px #000 !important;
+}
+
+body.dark #view-struk #struk-preview * {
+    color: #000000 !important;
+    border-color: #000 !important;
+}
+
+/* Box TGL/NO di dalam struk - HARUS tetap bg #f8fafc terang, bukan gelap! */
+body.dark #view-struk #struk-preview div[class*="f8fafc"],
+body.dark #view-struk #struk-preview .bg-\[\#f8fafc\] {
+    background: #f8fafc !important;
+    color: #000000 !important;
+    border: 1px dashed #000 !important;
+}
+
+/* Box promo kuning tetap kuning */
+body.dark #view-struk #struk-preview #preview-custom-info,
+body.dark #view-struk #struk-preview div[class*="fef3c7"] {
+    background: #fef3c7 !important;
+    color: #000 !important;
+    border-left: 4px solid #000 !important;
+}
     </style>
 </head>
 <body>
@@ -2753,128 +2803,108 @@ body.dark #form-pelanggan-container h4 {
             <div class="text-center text-[10px] text-[#6b7a8a] mt-8 opacity-60 no-print"><i class="fas fa-store-alt mr-1"></i> WarungKu v6 · Data tersimpan di browser</div>
         </div>
 
-        <!-- ==================== VIEW CETAK STRUK ==================== -->
-        <div id="view-struk" class="view-container">
-            <div class="flex items-center gap-3 mb-5">
-                <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-receipt text-[#0f6e4a] mr-2"></i>Cetak Struk</h2>
-                <span class="ml-auto text-sm text-[#0f6e4a] bg-[#e3f5ec] px-3 py-1 rounded-full border border-[#b8e0cd] no-print" id="struk-count">0 transaksi</span>
-            </div>
+<!-- ==================== VIEW CETAK STRUK - REVAMP CLEAR NO GREY ==================== -->
+<div id="view-struk" class="view-container">
+    <div class="flex items-center gap-3 mb-5">
+        <button class="back-btn no-print" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button>
+        <h2 class="text-xl font-bold text-[#1a2634]"><i class="fas fa-receipt text-[#0f6e4a] mr-2"></i>Cetak Struk</h2>
+        <span class="ml-auto text-sm text-[#0f6e4a] bg-[#e3f5ec] px-3 py-1 rounded-full border border-[#b8e0cd] no-print" id="struk-count">0 transaksi</span>
+    </div>
+    
+    <!-- Upload Logo -->
+<div class="mb-4">
+    <label class="block text-[11px] font-extrabold text-[#1a2634] uppercase mb-1.5">Logo Warung (opsional)</label>
+    <div class="flex items-center gap-3">
+        <input type="file" id="struk-logo-input" accept="image/*" class="hidden" />
+        <button id="btn-upload-logo" class="bg-[#1e3a5f] text-white font-bold py-2 px-4 rounded-xl text-sm">Pilih Logo</button>
+        <button id="btn-hapus-logo" class="bg-[#fde8e8] text-[#b91c1c] font-bold py-2 px-4 rounded-xl text-sm hidden">Hapus Logo</button>
+        <span id="logo-status" class="text-xs text-[#6b7a8a]">Belum ada logo</span>
+    </div>
+    <div id="logo-preview-thumb" class="mt-2 hidden">
+        <img id="logo-thumb-img" src="#" alt="Logo" class="max-h-12 max-w-32 object-contain border rounded-lg p-1 bg-white" />
+    </div>
+</div>
 
-            <!-- PANEL FORM + PREVIEW - Style seperti contoh -->
-            <div class="bg-white rounded-2xl p-4 border border-[#eef2f6] mb-4 no-print">
-                <div style="display:flex;flex-wrap:wrap;gap:20px;">
-                    <!-- FORM KIRI -->
-                    <div style="flex:1 1 280px;min-width:200px;">
-                        <h4 class="font-semibold text-[#1a2634] text-sm mb-3"><i class="fas fa-pencil-alt mr-2 text-[#1e3a5f]"></i>Custom Data</h4>
-
-                        <div class="space-y-3">
-                            <div>
-                                <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Nama Toko / Usaha</label>
-                                <input type="text" id="struk-store-name" value="Warung Berkah" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Alamat &amp; Kontak</label>
-                                <input type="text" id="struk-store-info" value="Jl. Merdeka No. 88, Jakarta | (021) 1234-5678" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                            </div>
-                            <div class="grid grid-cols-3 gap-2">
-                                <div>
-                                    <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Nama Item</label>
-                                    <input type="text" id="struk-item-name" value="Charger" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Qty</label>
-                                    <input type="number" id="struk-qty" value="2" min="1" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Harga</label>
-                                    <input type="number" id="struk-price" value="25000" min="0" step="1000" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Informasi Tambahan</label>
-                                <textarea id="struk-custom-info" rows="2" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition resize-y dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]">Diskon 10%</textarea>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-[#000] uppercase tracking-wider mb-1">Footer / Ucapan</label>
-                                <input type="text" id="struk-footer-text" value="Terima kasih telah berbelanja" class="w-full p-2.5 rounded-xl border border-[#555] bg-[#fafafa] text-sm font-mono focus:border-[#000] focus:shadow-[2px_2px_0_#888] outline-none transition dark:bg-[#2d2d44] dark:border-[#3d3d5c] dark:text-[#e2e8f0]" />
-                            </div>
-                            <button id="btn-update-struk" class="w-full bg-[#000] text-white font-bold py-3 rounded-xl border-2 border-[#000] hover:bg-[#333] transition"><i class="fas fa-sync mr-2"></i> PERBARUI</button>
-                        </div>
-                    </div>
-
-                    <!-- PREVIEW KANAN -->
-                    <div style="flex:1 1 340px;min-width:280px;">
-                        <h4 class="font-semibold text-[#1a2634] text-sm mb-3 text-center"><i class="fas fa-eye mr-2 text-[#1e3a5f]"></i>Preview Struk</h4>
-
-                        <div style="background:#e8e8e8;padding:18px;border-radius:12px;border:1px solid #888;display:flex;justify-content:center;">
-                            <div id="struk-preview" style="width:340px;max-width:100%;background:#ffffff;padding:22px 20px 18px;border:2px solid #000;font-family:'Courier New','Consolas',monospace;color:#000;">
-                                <!-- HEADER -->
-                                <div style="text-align:center;border-bottom:2px dashed #333;padding-bottom:14px;margin-bottom:12px;position:relative;">
-                                    <div style="font-size:22px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#000;" id="preview-store-name">Warung Berkah</div>
-                                    <div style="font-size:11px;line-height:1.6;color:#222;margin-top:4px;" id="preview-store-info">
-                                        <span>Jl. Merdeka No. 88, Jakarta</span>
-                                        <span>(021) 1234-5678</span>
-                                    </div>
-                                </div>
-
-                                <hr style="border:none;border-top:2px dotted #555;margin:10px 0;" />
-
-                                <!-- BODY -->
-                                <div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#000;letter-spacing:0.3px;">
-                                    <span style="font-weight:600;">Item</span>
-                                    <span style="font-weight:400;" id="preview-item-name">Charger</span>
-                                </div>
-                                <div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#000;letter-spacing:0.3px;">
-                                    <span style="font-weight:600;">Qty</span>
-                                    <span style="font-weight:400;" id="preview-qty">2</span>
-                                </div>
-                                <div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#000;letter-spacing:0.3px;">
-                                    <span style="font-weight:600;">Harga</span>
-                                    <span style="font-weight:400;" id="preview-price">Rp 25.000</span>
-                                </div>
-
-                                <hr style="border:none;border-top:2px dashed #555;margin:10px 0;" />
-
-                                <div style="display:flex;justify-content:space-between;font-weight:700;font-size:15px;border-top:3px double #000;margin-top:6px;padding-top:10px;color:#000;">
-                                    <span>TOTAL</span>
-                                    <span id="preview-total">Rp 50.000</span>
-                                </div>
-
-                                <!-- CUSTOM INFO -->
-                                <div id="preview-custom-info" style="font-size:11px;color:#000;background:#f0f0f0;padding:8px 10px;margin:10px 0 8px;text-align:center;border-left:4px solid #000;border-right:4px solid #000;letter-spacing:0.5px;">Promo Beli 2 Gratis 1</div>
-
-                                <!-- FOOTER -->
-                                <div style="text-align:center;font-size:11px;color:#222;border-top:2px dashed #333;margin-top:14px;padding-top:14px;line-height:1.7;position:relative;">
-                                    <div style="font-size:10px;letter-spacing:6px;color:#000;margin-bottom:6px;">◆ ◆ ◆</div>
-                                    <div style="font-weight:700;font-size:12px;color:#000;letter-spacing:0.5px;" id="preview-footer">Terima kasih telah berbelanja</div>
-                                    <div style="font-size:10px;color:#333;margin-top:2px;" id="preview-date"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- TOMBOL AKSI -->
-                        <div class="flex gap-3 mt-4 flex-wrap">
-                            <button id="btn-preview-download" class="flex-1 bg-[#222] text-white font-bold py-2.5 rounded-xl border-2 border-[#222] hover:bg-[#444] transition"><i class="fas fa-download mr-2"></i> ⬇ DOWNLOAD PNG</button>
-                            <button id="btn-preview-cetak" class="flex-1 bg-[#000] text-white font-bold py-2.5 rounded-xl border-2 border-[#000] hover:bg-[#333] transition"><i class="fas fa-print mr-2"></i> 🖨 CETAK STRUK</button>
-                        </div>
-                        <div style="margin-top:8px;font-size:11px;color:#555;letter-spacing:0.3px;text-align:center;">
-                            <span class="badge-struk">● klik Perbarui setelah ubah data</span>
-                        </div>
-                    </div>
+    <!-- FORM JELAS - PUTIH BERSIH -->
+    <div class="bg-white rounded-2xl p-5 border border-[#eef2f6] shadow-sm mb-4 no-print">
+        <h4 class="font-bold text-[#1a2634] text-[13px] uppercase tracking-wider mb-4"><i class="fas fa-edit mr-2 text-[#0f6e4a]"></i>Form Data Struk</h4>
+        <div class="grid grid-cols-1 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-[11px] font-extrabold text-[#1a2634] uppercase mb-1.5">Nama Toko / Usaha</label>
+                    <input type="text" id="struk-store-name" value="Warung Berkah" class="w-full p-3 rounded-xl border-2 border-[#1a2634] bg-white text-sm font-bold" />
+                </div>
+                <div>
+                    <label class="block text-[11px] font-extrabold text-[#1a2634] uppercase mb-1.5">Alamat & Kontak</label>
+                    <input type="text" id="struk-store-info" value="Jl. Merdeka No. 88, Jakarta | (021) 1234-5678" class="w-full p-3 rounded-xl border-2 border-[#1a2634] bg-white text-sm" />
                 </div>
             </div>
+            <div class="bg-[#f8fafc] rounded-xl p-3 border-2 border-dashed border-[#0f6e4a]">
+                <label class="block text-[11px] font-extrabold text-[#0f6e4a] uppercase mb-2">ITEM - QTY - HARGA</label>
+                <div class="grid grid-cols-12 gap-2">
+                    <div class="col-span-6"><input type="text" id="struk-item-name" value="Charger" placeholder="Nama Item" class="w-full p-3 rounded-xl border border-[#dce3ec] bg-white text-sm font-semibold" /></div>
+                    <div class="col-span-2"><input type="number" id="struk-qty" value="2" min="1" class="w-full p-3 rounded-xl border border-[#dce3ec] bg-white text-sm font-bold text-center" /></div>
+                    <div class="col-span-4"><input type="number" id="struk-price" value="25000" class="w-full p-3 rounded-xl border border-[#dce3ec] bg-white text-sm font-bold" /></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div><label class="block text-[11px] font-extrabold uppercase mb-1.5">Informasi Tambahan / Promo</label><textarea id="struk-custom-info" rows="2" class="w-full p-3 rounded-xl border border-[#dce3ec] bg-white text-sm">Diskon 10%</textarea></div>
+                <div><label class="block text-[11px] font-extrabold uppercase mb-1.5">Footer / Ucapan</label><input type="text" id="struk-footer-text" value="Terima kasih telah berbelanja di warung kami" class="w-full p-3 rounded-xl border border-[#dce3ec] bg-white text-sm" /></div>
+            </div>
+            <button id="btn-update-struk" class="w-full bg-[#1a2634] text-white font-extrabold py-3.5 rounded-xl">PERBARUI PREVIEW</button>
+        </div>
+    </div>
 
-            <!-- DAFTAR TRANSAKSI -->
-            <div class="bg-white rounded-2xl p-3 border border-[#eef2f6] no-print">
-<div class="mb-3">
-    <h4 class="font-semibold text-[#1a2634] text-sm"><i class="fas fa-user-plus mr-1"></i>Form Pelanggan Baru</h4>
-</div>
-                <div id="struk-list" style="max-height:300px;overflow-y:auto;">
-                    <p class="text-center text-[#6b7a8a] py-4">Belum ada transaksi.</p>
+    <!-- PREVIEW PUTIH BERSIH - NO ABU-ABU -->
+    <div class="bg-white rounded-2xl border border-[#eef2f6] shadow-sm overflow-hidden mb-4">
+        <div class="bg-[#1a2634] text-white px-5 py-3 flex justify-between">
+            <span class="font-bold text-[12px] uppercase">Preview Struk Thermal 58mm</span>
+            <span class="text-[10px] bg-white text-black px-2 py-1 rounded-full font-bold">HD READY</span>
+        </div>
+        <div class="p-5 flex justify-center bg-white">
+            <div id="struk-preview" class="w-[340px] max-w-full bg-white border-2 border-black p-5 font-mono text-black shadow-[4px_4px_0px_#000]">
+                <div class="text-center border-b-2 border-dashed border-black pb-3 mb-3">
+                <img id="preview-logo" src="#" alt="Logo" style="display:none; max-height:60px; max-width:120px; margin:0 auto 6px; object-fit:contain;" />
+                    <div id="preview-store-name" class="text-[20px] font-black tracking-[2px] uppercase">Warung Berkah</div>
+                    <div id="preview-store-info" class="text-[11px] mt-1">Jl. Merdeka No. 88, Jakarta<br>(021) 1234-5678</div>
+                    <div class="text-[10px] mt-2 font-bold tracking-widest">STRUK PEMBELIAN</div>
+                </div>
+                <div class="text-[11px] space-y-1 mb-3 bg-[#f8fafc] p-2 border border-dashed border-black">
+                    <div class="flex justify-between"><span class="font-bold">TGL:</span><span id="preview-date">--</span></div>
+                    <div class="flex justify-between"><span class="font-bold">NO:</span><span>#INV-001</span></div>
+                </div>
+                <div class="border-y-2 border-black py-2 mb-2">
+                    <div class="flex justify-between font-black text-[11px] uppercase"><span class="flex-1">ITEM</span><span class="w-[35px] text-center">QTY</span><span class="w-[90px] text-right">HARGA</span></div>
+                </div>
+                <div class="space-y-1.5 text-[12px]">
+                    <div class="flex justify-between"><span id="preview-item-name" class="flex-1 font-semibold truncate pr-2">Charger</span><span id="preview-qty" class="w-[35px] text-center font-bold">2</span><span id="preview-price" class="w-[90px] text-right">Rp 25.000</span></div>
+                </div>
+                <div class="border-t-2 border-dashed border-black my-3"></div>
+                <div class="space-y-1 text-[12px]">
+                    <div class="flex justify-between"><span>SUBTOTAL</span><span id="preview-total">Rp 50.000</span></div>
+                    <div id="preview-custom-info" class="bg-[#fef3c7] border-l-4 border-black px-2 py-1.5 text-center font-bold text-[11px] my-2">Diskon 10%</div>
+                    <div class="flex justify-between font-black text-[14px] border-t-2 border-black pt-2 mt-2"><span>TOTAL</span><span id="preview-total-bold">Rp 50.000</span></div>
+                </div>
+                <div class="text-center border-t-2 border-dashed border-black mt-4 pt-3">
+                    <div class="text-[10px] tracking-[4px] mb-2">◆ ◆ ◆</div>
+                    <div id="preview-footer" class="font-black text-[11px] uppercase">Terima kasih telah berbelanja di warung kami</div>
                 </div>
             </div>
         </div>
+        <div class="grid grid-cols-2 gap-3 p-4 bg-[#f8fafc] border-t">
+            <button id="btn-preview-download" class="bg-white text-[#1a2634] font-extrabold py-3 rounded-xl border-2 border-[#1a2634]"><i class="fas fa-download mr-2"></i>DOWNLOAD PNG HD</button>
+            <button id="btn-preview-cetak" class="bg-[#0f6e4a] text-white font-extrabold py-3 rounded-xl border-2 border-[#0f6e4a]"><i class="fas fa-print mr-2"></i>CETAK STRUK</button>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-[#eef2f6] no-print">
+        <div class="flex justify-between items-center mb-3">
+            <h4 class="font-bold text-[13px] uppercase"><i class="fas fa-list mr-2 text-[#0f6e4a]"></i>Riwayat Transaksi</h4>
+            <button id="btn-hapus-semua-struk" class="text-[11px] bg-[#fde8e8] text-[#b91c1c] px-3 py-1 rounded-full font-bold border" style="display:none">Hapus Semua</button>
+        </div>
+        <div id="struk-list" class="max-h-[400px] overflow-y-auto"><p class="text-center text-[#6b7a8a] py-6">Belum ada transaksi.</p></div>
+    </div>
+</div>
 
         <!-- VIEW LAINNYA (disingkat) -->
         <div id="view-settings-app" class="view-container">
@@ -3470,7 +3500,8 @@ const KEYS = {
     profil: 'warungku_profil',
     appSettings: 'warungku_app_settings',
     target: 'warungku_target',
-    menuOrder: 'warungku_menu_order' // <-- TAMBAH INI
+    menuOrder: 'warungku_menu_order',
+    logo: 'warungku_logo'
 };
 
             const defaultProduk = [];
@@ -3514,6 +3545,7 @@ const KEYS = {
             let promo = getData(KEYS.promo, defaultPromo);
             let pelanggan = getData(KEYS.pelanggan, defaultPelanggan);
             let profil = getData(KEYS.profil, defaultProfil);
+            let logoData = localStorage.getItem(KEYS.logo) || null; // string base64 atau null
             let appSettings = getData(KEYS.appSettings, defaultAppSettings);
             let target = getData(KEYS.target, defaultTarget);
 
@@ -4470,44 +4502,47 @@ function renderPelanggan() {
                 return 'Rp ' + Number(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             }
 
-            function updateStrukPreview() {
-                const storeName = document.getElementById('struk-store-name').value || 'Warung Berkah';
-                const storeInfo = document.getElementById('struk-store-info').value ||
-                'Jl. Merdeka No. 88, Jakarta | (021) 1234-5678';
-                const itemName = document.getElementById('struk-item-name').value || 'Charger';
-                let qty = parseInt(document.getElementById('struk-qty').value) || 1;
-                if (qty < 1) qty = 1;
-                let price = parseInt(document.getElementById('struk-price').value) || 0;
-                if (price < 0) price = 0;
-                const customInfo = document.getElementById('struk-custom-info').value || '';
-                const footerText = document.getElementById('struk-footer-text').value || 'Terima kasih telah berbelanja';
+function formatRupiahStruk(num) {
+    return 'Rp ' + Number(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+function updateStrukPreview() {
+// Logo
+const logoImg = document.getElementById('preview-logo');
+const logoData = localStorage.getItem(KEYS.logo) || null;
+if (logoData) {
+    logoImg.src = logoData;
+    logoImg.style.display = 'block';
+} else {
+    logoImg.style.display = 'none';
+}
+    const storeName = document.getElementById('struk-store-name').value || 'Warung Berkah';
+    const storeInfo = document.getElementById('struk-store-info').value || 'Jl. Merdeka No. 88, Jakarta | (021) 1234-5678';
+    const itemName = document.getElementById('struk-item-name').value || 'Charger';
+    let qty = parseInt(document.getElementById('struk-qty').value) || 1;
+    let price = parseInt(document.getElementById('struk-price').value) || 0;
+    const customInfo = document.getElementById('struk-custom-info').value || '';
+    const footerText = document.getElementById('struk-footer-text').value || 'Terima kasih telah berbelanja';
+    const total = qty * price;
 
-                const total = qty * price;
+    document.getElementById('preview-store-name').textContent = storeName;
+    document.getElementById('preview-store-info').innerHTML = storeInfo.split('|').map(s => `<span>${s.trim()}</span>`).join('<br>');
+    document.getElementById('preview-item-name').textContent = itemName;
+    document.getElementById('preview-qty').textContent = qty;
+    document.getElementById('preview-price').textContent = formatRupiahStruk(price);
+    document.getElementById('preview-total').textContent = formatRupiahStruk(total);
+    document.getElementById('preview-total-bold').textContent = formatRupiahStruk(total);
 
-                document.getElementById('preview-store-name').textContent = storeName;
-
-                const infoParts = storeInfo.split('|').map(s => s.trim());
-                document.getElementById('preview-store-info').innerHTML = infoParts.map(s => `<span>${s}</span>`).join('');
-
-                document.getElementById('preview-item-name').textContent = itemName;
-                document.getElementById('preview-qty').textContent = qty;
-                document.getElementById('preview-price').textContent = formatRupiahStruk(price);
-                document.getElementById('preview-total').textContent = formatRupiahStruk(total);
-
-                const customContainer = document.getElementById('preview-custom-info');
-                if (customInfo.trim() !== '') {
-                    customContainer.style.display = 'block';
-                    customContainer.textContent = customInfo;
-                } else {
-                    customContainer.style.display = 'none';
-                }
-
-                document.getElementById('preview-footer').textContent = footerText;
-
-                const now = new Date();
-                const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-                document.getElementById('preview-date').textContent = now.toLocaleDateString('id-ID', options);
-            }
+    const customContainer = document.getElementById('preview-custom-info');
+    if (customInfo.trim()!== '') {
+        customContainer.style.display = 'block';
+        customContainer.textContent = customInfo;
+    } else {
+        customContainer.style.display = 'none';
+    }
+    document.getElementById('preview-footer').textContent = footerText;
+    const now = new Date();
+    document.getElementById('preview-date').textContent = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
 
 function renderStrukList() {
     const container = document.getElementById('struk-list');
@@ -4918,6 +4953,59 @@ document.querySelectorAll('.menu-item[data-view]').forEach(item => {
         showView(this.dataset.view);
     });
 });
+
+// Upload logo
+const logoInput = document.getElementById('struk-logo-input');
+const btnUpload = document.getElementById('btn-upload-logo');
+const btnHapus = document.getElementById('btn-hapus-logo');
+const logoStatus = document.getElementById('logo-status');
+const previewThumb = document.getElementById('logo-preview-thumb');
+const thumbImg = document.getElementById('logo-thumb-img');
+
+// Fungsi refresh tampilan logo
+function refreshLogoUI() {
+    const stored = localStorage.getItem(KEYS.logo);
+    if (stored) {
+        logoStatus.textContent = 'Logo terpasang';
+        btnHapus.classList.remove('hidden');
+        previewThumb.classList.remove('hidden');
+        thumbImg.src = stored;
+    } else {
+        logoStatus.textContent = 'Belum ada logo';
+        btnHapus.classList.add('hidden');
+        previewThumb.classList.add('hidden');
+        thumbImg.src = '#';
+    }
+    updateStrukPreview(); // perbarui preview
+}
+
+btnUpload.addEventListener('click', function() {
+    logoInput.click();
+});
+
+logoInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+        const dataUrl = ev.target.result;
+        localStorage.setItem(KEYS.logo, dataUrl);
+        refreshLogoUI();
+        showModal('Berhasil', 'Logo berhasil diunggah!', 'OK', 'Tutup');
+    };
+    reader.readAsDataURL(file);
+    this.value = ''; // reset agar bisa upload ulang
+});
+
+btnHapus.addEventListener('click', function() {
+    localStorage.removeItem(KEYS.logo);
+    refreshLogoUI();
+    showModal('Info', 'Logo dihapus.', 'OK', 'Tutup');
+});
+
+// Jalankan pertama kali
+refreshLogoUI();
+
 // ===== PERBAIKAN: Setup Toggle Form untuk Semua Menu =====
 function setupToggleForm(toggleBtnId, formContainerId, closeBtnId) {
     const toggleBtn = document.getElementById(toggleBtnId);
