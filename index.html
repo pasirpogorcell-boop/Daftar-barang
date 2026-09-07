@@ -1807,24 +1807,63 @@
     border: 2px dashed #0f6e4a !important;
 }
 /* ===== FULL SCREEN STYLE ===== */
-:-webkit-full-screen {
-    background: #f5f7fa;
-}
-:-moz-full-screen {
-    background: #f5f7fa;
-}
+:-webkit-full-screen,
+:-moz-full-screen,
 :fullscreen {
     background: #f5f7fa;
 }
 
-body.dark:-webkit-full-screen {
-    background: #1a1a2e;
-}
-body.dark:-moz-full-screen {
-    background: #1a1a2e;
-}
+body.dark:-webkit-full-screen,
+body.dark:-moz-full-screen,
 body.dark:fullscreen {
     background: #1a1a2e;
+}
+
+/* Pastikan scroll tetap berfungsi di full screen */
+:fullscreen body,
+:-webkit-full-screen body,
+:-moz-full-screen body {
+    overflow-y: auto !important;
+    height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+:fullscreen #app,
+:-webkit-full-screen #app,
+:-moz-full-screen #app {
+    overflow-y: auto !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    padding-bottom: 20px !important;
+}
+
+/* Sticky footer di full screen */
+:fullscreen .sticky-footer,
+:-webkit-full-screen .sticky-footer,
+:-moz-full-screen .sticky-footer {
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 10 !important;
+}
+
+/* Mode aktif full screen via class (fallback) */
+body.fullscreen-active {
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+
+body.fullscreen-active #app {
+    overflow-y: auto !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    padding-bottom: 20px !important;
+}
+
+body.fullscreen-active .sticky-footer {
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 10 !important;
 }
 
 /* Tombol full screen hover */
@@ -3427,64 +3466,86 @@ body.dark #view-struk #struk-preview div[class*="fef3c7"] {
         (function() {
             'use strict';
 // ================================================
-// FITUR FULL SCREEN
+// FULL SCREEN - VERSI STABIL
 // ================================================
 
+// Hanya 1 fungsi toggleFullScreen
 function toggleFullScreen() {
     const btn = document.getElementById('btn-fullscreen');
-    const icon = btn.querySelector('i');
+    const icon = btn?.querySelector('i');
     
     if (!document.fullscreenElement) {
-        // Masuk ke mode full screen dengan scroll tetap aktif
+        // Masuk full screen
         const elem = document.documentElement;
         if (elem.requestFullscreen) {
             elem.requestFullscreen().catch(err => {
-                // Fallback ke body
+                // Fallback: scroll ke body
                 document.body.requestFullscreen().catch(err2 => {
                     showModal('Info', 'Mode full screen tidak didukung oleh browser ini.', 'OK', 'Tutup');
                 });
             });
         }
-        icon.className = 'fas fa-compress';
-        btn.title = 'Keluar Full Screen';
-        
-        // Tambahkan class untuk memastikan scroll
+        if (icon) {
+            icon.className = 'fas fa-compress';
+            btn.title = 'Keluar Full Screen';
+        }
         document.body.classList.add('fullscreen-active');
     } else {
+        // Keluar full screen
         if (document.exitFullscreen) {
             document.exitFullscreen();
         }
-        icon.className = 'fas fa-expand';
-        btn.title = 'Full Screen';
+        if (icon) {
+            icon.className = 'fas fa-expand';
+            btn.title = 'Full Screen';
+        }
         document.body.classList.remove('fullscreen-active');
+        // Reset overflow
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.height = '';
+        document.body.style.width = '';
     }
 }
 
-// Deteksi perubahan full screen
+// Event listener fullscreenchange - HANYA SATU
 document.addEventListener('fullscreenchange', function() {
     const btn = document.getElementById('btn-fullscreen');
     if (!btn) return;
     const icon = btn.querySelector('i');
+    
     if (document.fullscreenElement) {
         icon.className = 'fas fa-compress';
         btn.title = 'Keluar Full Screen';
+        document.body.classList.add('fullscreen-active');
     } else {
         icon.className = 'fas fa-expand';
         btn.title = 'Full Screen';
+        document.body.classList.remove('fullscreen-active');
+        // Reset overflow saat keluar full screen
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.height = '';
+        document.body.style.width = '';
+        document.body.style.background = '';
     }
 });
 
-// Event listener untuk tombol full screen
-document.getElementById('btn-fullscreen')?.addEventListener('click', toggleFullScreen);
+// Tombol full screen
+document.getElementById('btn-fullscreen')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleFullScreen();
+});
 
-// Shortcut keyboard: F11 atau Escape
+// Shortcut F11
 document.addEventListener('keydown', function(e) {
     if (e.key === 'F11') {
         e.preventDefault();
         toggleFullScreen();
     }
-    // Escape otomatis menangani exit full screen
 });
+
+// CSS untuk full screen (sudah ada di style, tidak perlu tambahan lagi)
             // ===== KUNCI LOCALSTORAGE =====
 const KEYS = {
     produk: 'warungku_produk',
