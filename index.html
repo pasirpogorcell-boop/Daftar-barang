@@ -155,7 +155,7 @@ body.dark .bg-white.border {background: #1a1a2e !important;}
             <div class="w-10 h-10 rounded-xl bg-green-700 flex items-center justify-center text-white text-lg"><i class="fas fa-store"></i></div>
             <div>
                 <h3 class="font-black text-[16px]">WarungKu</h3>
-                <p class="text-[11px] opacity-60">Manajemen Warung Mandiri · v13.0</p>
+                <p class="text-[11px] opacity-60">Manajemen Warung Mandiri · v13.5</p>
             </div>
         </div>
         <p class="text-[12px] leading-relaxed opacity-80">
@@ -183,7 +183,13 @@ body.dark .bg-white.border {background: #1a1a2e !important;}
     </div>
 </div>
 
-<div id="view-settings-app" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black">Pengaturan</h2></div><div class="form-card p-4 rounded-xl mb-3"><input id="app-nama-toko" placeholder="Nama Toko" class="w-full p-3 rounded-xl border mb-2 text-sm"><input id="app-jam-buka" placeholder="Jam Buka" class="w-full p-3 rounded-xl border mb-2 text-sm"><input id="app-target-penjualan" type="number" placeholder="Target Harian Rp" class="w-full p-3 rounded-xl border mb-2 text-sm"><div class="flex justify-between items-center mb-3 p-3 bg-gray-50 rounded-xl"><span class="font-bold text-[12px]">Mode Gelap</span><div id="toggle-dark" class="toggle-switch"><span class="slider"></span></div></div><button id="btn-reset-menu-order" class="w-full bg-orange-50 text-orange-700 border border-orange-200 font-bold py-2 rounded-xl mb-2 text-[12px]">Reset Urutan Menu</button><button id="btn-simpan-app-settings" class="w-full bg-green-700 text-white font-black py-3 rounded-xl text-sm">Simpan</button></div><div class="form-card p-4 rounded-xl"><div class="grid grid-cols-2 gap-2"><button id="btn-download-backup" class="bg-blue-900 text-white py-2.5 rounded-xl text-[12px] font-black">Download Backup</button><label for="input-upload-backup" class="bg-white border text-center py-2.5 rounded-xl text-[12px] font-black cursor-pointer">Upload Backup</label><input type="file" id="input-upload-backup" accept=".json" class="hidden"></div><button id="btn-clear-all-data" class="w-full mt-2 bg-red-50 text-red-600 border border-red-200 py-2 rounded-xl text-[11px] font-black">Hapus Semua Data</button></div></div>
+<div id="view-settings-app" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black">Pengaturan</h2></div><div class="form-card p-4 rounded-xl mb-3"><input id="app-nama-toko" placeholder="Nama Toko" class="w-full p-3 rounded-xl border mb-2 text-sm"><input id="app-jam-buka" placeholder="Jam Buka" class="w-full p-3 rounded-xl border mb-2 text-sm"><input id="app-target-penjualan" type="number" placeholder="Target Harian Rp" class="w-full p-3 rounded-xl border mb-2 text-sm"><div class="flex justify-between items-center mb-3 p-3 bg-gray-50 rounded-xl"><span class="font-bold text-[12px]">Mode Gelap</span><div id="toggle-dark" class="toggle-switch"><span class="slider"></span></div></div><button id="btn-reset-menu-order" class="w-full bg-orange-50 text-orange-700 border border-orange-200 font-bold py-2 rounded-xl mb-2 text-[12px]">Reset Urutan Menu</button><button id="btn-simpan-app-settings" class="w-full bg-green-700 text-white font-black py-3 rounded-xl text-sm">Simpan</button></div><div class="form-card p-4 rounded-xl">
+<div class="grid grid-cols-3 gap-2">
+    <button id="btn-download-backup" class="bg-blue-900 text-white py-2.5 rounded-xl text-[11px] font-black">Download</button>
+    <label for="input-upload-backup" class="bg-white border text-center py-2.5 rounded-xl text-[11px] font-black cursor-pointer">Upload</label>
+    <input type="file" id="input-upload-backup" accept=".json" class="hidden">
+    <button id="btn-share-backup" class="bg-green-600 text-white py-2.5 rounded-xl text-[11px] font-black col-span-3"><i class="fas fa-share-alt mr-1"></i> Bagikan Backup</button>
+</div>
 
 <div id="view-kasir" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-cash-register mr-2" style="color:#0f6e4a"></i>Kasir</h2><button id="btn-kasir-fullscreen" class="ml-auto w-8 h-8 rounded-full border bg-white flex items-center justify-center"><i class="fas fa-expand text-[11px]"></i></button></div><div class="search-wrapper mb-2"><i class="fas fa-search"></i><input id="search-produk" placeholder="Cari produk..." class="w-full p-3 border rounded-xl text-sm"></div><div id="product-list"></div><div class="sticky-footer mt-3"><div class="bg-white border border-dashed rounded-xl p-2.5 mb-2" style="border-color:#0f6e4a"><label class="text-[10px] font-black uppercase">Promo</label><select id="kasir-promo-select" class="w-full p-2.5 border-2 border-black rounded-xl text-[12px] font-black mt-1"><option value="">-- Tanpa Promo --</option></select><div id="kasir-promo-info" class="text-[10px] mt-1 font-bold hidden"></div></div><div class="space-y-1 text-[12px] mb-2"><div class="flex justify-between"><span>Subtotal</span><span id="kasir-subtotal">Rp 0</span></div><div class="flex justify-between text-red-600 font-bold"><span>Diskon</span><span id="kasir-diskon">-Rp 0</span></div><div class="flex justify-between font-black text-[14px] border-t-2 border-black pt-1.5"><span>Total</span><span id="cart-total" class="text-green-700">Rp 0</span></div></div><button id="btn-checkout" class="w-full bg-green-700 text-white font-black py-3 rounded-xl text-sm">Bayar Sekarang</button></div></div>
 
@@ -743,6 +749,59 @@ document.getElementById('btn-checkout')?.addEventListener('click',async()=>{let 
 document.getElementById('btn-simpan-profil')?.addEventListener('click',()=>{const alamat=document.getElementById('set-alamat').value.trim(),qris=document.getElementById('set-qris').value.trim();if(alamat)profil.alamat=alamat;if(qris)profil.qris=qris;setData(KEYS.profil,profil);updateSummary();showToast('Profil disimpan');});
 document.getElementById('btn-simpan-app-settings')?.addEventListener('click',()=>{const nama=document.getElementById('app-nama-toko').value.trim(),jam=document.getElementById('app-jam-buka').value.trim(),tgt=parseInt(document.getElementById('app-target-penjualan').value);if(nama)appSettings.namaToko=nama;if(jam)appSettings.jamBuka=jam;if(!isNaN(tgt))target.harian=tgt;setData(KEYS.appSettings,appSettings);setData(KEYS.target,target);updateSummary();showToast('Pengaturan disimpan');});
 document.getElementById('btn-download-backup')?.addEventListener('click',()=>{const backup={};for(const k in KEYS){try{backup[KEYS[k]]=JSON.parse(localStorage.getItem(KEYS[k]));}catch{backup[KEYS[k]]=localStorage.getItem(KEYS[k]);}}backup._meta={app:'WarungKu',version:'V13-BERSIH',date:new Date().toISOString()};const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='warungku-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);});
+// ===== BAGIKAN BACKUP =====
+document.getElementById('btn-share-backup')?.addEventListener('click', async function() {
+    try {
+        // Kumpulkan semua data
+        const backup = {};
+        for(const k in KEYS){
+            try {
+                backup[KEYS[k]] = JSON.parse(localStorage.getItem(KEYS[k]));
+            } catch {
+                backup[KEYS[k]] = localStorage.getItem(KEYS[k]);
+            }
+        }
+        backup._meta = {
+            app: 'WarungKu',
+            version: 'V13-BERSIH',
+            date: new Date().toISOString()
+        };
+        
+        // Buat file JSON
+        const jsonData = JSON.stringify(backup, null, 2);
+        const blob = new Blob([jsonData], { type: 'application/json' });
+        const file = new File([blob], 'warungku-backup-'+new Date().toISOString().slice(0,10)+'.json', { type: 'application/json' });
+        
+        // Cek apakah browser support Web Share API
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            // Gunakan Web Share API (HP/Chrome)
+            await navigator.share({
+                title: 'Backup WarungKu',
+                text: 'Backup data WarungKu - ' + new Date().toISOString().slice(0,10),
+                files: [file]
+            });
+            showToast('✅ Backup berhasil dibagikan!');
+        } else {
+            // Fallback: download dulu, lalu bagikan file
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'warungku-backup-'+new Date().toISOString().slice(0,10)+'.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            // Tawarkan untuk share via sistem
+            showModal(
+                'Bagikan Backup',
+                'File backup sudah di-download. Untuk membagikan:\n\n1. Buka file manager\n2. Cari file backup\n3. Tekan lama file → Bagikan',
+                'OK', 'Tutup'
+            );
+        }
+    } catch (err) {
+        console.error('Gagal bagikan backup:', err);
+        showModal('Gagal', '❌ Gagal membagikan backup: ' + err.message, 'OK', 'Tutup');
+    }
+});
 document.getElementById('input-upload-backup')?.addEventListener('change',function(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{try{const data=JSON.parse(ev.target.result);for(const k in KEYS){if(data[KEYS[k]]!==undefined)localStorage.setItem(KEYS[k],JSON.stringify(data[KEYS[k]]));}showModal('Berhasil','Backup dipulihkan, reload...').then(()=>location.reload());}catch(err){showModal('Gagal','File tidak valid '+err.message);}};reader.readAsText(file);});
 document.getElementById('btn-export-excel')?.addEventListener('click',()=>{const today=new Date().toISOString().slice(0,10);let html='<html><body><h2>'+appSettings.namaToko+'</h2><p>'+today+'</p><table border=1><tr><th>Tgl</th><th>Deskripsi</th><th>Subtotal</th><th>Diskon</th><th>Total</th></tr>';transaksi.filter(t=>t.tgl===today).forEach(t=>{html+='<tr><td>'+t.tgl+'</td><td>'+t.deskripsi+'</td><td>'+(t.subtotal||t.total)+'</td><td>'+(t.diskon||0)+'</td><td>'+t.total+'</td></tr>';});html+='</table></body></html>';const blob=new Blob([html],{type:'application/vnd.ms-excel'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='laporan-'+today+'.xls';a.click();URL.revokeObjectURL(url);});
 document.getElementById('btn-export-pdf')?.addEventListener('click',()=>{cetakStrukPreview();});
