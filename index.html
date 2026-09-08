@@ -318,16 +318,287 @@ function updateStrukPreview(){
 }
 function refreshLogoUI(){const stored=localStorage.getItem(KEYS.logo);const logoStatus=document.getElementById('logo-status'),btnHapus=document.getElementById('btn-hapus-logo'); if(!logoStatus) return; if(stored){logoStatus.textContent='Logo terpasang';btnHapus.classList.remove('hidden');} else {logoStatus.textContent='Belum ada logo';btnHapus.classList.add('hidden');}}
 function renderStrukList(){const c=document.getElementById('struk-list');if(!c)return;let list=transaksi.filter(t=>t.jenis==='pemasukan'&&t.items&&t.items.length>0);list.sort((a,b)=>new Date(b.tgl)-new Date(a.tgl));document.getElementById('struk-count').textContent=list.length+' transaksi';const btnH=document.getElementById('btn-hapus-semua-struk');if(btnH)btnH.style.display=list.length>0?'block':'none';if(list.length===0){c.innerHTML='<div class="empty-state">Belum ada transaksi - silakan kasir dulu</div>';return;}c.innerHTML=list.map(t=>{const dis=t.diskon?'<div class="text-[10px] text-red-600">Diskon '+t.promoLabel+': -Rp '+formatRupiah(t.diskon)+'</div>':'';return '<div class="flex justify-between p-2.5 border rounded-xl mb-1.5 bg-white text-[12px]"><div><div class="text-[10px] opacity-60">'+t.tgl+'</div><div>'+t.items.map(i=>i.nama+' x'+i.qty).join(', ')+'</div>'+dis+'<div class="font-black">'+rupiah(t.total)+'</div></div><button class="btn-hapus-struk bg-red-100 text-red-600 px-2.5 py-1 rounded-full text-[11px]" data-id="'+t.id+'"><i class="fas fa-trash"></i></button></div>';}).join('');c.querySelectorAll('.btn-hapus-struk').forEach(b=>b.addEventListener('click',async function(){const id=parseInt(this.dataset.id);const ok=await showModal('Hapus?','Hapus struk ini?','Hapus','Batal');if(ok){transaksi=transaksi.filter(t=>t.id!==id);setData(KEYS.transaksi,transaksi);renderStrukList();updateSummary();}}));}
-function downloadStrukPreview(){const el=document.getElementById('struk-preview');if(!el)return;html2canvas(el,{scale:4,backgroundColor:'#ffffff'}).then(canvas=>{const link=document.createElement('a');link.download='struk-compact-'+strukSize+'mm-'+new Date().toISOString().slice(0,10)+'.png';link.href=canvas.toDataURL('image/png');link.click();showToast('PNG '+strukSize+'mm didownload');});}
+function downloadStrukPreview(){
+  const el=document.getElementById('struk-preview');
+  if(!el)return;
+
+  // Tampilkan loading di modal
+  showModal('Info', '⏳ Sedang memproses gambar struk SUPER HD...\nMohon tunggu sebentar.', 'OK', 'Tutup');
+
+  // Gunakan scale 4 untuk kualitas SUPER TAJAM seperti sebelumnya
+  // Tapi dengan optimasi agar tidak gagal
+  const scale = 4.0;
+
+  // Force reflow untuk memastikan semua elemen siap
+  void el.offsetHeight;
+
+  setTimeout(() => {
+    html2canvas(el, {
+      scale: scale,
+      backgroundColor: '#ffffff',
+      useCORS: true,
+      allowTaint: true,
+      logging: false,
+      // Batasi ukuran maksimal agar tidak crash
+      width: Math.min(el.scrollWidth, 800),
+      height: Math.min(el.scrollHeight, 1200),
+      windowWidth: Math.min(el.scrollWidth, 800),
+      windowHeight: Math.min(el.scrollHeight, 1200),
+      onclone: function(doc) {
+        const clone = doc.getElementById('struk-preview');
+        if(clone) {
+          clone.style.transform = 'none';
+          clone.style.boxShadow = 'none';
+          clone.style.textRendering = 'geometricPrecision';
+          clone.style.webkitFontSmoothing = 'antialiased';
+          // Pastikan font tetap tajam
+          clone.style.fontFamily = '"Courier Prime", monospace !important';
+        }
+      }
+    }).then(canvas => {
+      // Tutup modal loading
+      document.getElementById('custom-modal').style.display = 'none';
+      
+      // Gunakan kualitas 100% (1.0) untuk hasil terbaik
+      const link = document.createElement('a');
+      link.download = 'struk-compact-'+strukSize+'mm-'+new Date().toISOString().slice(0,10)+'.png';
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+      showToast('✅ PNG SUPER HD berhasil!');
+    }).catch(err => {
+      // Tutup modal loading
+      document.getElementById('custom-modal').style.display = 'none';
+      console.error(err);
+      
+      // Jika scale 4.0 gagal, coba dengan scale 3.5
+      showModal('Info', '⚠️ Mencoba dengan kualitas sedikit lebih rendah...', 'OK', 'Tutup');
+      setTimeout(() => {
+        html2canvas(el, {
+          scale: 3.5,
+          backgroundColor: '#ffffff',
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+          width: Math.min(el.scrollWidth, 700),
+          height: Math.min(el.scrollHeight, 1000)
+        }).then(canvas => {
+          document.getElementById('custom-modal').style.display = 'none';
+          const link = document.createElement('a');
+          link.download = 'struk-compact-'+strukSize+'mm-'+new Date().toISOString().slice(0,10)+'.png';
+          link.href = canvas.toDataURL('image/png', 1.0);
+          link.click();
+          showToast('✅ PNG HD berhasil!');
+        }).catch(err2 => {
+          document.getElementById('custom-modal').style.display = 'none';
+          // Terakhir coba scale 3.0
+          showModal('Info', '⚠️ Mencoba dengan kualitas standar...', 'OK', 'Tutup');
+          setTimeout(() => {
+            html2canvas(el, {
+              scale: 3.0,
+              backgroundColor: '#ffffff',
+              useCORS: true,
+              allowTaint: true,
+              logging: false
+            }).then(canvas => {
+              document.getElementById('custom-modal').style.display = 'none';
+              const link = document.createElement('a');
+              link.download = 'struk-compact-'+strukSize+'mm-'+new Date().toISOString().slice(0,10)+'.png';
+              link.href = canvas.toDataURL('image/png', 1.0);
+              link.click();
+              showToast('✅ PNG standar berhasil!');
+            }).catch(err3 => {
+              document.getElementById('custom-modal').style.display = 'none';
+              showModal('Gagal', '❌ Gagal generate gambar: ' + err3.message, 'OK', 'Tutup');
+            });
+          }, 300);
+        });
+      }, 300);
+    });
+  }, 150);
+}
 function cetakStrukPreview(){
-  const previewEl=document.getElementById('struk-preview');if(!previewEl)return;
-  const printContainer=document.getElementById('print-iframe-container');printContainer.innerHTML='';printContainer.style.display='block';
+  const previewEl=document.getElementById('struk-preview');
+  if(!previewEl)return;
+
+  const printContainer=document.getElementById('print-iframe-container');
+  printContainer.innerHTML='';
+  printContainer.style.display='block';
+  
   const clone=previewEl.cloneNode(true);
-  const iframe=document.createElement('iframe');iframe.style.width='100%';iframe.style.height='100vh';iframe.style.border='none';printContainer.appendChild(iframe);
+  const iframe=document.createElement('iframe');
+  iframe.style.width='100%';
+  iframe.style.height='100vh';
+  iframe.style.border='none';
+  iframe.style.position='fixed';
+  iframe.style.top='0';
+  iframe.style.left='0';
+  iframe.style.zIndex='9999';
+  iframe.style.background='white';
+  printContainer.appendChild(iframe);
+
   const doc=iframe.contentDocument||iframe.contentWindow.document;
   doc.open();
-  doc.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><style>@import url(https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap);body{margin:0;padding:8px;display:flex;justify-content:center;background:white}#struk-preview{width:'+(strukSize==='80'?'360px':'280px')+';background:#fff;color:#000;padding:'+(strukSize==='80'?'12px':'10px')+';font-family:"Courier Prime","Courier New",monospace;font-size:'+(strukSize==='80'?'11px':'10.5px')+';line-height:1.2;white-space:pre-wrap}#struk-preview *{color:#000!important;font-family:"Courier Prime",monospace!important} .s-line{border:none;border-top:1px dashed #000;margin:5px 0;height:0} .s-line-solid{border:none;border-top:1px solid #000;margin:5px 0;height:0} @media print{body{margin:0} @page{margin:4mm; size:'+(strukSize==='80'?'80mm':'58mm')+' auto}}</style></head><body>'+clone.outerHTML+'</body></html>');
-  doc.close();setTimeout(()=>{iframe.contentWindow.focus(); iframe.contentWindow.print(); setTimeout(()=>{printContainer.style.display='none'; printContainer.innerHTML='';},500);},400);
+  
+  const sizeClass = strukSize==='80' ? 'size-80' : 'size-58';
+  const width = strukSize==='80' ? '360px' : '280px';
+  const padding = strukSize==='80' ? '12px' : '10px';
+  const fontSize = strukSize==='80' ? '11px' : '10.5px';
+  
+  doc.write(`<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Cetak Struk</title>
+      <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          background: white;
+          margin: 0;
+          padding: 8px;
+        }
+        #struk-preview {
+          width: ${width};
+          max-width: ${width};
+          background: #ffffff !important;
+          color: #000000 !important;
+          padding: ${padding};
+          font-family: "Courier Prime", "Courier New", monospace !important;
+          font-size: ${fontSize};
+          line-height: 1.2 !important;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          border: 1px solid #000;
+          box-shadow: none;
+          flex-shrink: 0;
+        }
+        #struk-preview * {
+          color: #000 !important;
+          font-family: "Courier Prime", monospace !important;
+        }
+        .s-line {
+          border: none;
+          border-top: 1px dashed #000;
+          margin: 5px 0;
+          height: 0;
+        }
+        .s-line-solid {
+          border: none;
+          border-top: 1px solid #000;
+          margin: 5px 0;
+          height: 0;
+        }
+        .s-store {
+          font-family: Inter, sans-serif !important;
+          font-weight: 900;
+          font-size: ${strukSize==='80' ? '13px' : '12px'};
+          text-align: center;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          line-height: 1.1;
+        }
+        .s-addr {
+          font-size: 8.5px;
+          text-align: center;
+          margin-top: 3px;
+          white-space: pre-wrap;
+          line-height: 1.2;
+          opacity: 0.9;
+        }
+        .s-meta {
+          font-size: 9px;
+          line-height: 1.25;
+          display: flex;
+          justify-content: space-between;
+        }
+        .s-item-name {
+          font-weight: 700;
+          font-size: 10px;
+          line-height: 1.2;
+          word-break: break-word;
+          white-space: pre-wrap;
+        }
+        .s-item-detail {
+          display: flex;
+          justify-content: space-between;
+          font-size: 9.5px;
+          margin-top: 1px;
+        }
+        .s-tot {
+          display: flex;
+          justify-content: space-between;
+          font-size: 10px;
+          padding: 1px 0;
+        }
+        .s-tot.grand {
+          font-weight: 700;
+          font-size: 11.5px;
+          border-top: 1px solid #000;
+          padding-top: 4px;
+          margin-top: 3px;
+          font-family: Inter, sans-serif !important;
+        }
+        .s-promo {
+          border: 1px dashed #000;
+          padding: 4px;
+          text-align: center;
+          font-size: 8.5px;
+          margin: 5px 0;
+          white-space: pre-wrap;
+          line-height: 1.2;
+        }
+        .s-foot {
+          font-size: 8.5px;
+          text-align: center;
+          white-space: pre-wrap;
+          line-height: 1.2;
+          margin-top: 4px;
+        }
+        @media print {
+          body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            background: white;
+          }
+          #struk-preview {
+            box-shadow: none;
+            border: 1px solid #000;
+          }
+          @page {
+            margin: 3mm;
+            size: ${width} auto;
+          }
+        }
+        #struk-preview {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  image-rendering: crisp-edges;
+  text-rendering: geometricPrecision;
+}
+      </style>
+    </head>
+    <body>
+      ${clone.outerHTML}
+    </body>
+  </html>`);
+  
+  doc.close();
+  
+  setTimeout(() => {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    setTimeout(() => {
+      printContainer.style.display='none';
+      printContainer.innerHTML='';
+    }, 500);
+  }, 400);
 }
 function updateSummary(){
   let subtotalKasir=0;for(const id in cart){const p=produk.find(x=>x.id==id);if(p)subtotalKasir+=p.harga*cart[id];}
