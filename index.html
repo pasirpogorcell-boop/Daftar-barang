@@ -110,11 +110,13 @@ body{background:#f5f7fa;font-family:Inter,sans-serif;color:#1a2634;padding-botto
 .nomor-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f8fafc;border:1px solid #eef2f6;border-radius:12px;padding:10px 11px;transition:.15s}
 .nomor-row:hover{background:#f0fdf4;border-color:#bbf7d0}
 .nomor-row-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
-.nomor-jenis-badge{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;padding:4px 7px;border-radius:20px;color:white;flex-shrink:0}
-.nomor-jenis-badge.HP{background:#0f6e4a}
-.nomor-jenis-badge.ID\ Game{background:#1e3a5f}
-.nomor-jenis-badge.No\ kWh{background:#b45309}
-.nomor-jenis-badge.Lainnya{background:#475569}
+
+.nomor-jenis-badge{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;padding:4px 7px;border-radius:20px;flex-shrink:0}
+.nomor-jenis-badge.HP{background:#0f6e4a;color:white}
+.nomor-jenis-badge.ID\ Game{background:#e2e8f0;color:#1a2634}
+.nomor-jenis-badge.No\ kWh{background:#b45309;color:white}
+.nomor-jenis-badge.Lainnya{background:#475569;color:white}
+
 .nomor-text{font-size:15px;font-weight:700;color:#0f172a;letter-spacing:-.1px;font-family:Inter,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nomor-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .btn-salin-nomor{background:white;border:1px solid #e2e8f0;color:#0f172a;font-size:11px;font-weight:800;padding:6px 10px;border-radius:8px;cursor:pointer}
@@ -160,342 +162,10 @@ body.dark button.bg-gray-100,body.dark button.bg-gray-50 {background: #252540 !i
 body.dark .bg-white.border {background: #1a1a2e !important;}
 #target-bar {transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);}
 #target-progress-container {transition: all 0.3s ease;}
-/* PERBAIKAN MODE GELAP - TAMBAHKAN INI */
-body.dark .bg-white,
-body.dark .bg-white.border,
-body.dark .bg-white.rounded-xl,
-body.dark .bg-white.shadow-sm,
-body.dark .bg-white.p-4,
-body.dark .bg-white.p-3,
-body.dark .bg-white.p-2\.5,
-body.dark .bg-white.p-2,
-body.dark .bg-white.border-dashed,
-body.dark .bg-white.border-2,
-body.dark .bg-white.rounded-full,
-body.dark .bg-white.rounded-xl.border,
-body.dark .bg-white.rounded-xl.p-4,
-body.dark .bg-white.rounded-xl.p-3,
-body.dark .bg-white.rounded-xl.p-2\.5,
-body.dark .bg-white.shadow-sm.border,
-body.dark .bg-white.rounded-full.border,
-body.dark .bg-white .border,
-body.dark .bg-white .rounded-xl,
-body.dark .bg-white .p-3,
-body.dark .bg-white .p-4,
-body.dark .bg-white .p-2\.5 {
-    background: #1a1a2e !important;
-    border-color: #2a2a44 !important;
-    color: #e8edf5 !important;
-}
-
-/* Elemen header dan card */
-body.dark .header-btn,
-body.dark .header-btn.bg-white,
-body.dark .card-summary,
-body.dark .card-summary.bg-white,
-body.dark .card-summary.border,
-body.dark .menu-item,
-body.dark .product-item,
-body.dark .form-card,
-body.dark .form-card.bg-white,
-body.dark .form-card.border,
-body.dark .bg-gray-50,
-body.dark .bg-gray-100,
-body.dark .bg-gray-50.border,
-body.dark .bg-gray-50.rounded-xl,
-body.dark .bg-gray-100.rounded-full,
-body.dark .pelanggan-card,
-body.dark .pelanggan-card.bg-white,
-body.dark .pelanggan-card.border,
-body.dark .search-wrapper input,
-body.dark #stok-list,
-body.dark #stok-list.bg-white,
-body.dark #kasbon-list,
-body.dark #kasbon-list.bg-white,
-body.dark #supplier-list,
-body.dark #supplier-list.bg-white,
-body.dark #hutang-list,
-body.dark #hutang-list.bg-white,
-body.dark #transaksi-list,
-body.dark #transaksi-list.bg-white,
-body.dark #promo-list,
-body.dark #promo-list.bg-white,
-body.dark #pelanggan-list,
-body.dark #pelanggan-list.bg-white,
-body.dark #kadaluarsa-list,
-body.dark #kadaluarsa-list.bg-white,
-body.dark .struk-preview-wrapper,
-body.dark .struk-preview-wrapper.bg-white,
-body.dark .sticky-footer,
-body.dark .sticky-footer.bg-white,
-body.dark .modal-box,
-body.dark .modal-box.bg-white,
-body.dark #target-progress-container,
-body.dark #target-progress-container.bg-white,
-body.dark #target-progress-container.border,
-body.dark #laporan-detail,
-body.dark #laporan-detail.bg-white,
-body.dark #laporan-detail.border,
-body.dark #qris-container,
-body.dark #qris-container.bg-gray-50,
-body.dark .nomor-row,
-body.dark .nomor-row.bg-gray-50,
-body.dark .nomor-row.bg-white,
-body.dark .pelanggan-nomor-list .nomor-row,
-body.dark .bg-blue-50,
-body.dark .bg-blue-50.border,
-body.dark .bg-orange-50,
-body.dark .bg-orange-50.border,
-body.dark .bg-green-50,
-body.dark .bg-green-50.border,
-body.dark .bg-red-50,
-body.dark .bg-red-50.border,
-body.dark .bg-yellow-50,
-body.dark .bg-yellow-50.border,
-body.dark .bg-gray-50.rounded-lg,
-body.dark .bg-gray-100.rounded-lg,
-body.dark .bg-green-100,
-body.dark .bg-green-100.border,
-body.dark .bg-orange-100,
-body.dark .bg-orange-100.border,
-body.dark .bg-red-100,
-body.dark .bg-red-100.border,
-body.dark .bg-yellow-100,
-body.dark .bg-yellow-100.border,
-body.dark .bg-white\/10,
-body.dark .bg-white\/20,
-body.dark .bg-white\/30,
-body.dark .bg-green-500\/20,
-body.dark .bg-orange-500\/20 {
-    background: #1a1a2e !important;
-    border-color: #2a2a44 !important;
-    color: #e8edf5 !important;
-}
-
-/* Elemen dengan latar belakang abu-abu terang */
-body.dark .bg-gray-50,
-body.dark .bg-gray-100,
-body.dark .bg-gray-200,
-body.dark .bg-gray-300,
-body.dark .bg-gray-50.rounded-xl,
-body.dark .bg-gray-100.rounded-full,
-body.dark .bg-gray-50.border,
-body.dark .bg-gray-100.border {
-    background: #252540 !important;
-    border-color: #3a3a5a !important;
-    color: #e8edf5 !important;
-}
-
-/* Tombol-tombol */
-body.dark button.bg-white,
-body.dark button.bg-white.border,
-body.dark button.bg-gray-100,
-body.dark button.bg-gray-50,
-body.dark .btn-salin-nomor,
-body.dark .btn-salin-nomor.bg-white,
-body.dark .btn-salin-nomor.border,
-body.dark .btn-hapus-card,
-body.dark .btn-hapus-card.bg-red-50 {
-    background: #252540 !important;
-    border-color: #3a3a5a !important;
-    color: #e8edf5 !important;
-}
-
-body.dark button.bg-white:hover,
-body.dark button.bg-gray-100:hover,
-body.dark button.bg-gray-50:hover,
-body.dark .btn-salin-nomor:hover {
-    background: #3a3a5a !important;
-    color: #e8edf5 !important;
-}
-
-/* Input dan textarea */
-body.dark input,
-body.dark select,
-body.dark textarea,
-body.dark .form-card input,
-body.dark .form-card select,
-body.dark .form-card textarea,
-body.dark .search-wrapper input,
-body.dark .border-2.border-black,
-body.dark .border-2.border-gray-200,
-body.dark .border-2.border-blue-200,
-body.dark .border-2.border-green-200,
-body.dark .border-2.border-orange-300 {
-    background: #252540 !important;
-    border-color: #3a3a5a !important;
-    color: #e8edf5 !important;
-}
-
-body.dark input::placeholder,
-body.dark textarea::placeholder {
-    color: #6a7a90 !important;
-}
-
-/* Elemen dengan border hitam di mode gelap */
-body.dark .border-2.border-black,
-body.dark .border.border-black,
-body.dark .border-t-2.border-black,
-body.dark .border-t.border-black {
-    border-color: #3a3a5a !important;
-}
-
-/* Struk preview tetap putih */
-body.dark #struk-preview,
-body.dark #struk-preview * {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border-color: #000 !important;
-}
-
-/* Card di dalam mode gelap */
-body.dark .pelanggan-card .pelanggan-card-top,
-body.dark .pelanggan-card .pelanggan-footer,
-body.dark .pelanggan-card .border-b,
-body.dark .pelanggan-card .border-t {
-    border-color: #2a2a44 !important;
-}
-
-body.dark .pelanggan-card .pelanggan-card-name {
-    color: #e8edf5 !important;
-}
-
-body.dark .pelanggan-card .pelanggan-card-sub {
-    color: #9aa8c0 !important;
-}
-
-body.dark .pelanggan-card .nomor-text {
-    color: #e8edf5 !important;
-}
-
-body.dark .pelanggan-card .bg-blue-50,
-body.dark .pelanggan-card .bg-blue-50.text-blue-900 {
-    background: #1a2a4a !important;
-    color: #90cdf4 !important;
-}
-
-/* Toggle switch */
-body.dark .toggle-switch {
-    background: #3a3a5a !important;
-}
-
-body.dark .toggle-switch.active {
-    background: #4a8a6a !important;
-}
-
-body.dark .toggle-switch .slider {
-    background: #9aa8c0 !important;
-}
-
-body.dark .toggle-switch.active .slider {
-    background: #e8edf5 !important;
-}
-
-/* Toast */
-body.dark .toast {
-    background: #0f6e4a !important;
-    color: white !important;
-}
-
-/* Badge dan label */
-body.dark .bg-blue-100,
-body.dark .bg-blue-100.text-blue-900,
-body.dark .bg-green-100,
-body.dark .bg-green-100.text-green-800,
-body.dark .bg-orange-100,
-body.dark .bg-orange-100.text-orange-700,
-body.dark .bg-red-100,
-body.dark .bg-red-100.text-red-600 {
-    background: #1a2a4a !important;
-    color: #90cdf4 !important;
-}
-
-body.dark .bg-green-100 {
-    background: #0a2a1a !important;
-    color: #68d391 !important;
-}
-
-body.dark .bg-orange-100 {
-    background: #2a1a0a !important;
-    color: #f6ad55 !important;
-}
-
-body.dark .bg-red-100 {
-    background: #2a1a1a !important;
-    color: #fc8181 !important;
-}
-
-/* Empty state */
-body.dark .empty-state {
-    background: #1a1a2e !important;
-    border-color: #2a2a44 !important;
-    color: #9aa8c0 !important;
-}
-
-/* Back button */
-body.dark .back-btn {
-    color: #e8edf5 !important;
-}
-
-/* Info box dalam modal info */
-body.dark .fitur-info-content .bg-blue-50,
-body.dark .fitur-info-content .bg-green-50,
-body.dark .fitur-info-content .bg-yellow-50,
-body.dark .fitur-info-content .bg-orange-50,
-body.dark .fitur-info-content .bg-red-50,
-body.dark .fitur-info-content .bg-white,
-body.dark .fitur-info-content .bg-gray-50,
-body.dark .fitur-info-content .bg-gray-100 {
-    background: #1a1a2e !important;
-    border-color: #2a2a44 !important;
-    color: #e8edf5 !important;
-}
-
-body.dark .fitur-info-content .info-box {
-    background: #1a2a4a !important;
-    border-color: #3a5a7a !important;
-    color: #e8edf5 !important;
-}
-
-body.dark .fitur-info-content .info-box.warning {
-    background: #2a1a0a !important;
-    border-color: #5a3a1a !important;
-}
-
-body.dark .fitur-info-content .info-box.success {
-    background: #0a2a1a !important;
-    border-color: #1a5a3a !important;
-}
-
-body.dark .fitur-info-content li {
-    background: #252540 !important;
-    border-color: #3a3a5a !important;
-    color: #e8edf5 !important;
-}
-
-body.dark .fitur-info-content li i {
-    color: #68d391 !important;
-}
-
-body.dark .fitur-info-content h3 {
-    color: #90cdf4 !important;
-}
-
-/* Nomor jenis badge tetap warnanya */
-body.dark .nomor-jenis-badge.HP {
-    background: #0f6e4a !important;
-}
-
+/* Di dalam body.dark, tambahkan ini */
 body.dark .nomor-jenis-badge.ID\ Game {
     background: #1e3a5f !important;
-}
-
-body.dark .nomor-jenis-badge.No\ kWh {
-    background: #b45309 !important;
-}
-
-body.dark .nomor-jenis-badge.Lainnya {
-    background: #475569 !important;
+    color: #e8edf5 !important;
 }
 </style>
 </head>
@@ -621,6 +291,17 @@ Sampai jumpa lagi!</textarea></div><button id="btn-update-struk" class="w-full m
     <div class="mt-3 pt-2 border-t flex justify-end">
       <button id="info-modal-ok" class="px-5 py-2.5 bg-blue-900 text-white rounded-xl font-black text-[12px]">Mengerti</button>
     </div>
+  </div>
+</div>
+
+
+<div id="wa-pilih-modal" class="modal-overlay" style="display:none; z-index:1002;">
+  <div class="modal-box" style="max-width:380px; width:92%;">
+    <div class="flex justify-between items-center mb-3 pb-2 border-b">
+      <div class="font-black text-[13px]" id="wa-pilih-title"><i class="fab fa-whatsapp text-green-600 mr-1"></i> Pilih Nomor WA</div>
+      <button id="wa-pilih-close" type="button" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center"><i class="fas fa-times text-[12px]"></i></button>
+    </div>
+    <div id="wa-pilih-body" class="space-y-2 max-h-[60vh] overflow-y-auto"></div>
   </div>
 </div>
 
@@ -2091,6 +1772,18 @@ function migratePelangganData(){
   });
   if(changed) setData(KEYS.pelanggan,pelanggan);
 }
+function formatToWhatsApp(nomor){
+  if(!nomor) return '';
+  let clean = nomor.toString().replace(/[^0-9]/g,'');
+  if(clean.startsWith('0')){
+    clean = '62' + clean.substring(1);
+  } else if(clean.startsWith('62')){
+    // sudah ok
+  } else {
+    clean = '62' + clean;
+  }
+  return clean;
+}
 function renderPelanggan(){
   migratePelangganData();
   const c=document.getElementById('pelanggan-list');if(!c)return;
@@ -2100,36 +1793,126 @@ function renderPelanggan(){
     const nomorMatch=(p.nomors||[]).some(n=>n.nomor.toLowerCase().includes(f));
     return namaMatch||nomorMatch;
   }):pelanggan;
-  if(!filtered.length){c.innerHTML='<div class="empty-state"><i class="fas fa-address-book text-2xl opacity-20 mb-1"></i><p class="font-bold text-[13px]">Belum ada pelanggan</p><p class="text-[11px] opacity-60">Tambah pelanggan dengan banyak nomor</p></div>';return;}
+  if(!filtered.length){
+    c.innerHTML='<div class="empty-state"><i class="fas fa-address-book text-2xl opacity-20 mb-1"></i><p class="font-bold text-[13px]">Belum ada pelanggan</p><p class="text-[11px] opacity-60">Tambah pelanggan dengan banyak nomor</p></div>';
+    return;
+  }
   c.innerHTML=filtered.map(p=>{
     const nomors=p.nomors && p.nomors.length? p.nomors : [];
     const rows=nomors.map(n=>{
       const safe=n.nomor.replace(/'/g, "\'");
-      const isHp=n.jenis==='HP';
-      const waClean=n.nomor.replace(/[^0-9]/g,'');
-      return '<div class="nomor-row"><div class="nomor-row-left"><span class="nomor-jenis-badge '+n.jenis+'">'+n.jenis+'</span><span class="nomor-text">'+n.nomor+'</span></div><div class="nomor-actions"><button class="btn-salin-nomor" onclick="salinNomor(\''+safe+'\')"><i class="fas fa-copy"></i> Salin</button>'+(isHp?'<a href="https://wa.me/'+waClean+'" target="_blank" class="btn-salin-nomor" style="background:#22c55e;color:white;border-color:#22c55e"><i class="fab fa-whatsapp"></i></a>':'')+'</div></div>';
+      return '<div class="nomor-row"><div class="nomor-row-left"><span class="nomor-jenis-badge '+n.jenis+'">'+n.jenis+'</span><span class="nomor-text">'+n.nomor+'</span></div><div class="nomor-actions"><button type="button" class="btn-salin-nomor" onclick="salinNomor(\''+safe+'\')"><i class="fas fa-copy"></i> Salin</button></div></div>';
     }).join('');
-    const firstHp=nomors.find(n=>n.jenis==='HP');
+    const hpList = nomors.filter(n=>n.jenis==='HP');
     const totalLabel = nomors.length + ' Nomor';
-    return '<div class="pelanggan-card"><div class="pelanggan-card-top"><div class="pelanggan-avatar"><i class="fas fa-user"></i></div><div class="flex-1 min-w-0"><div class="pelanggan-card-name">'+p.nama+'</div><div class="pelanggan-card-sub">'+(p.catatan? p.catatan+' • ' : '')+totalLabel+'</div></div><div class="bg-blue-50 text-blue-900 text-[10px] font-black px-2 py-1 rounded-full">'+totalLabel+'</div></div><div class="pelanggan-nomor-list">'+rows+'</div><div class="pelanggan-footer"><div>'+(firstHp? '<a href="https://wa.me/'+firstHp.nomor.replace(/[^0-9]/g,'')+'" target="_blank" class="btn-wa-card"><i class="fab fa-whatsapp"></i> Chat WA '+p.nama.split(" ")[0]+'</a>' : '<span class="text-[11px] opacity-50 font-bold"><i class="fas fa-info-circle mr-1"></i> Tidak ada No HP</span>')+'</div><button onclick="pelangganDel('+p.id+')" class="btn-hapus-card"><i class="fas fa-trash mr-1"></i> Hapus</button></div></div>';
+    let waButtonHtml='';
+if(hpList.length===0){
+  waButtonHtml='<span class="text-[11px] opacity-50 font-bold"><i class="fas fa-info-circle mr-1"></i> Tidak ada No HP</span>';
+} else if(hpList.length===1){
+  const waNum = formatToWhatsApp(hpList[0].nomor);
+  waButtonHtml='<button type="button" onclick="window.open(\'https://wa.me/'+waNum+'\',\'_blank\')" class="btn-wa-card"><i class="fab fa-whatsapp"></i> Chat WA</button>';
+} else {
+  waButtonHtml='<button type="button" onclick="pelangganChatWA('+p.id+')" class="btn-wa-card"><i class="fab fa-whatsapp"></i> Chat WA <span class="text-[9px] opacity-70">('+hpList.length+' nomor)</span></button>';
+}
+    return '<div class="pelanggan-card"><div class="pelanggan-card-top"><div class="pelanggan-avatar"><i class="fas fa-user"></i></div><div class="flex-1 min-w-0"><div class="pelanggan-card-name">'+p.nama+'</div><div class="pelanggan-card-sub">'+(p.catatan? p.catatan+' • ' : '')+totalLabel+'</div></div><div class="bg-blue-50 text-blue-900 text-[10px] font-black px-2 py-1 rounded-full">'+totalLabel+'</div></div><div class="pelanggan-nomor-list">'+rows+'</div><div class="pelanggan-footer"><div>'+waButtonHtml+'</div><button type="button" onclick="pelangganDel('+p.id+')" class="btn-hapus-card"><i class="fas fa-trash mr-1"></i> Hapus</button></div></div>';
   }).join('');
 }
-window.salinNomor=function(nomor){navigator.clipboard.writeText(nomor).then(()=>{showToast('✓ '+nomor+' disalin');}).catch(()=>{const ta=document.createElement('textarea');ta.value=nomor;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('✓ Disalin: '+nomor);});}
-window.pelangganDel=async function(id){const ok=await showModal('Hapus','Hapus pelanggan ini beserta semua nomornya?','Hapus','Batal');if(ok){pelanggan=pelanggan.filter(p=>p.id!==id);setData(KEYS.pelanggan,pelanggan);renderPelanggan();updateSummary();}};
-window.hapusNomorRow=function(btn){const row=btn.closest('.nomor-input-row'); if(row) row.remove();};
+window.pelangganChatWA = function(id) {
+    const p = pelanggan.find(x => x.id === id);
+    if (!p) {
+        showToast('Pelanggan tidak ditemukan');
+        return;
+    }
+    const hpList = (p.nomors || []).filter(n => n.jenis === 'HP');
+    if (hpList.length === 0) {
+        showToast('Tidak ada nomor HP untuk ' + p.nama);
+        return;
+    }
+    if (hpList.length === 1) {
+        const waNum = formatToWhatsApp(hpList[0].nomor);
+        window.open('https://wa.me/' + waNum, '_blank');
+        return;
+    }
+    
+    const modal = document.getElementById('wa-pilih-modal');
+    const title = document.getElementById('wa-pilih-title');
+    const body = document.getElementById('wa-pilih-body');
+    if (!modal || !body) {
+        alert('Modal WA tidak ditemukan');
+        return;
+    }
+    
+    title.innerHTML = '<i class="fab fa-whatsapp text-green-600 mr-1"></i> Pilih Nomor - ' + p.nama;
+    
+    body.innerHTML = hpList.map((n, index) => {
+        const waNum = formatToWhatsApp(n.nomor);
+        return '<button type="button" onclick="pilihWANomor(\'' + waNum + '\')" class="w-full flex justify-between items-center p-3 bg-white border-2 border-gray-200 hover:border-green-500 hover:bg-green-50 rounded-xl transition text-left mb-2">'
+            + '<div><div class="font-black text-[15px]">' + n.nomor + '</div>'
+            + '<div class="text-[10px] opacity-50">HP ' + (index + 1) + '</div></div>'
+            + '<div class="w-9 h-9 bg-green-500 text-white rounded-full flex items-center justify-center flex-shrink-0"><i class="fab fa-whatsapp text-[16px]"></i></div>'
+            + '</button>';
+    }).join('');
+    
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+};
+window.pilihWANomor=function(waNum){
+  const modal=document.getElementById('wa-pilih-modal');
+  if(modal) modal.style.display='none';
+  document.body.style.overflow='';
+  if(!waNum){ showToast('Nomor tidak valid'); return; }
+  window.open('https://wa.me/'+waNum,'_blank');
+};
+window.closeWAPilihModal=function(){
+  const modal=document.getElementById('wa-pilih-modal');
+  if(modal) modal.style.display='none';
+  document.body.style.overflow='';
+};
+window.salinNomor=function(nomor){
+  if(!nomor){ showToast('Nomor kosong'); return; }
+  navigator.clipboard.writeText(nomor).then(()=>{
+    showToast('✓ '+nomor+' disalin');
+  }).catch(()=>{
+    const ta=document.createElement('textarea');
+    ta.value=nomor;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('✓ Disalin: '+nomor);
+  });
+};
+window.pelangganDel=async function(id){
+  const p=pelanggan.find(x=>x.id===id);
+  const nama=p? p.nama : 'pelanggan ini';
+  const ok=await showModal('Hapus','Hapus '+nama+' beserta semua nomornya?','Hapus','Batal');
+  if(ok){
+    pelanggan=pelanggan.filter(p=>p.id!==id);
+    setData(KEYS.pelanggan,pelanggan);
+    renderPelanggan();
+    updateSummary();
+    showToast('Pelanggan dihapus');
+  }
+};
+window.hapusNomorRow=function(btn){
+  const row=btn.closest('.nomor-input-row');
+  if(row) row.remove();
+};
 window.tambahNomorRow=function(jenis='',nomor=''){
   const container=document.getElementById('pelanggan-nomor-rows');
   if(!container) return;
   const div=document.createElement('div');
   div.className='nomor-input-row grid grid-cols-12 gap-1.5';
   const escNomor=nomor.replace(/"/g,'&quot;');
-  div.innerHTML='<div class="col-span-4"><select class="pel-nomor-jenis w-full p-2 border rounded-xl text-[11px] font-bold"><option value="HP" '+(jenis==='HP'?'selected':'')+'>HP/WA</option><option value="ID Game" '+(jenis==='ID Game'?'selected':'')+'>ID Game</option><option value="No kWh" '+(jenis==='No kWh'?'selected':'')+'>No kWh</option><option value="Lainnya" '+(jenis==='Lainnya'?'selected':'')+'>Lainnya</option></select></div><div class="col-span-7"><input class="pel-nomor-value w-full p-2 border-2 border-black rounded-xl text-[11px] font-black" placeholder="Nomor / ID" value="'+escNomor+'"></div><div class="col-span-1 flex"><button onclick="hapusNomorRow(this)" type="button" class="w-full bg-red-50 text-red-500 rounded-xl text-[10px]"><i class="fas fa-times"></i></button></div>';
+  div.innerHTML='<div class="col-span-4"><select class="pel-nomor-jenis w-full p-2 border rounded-xl text-[11px] font-bold"><option value="HP" '+(jenis==='HP'?'selected':'')+'>HP/WA</option><option value="ID Game" '+(jenis==='ID Game'?'selected':'')+'>ID Game</option><option value="No kWh" '+(jenis==='No kWh'?'selected':'')+'>No kWh</option><option value="Lainnya" '+(jenis==='Lainnya'?'selected':'')+'>Lainnya</option></select></div><div class="col-span-7"><input class="pel-nomor-value w-full p-2 border-2 border-black rounded-xl text-[11px] font-black" placeholder="Nomor / ID" value="'+escNomor+'"></div><div class="col-span-1 flex"><button type="button" onclick="hapusNomorRow(this)" class="w-full bg-red-50 text-red-500 rounded-xl text-[10px]"><i class="fas fa-times"></i></button></div>';
   container.appendChild(div);
 };
 function initPelangganForm(){
   const cont=document.getElementById('pelanggan-nomor-rows');
   if(cont && cont.children.length===0){ tambahNomorRow('HP',''); }
 }
+
+
 
 
 const INFO_FITUR = {
@@ -2602,217 +2385,43 @@ showView('view-dashboard',false);
 }
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
-// ===== KONFIRMASI KELUAR - VERSI HALUS =====
-(function() {
-    let exitCount = 0;
-    let exitTimer = null;
-    const EXIT_TIMEOUT = 3000;
-    let isExiting = false;
-
-    function showExitMessage() {
-        // Hapus toast lama
-        const oldToast = document.querySelector('.exit-toast');
-        if (oldToast) oldToast.remove();
-
-        const toast = document.createElement('div');
-        toast.className = 'exit-toast';
-        toast.style.cssText = `
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 500;
-            z-index: 99999;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            animation: fade 0.25s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            max-width: 90%;
-            text-align: center;
-            letter-spacing: 0.3px;
-        `;
-        toast.innerHTML = `
-            <i class="fas fa-arrow-left" style="font-size:14px; opacity:0.7;"></i>
-            <span>Tekan lagi untuk keluar</span>
-        `;
-        document.body.appendChild(toast);
-
-        // Hapus setelah timeout
-        setTimeout(() => {
-            if (toast.parentNode) {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s';
-                setTimeout(() => {
-                    if (toast.parentNode) toast.remove();
-                }, 300);
-            }
-        }, EXIT_TIMEOUT);
+// Perbaikan modal WA - tutup saat klik di luar atau tombol X
+document.addEventListener('DOMContentLoaded', function() {
+    // Close button
+    const closeBtn = document.getElementById('wa-pilih-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            const modal = document.getElementById('wa-pilih-modal');
+            if (modal) modal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
     }
-
-    function doExit() {
-        if (isExiting) return;
-        isExiting = true;
-
-        // Hapus toast
-        const toast = document.querySelector('.exit-toast');
-        if (toast) toast.remove();
-
-        // Tampilkan pesan selamat tinggal
-        const byeToast = document.createElement('div');
-        byeToast.className = 'toast';
-        byeToast.style.cssText = `
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(15, 110, 74, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 500;
-            z-index: 99999;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            animation: fade 0.25s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        `;
-        byeToast.innerHTML = `
-            <i class="fas fa-smile" style="font-size:16px;"></i>
-            <span>Sampai jumpa!</span>
-        `;
-        document.body.appendChild(byeToast);
-
-        setTimeout(() => {
-            byeToast.style.opacity = '0';
-            byeToast.style.transition = 'opacity 0.3s';
-            setTimeout(() => {
-                if (byeToast.parentNode) byeToast.remove();
-                try {
-                    window.close();
-                } catch(e) {
-                    window.location.href = 'about:blank';
-                }
-            }, 400);
-        }, 800);
-    }
-
-    function pushStateLoop() {
-        if (isExiting) return;
-        const currentView = document.querySelector('.view-container.active');
-        const viewId = currentView ? currentView.id : 'view-dashboard';
-        history.pushState({ view: viewId, preventBack: true }, '', '#' + viewId);
-    }
-
-    // State awal
-    if (!history.state || !history.state.preventBack) {
-        const initialView = document.querySelector('.view-container.active');
-        const viewId = initialView ? initialView.id : 'view-dashboard';
-        history.replaceState({ view: viewId, preventBack: true }, '', '#' + viewId);
-    }
-
-    // Intercept popstate
-    window.addEventListener('popstate', function(e) {
-        if (isExiting) return;
-        e.preventDefault && e.preventDefault();
-        e.stopPropagation && e.stopPropagation();
-
-        if (e.state && e.state.preventBack) {
-            const currentView = document.querySelector('.view-container.active');
-            const isDashboard = currentView && currentView.id === 'view-dashboard';
-
-            if (isDashboard || !currentView) {
-                if (exitCount === 0) {
-                    exitCount = 1;
-                    showExitMessage();
-                    if (exitTimer) clearTimeout(exitTimer);
-                    exitTimer = setTimeout(() => {
-                        exitCount = 0;
-                        exitTimer = null;
-                    }, EXIT_TIMEOUT);
-                    pushStateLoop();
-                } else {
-                    doExit();
-                }
-            } else {
-                pushStateLoop();
+    
+    // Klik di luar modal (overlay)
+    const modal = document.getElementById('wa-pilih-modal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
             }
-            return;
-        }
+        });
+    }
+});
 
-        const currentView = document.querySelector('.view-container.active');
-        const viewId = currentView ? currentView.id : 'view-dashboard';
-        history.replaceState({ view: viewId, preventBack: true }, '', '#' + viewId);
-        pushStateLoop();
-    }, true);
+// Pastikan closeWAPilihModal tersedia global
+window.closeWAPilihModal = function() {
+    const modal = document.getElementById('wa-pilih-modal');
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = '';
+};
 
-    // Mencegah unload
-    window.addEventListener('beforeunload', function(e) {
-        if (!isExiting) {
-            e.preventDefault();
-            e.returnValue = '';
-            return '';
-        }
-    });
-
-    // Reset saat ada interaksi
-    document.addEventListener('click', function() {
-        if (!isExiting) {
-            exitCount = 0;
-            if (exitTimer) {
-                clearTimeout(exitTimer);
-                exitTimer = null;
-            }
-            const toast = document.querySelector('.exit-toast');
-            if (toast) toast.remove();
-            setTimeout(pushStateLoop, 50);
-        }
-    });
-
-    // Scroll handler
-    let scrollTimeout = null;
-    window.addEventListener('scroll', function() {
-        if (isExiting) return;
-        if (scrollTimeout) clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(pushStateLoop, 300);
-    });
-
-    // Override showView
-    const originalShowView = window.showView || function() {};
-    window.showView = function(id, add) {
-        originalShowView(id, add);
-        if (add !== false) {
-            exitCount = 0;
-            if (exitTimer) {
-                clearTimeout(exitTimer);
-                exitTimer = null;
-            }
-            const toast = document.querySelector('.exit-toast');
-            if (toast) toast.remove();
-            setTimeout(function() {
-                if (!isExiting) {
-                    history.replaceState({ view: id, preventBack: true }, '', '#' + id);
-                    pushStateLoop();
-                }
-            }, 100);
-        }
-    };
-
-    // Push state awal
-    setTimeout(pushStateLoop, 200);
-    console.log('✅ Konfirmasi keluar aktif - tekan back sekali lagi untuk keluar');
-})();
+// Perbaiki pilihWANomor untuk menutup modal
+window.pilihWANomor = function(waNum) {
+    window.closeWAPilihModal();
+    if (!waNum) { showToast('Nomor tidak valid'); return; }
+    window.open('https://wa.me/' + waNum, '_blank');
+};
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
