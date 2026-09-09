@@ -1979,19 +1979,42 @@ function initPelangganForm(){
 document.getElementById('btn-reset-target-harian')?.addEventListener('click', async function() {
     const ok = await showModal(
         'Reset Progress Target', 
-        'Yakin ingin mereset progress penjualan hari ini?\n\nProgress akan direset ke 0, tapi target harian tetap sama.\nData penjualan tetap tersimpan.',
+        'Yakin ingin mereset progress penjualan hari ini?\n\n' +
+        'Progress akan direset ke 0, target harian tetap sama.\n' +
+        '⚠️ Data penjualan hari ini akan dihapus dari perhitungan progress.\n' +
+        'Data transaksi tetap tersimpan di riwayat.',
         'Reset',
         'Batal'
     );
     
     if (ok) {
-        // Reset progress dengan mengubah tanggal target ke hari ini
+        // Hapus semua transaksi pemasukan hari ini
         const today = new Date().toISOString().slice(0,10);
+        const beforeCount = transaksi.length;
+        
+        // Filter: hapus transaksi pemasukan hari ini, tapi tetap simpan pengeluaran
+        transaksi = transaksi.filter(t => {
+            // Jika bukan transaksi hari ini, tetap dipertahankan
+            if (t.tgl !== today) return true;
+            // Jika hari ini, hanya hapus yang jenis pemasukan (penjualan)
+            if (t.jenis === 'pemasukan') return false;
+            // Pengeluaran tetap dipertahankan
+            return true;
+        });
+        
+        // Simpan perubahan
+        setData(KEYS.transaksi, transaksi);
+        
+        // Reset tanggal target ke hari ini
         localStorage.setItem(KEYS.targetDate, today);
         
-        // Update tampilan
+        // Update semua tampilan
         updateSummary();
-        showToast('✅ Progress target hari ini direset');
+        renderStrukList();
+        renderTransaksi();
+        
+        showToast('✅ Progress target hari ini direset (0%)');
+        showToast('📊 ' + (beforeCount - transaksi.length) + ' transaksi penjualan dihapus dari progress');
     }
 });
 
