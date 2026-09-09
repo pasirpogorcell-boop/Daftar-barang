@@ -1263,7 +1263,70 @@ function renderStrukAktifList(){const c=document.getElementById('struk-item-list
 window.hapusItemStruk=function(idx){window.strukItemsAktif.splice(idx,1);renderStrukAktifList();updateStrukPreview();saveStrukData();}
 function updateStrukPreview(){const logoImg=document.getElementById('preview-logo');const logoData=localStorage.getItem(KEYS.logo)||null; if(logoImg){if(logoData){logoImg.src=logoData;logoImg.style.display='block';}else{logoImg.style.display='none';}}const storeName=document.getElementById('struk-store-name').value||'NAMA TOKO';const storeInfo=document.getElementById('struk-store-info').value||'';const customInfo=document.getElementById('struk-custom-info').value||'';const footerText=document.getElementById('struk-footer-text').value||'';let subtotal=0,itemsHtml='';(window.strukItemsAktif||[]).forEach(it=>{const sub=it.qty*it.price; subtotal+=sub;itemsHtml+='<div style="padding:2.5px 0"><div class="s-item-name">'+it.name+'</div><div class="s-item-detail"><span>'+it.qty+' x '+formatRupiah(it.price)+'</span><span style="font-weight:700">'+formatRupiah(sub)+'</span></div></div>';});const promoObj=promo.find(p=>p.id==strukPromoId); const hasil=hitungDiskon(subtotal,promoObj); const diskon=hasil.diskon,label=hasil.label; const total=subtotal-diskon;document.getElementById('preview-store-name').textContent=storeName.toUpperCase();document.getElementById('preview-store-info').textContent=storeInfo;document.getElementById('struk-preview-items-container').innerHTML=itemsHtml||'<div style="text-align:center;font-size:9px;opacity:.5;padding:6px">- KOSONG -</div>';document.getElementById('preview-subtotal').textContent=formatRupiah(subtotal);document.getElementById('preview-total').textContent=formatRupiah(total);document.getElementById('preview-total-bold').textContent=formatRupiah(total);const disRow=document.getElementById('preview-diskon-row');if(diskon>0){disRow.style.display='flex'; document.getElementById('preview-diskon-label').textContent=label; document.getElementById('preview-diskon').textContent='-'+formatRupiah(diskon);} else {disRow.style.display='none';}const customContainer=document.getElementById('preview-custom-info');if(customContainer){if(customInfo.trim()!==''){customContainer.style.display='block';customContainer.textContent=customInfo;}else{customContainer.style.display='none';}}document.getElementById('preview-footer').textContent=footerText;document.getElementById('preview-date').textContent=new Date().toLocaleString('id-ID',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}).replace(',','');document.getElementById('preview-no').textContent='#'+new Date().toISOString().slice(0,10).replace(/-/g,'')+'-'+Math.floor(Math.random()*900+100);}
 function refreshLogoUI(){const stored=localStorage.getItem(KEYS.logo);const logoStatus=document.getElementById('logo-status'),btnHapus=document.getElementById('btn-hapus-logo'); if(!logoStatus) return; if(stored){logoStatus.textContent='Logo terpasang';btnHapus.classList.remove('hidden');} else {logoStatus.textContent='Belum ada logo';btnHapus.classList.add('hidden');}}
-function renderStrukList(){const c=document.getElementById('struk-list');if(!c)return;let list=transaksi.filter(t=>t.jenis==='pemasukan'&&t.items&&t.items.length>0);list.sort((a,b)=>new Date(b.tgl)-new Date(a.tgl));document.getElementById('struk-count').textContent=list.length+' transaksi';const btnH=document.getElementById('btn-hapus-semua-struk');if(btnH)btnH.style.display=list.length>0?'block':'none';if(list.length===0){c.innerHTML='<div class="empty-state">Belum ada transaksi - silakan kasir dulu</div>';return;}c.innerHTML=list.map(t=>{const dis=t.diskon?'<div class="text-[10px] text-red-600">Diskon '+t.promoLabel+': -Rp '+formatRupiah(t.diskon)+'</div>':'';return '<div class="flex justify-between p-2.5 border rounded-xl mb-1.5 bg-white text-[12px]"><div><div class="text-[10px] opacity-60">'+t.tgl+'</div><div>'+t.items.map(i=>i.nama+' x'+i.qty).join(', ')+'</div>'+dis+'<div class="font-black">'+rupiah(t.total)+'</div></div><button class="btn-hapus-struk bg-red-100 text-red-600 px-2.5 py-1 rounded-full text-[11px]" data-id="'+t.id+'"><i class="fas fa-trash"></i></button></div>';}).join('');c.querySelectorAll('.btn-hapus-struk').forEach(b=>b.addEventListener('click',async function(){const id=parseInt(this.dataset.id);const ok=await showModal('Hapus?','Hapus struk ini?','Hapus','Batal');if(ok){transaksi=transaksi.filter(t=>t.id!==id);setData(KEYS.transaksi,transaksi);renderStrukList();updateSummary();}}));}
+
+function renderStrukList(){
+  const c=document.getElementById('struk-list');
+  if(!c)return;
+  let list=transaksi.filter(t=>t.jenis==='pemasukan'&&t.items&&t.items.length>0);
+  list.sort((a,b)=>new Date(b.tgl)-new Date(a.tgl));
+  document.getElementById('struk-count').textContent=list.length+' transaksi';
+  const btnH=document.getElementById('btn-hapus-semua-struk');
+  if(btnH)btnH.style.display=list.length>0?'block':'none';
+  if(list.length===0){
+    c.innerHTML='<div class="empty-state">Belum ada transaksi - silakan kasir dulu</div>';
+    return;
+  }
+  c.innerHTML=list.map(t=>{
+    const dis=t.diskon?'<div class="text-[10px] text-red-600">Diskon '+t.promoLabel+': -Rp '+formatRupiah(t.diskon)+'</div>':'';
+    // Buat tombol cetak dengan data transaksi
+    const cetakBtn = '<button class="btn-cetak-struk bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-[11px] font-bold" data-id="'+t.id+'"><i class="fas fa-print mr-1"></i> Cetak</button>';
+    return '<div class="flex justify-between p-2.5 border rounded-xl mb-1.5 bg-white text-[12px]"><div><div class="text-[10px] opacity-60">'+t.tgl+'</div><div>'+t.items.map(i=>i.nama+' x'+i.qty).join(', ')+'</div>'+dis+'<div class="font-black">'+rupiah(t.total)+'</div></div><div class="flex gap-1.5 items-center">'+cetakBtn+'<button class="btn-hapus-struk bg-red-100 text-red-600 px-2.5 py-1 rounded-full text-[11px]" data-id="'+t.id+'"><i class="fas fa-trash"></i></button></div></div>';
+  }).join('');
+  
+  // Event listener untuk tombol cetak
+  c.querySelectorAll('.btn-cetak-struk').forEach(b=>b.addEventListener('click', function(){
+    const id=parseInt(this.dataset.id);
+    const transaksiData=transaksi.find(t=>t.id===id);
+    if(transaksiData && transaksiData.items){
+      // Isi form struk dengan data transaksi
+      window.strukItemsAktif = transaksiData.items.map(item => ({
+        name: item.nama,
+        qty: item.qty,
+        price: item.harga_jual
+      }));
+      
+      // Set promo jika ada
+      if(transaksiData.promoId){
+        strukPromoId = transaksiData.promoId;
+        document.getElementById('struk-promo-select').value = strukPromoId;
+      } else {
+        strukPromoId = null;
+        document.getElementById('struk-promo-select').value = '';
+      }
+      
+      // Simpan dan update tampilan
+      saveStrukData();
+      renderStrukAktifList();
+      updateStrukPreview();
+      showToast('✅ Data struk dimuat dari riwayat');
+      
+      // Pindah ke tab struk
+      showView('view-struk');
+    }
+  }));
+  
+  // Event listener untuk tombol hapus (yang sudah ada)
+  c.querySelectorAll('.btn-hapus-struk').forEach(b=>b.addEventListener('click',async function(){
+    const id=parseInt(this.dataset.id);
+    const ok=await showModal('Hapus?','Hapus struk ini?','Hapus','Batal');
+    if(ok){
+      transaksi=transaksi.filter(t=>t.id!==id);
+      setData(KEYS.transaksi,transaksi);
+      renderStrukList();
+      updateSummary();
+    }
+  }));
+}
 function downloadStrukPreview(){const el=document.getElementById('struk-preview');if(!el)return;showModal('Info','⏳ Sedang memproses gambar...','OK','Tutup');const scale=4.0;void el.offsetHeight;setTimeout(()=>{html2canvas(el,{scale:scale,backgroundColor:'#ffffff',useCORS:true,allowTaint:true,logging:false,width:Math.min(el.scrollWidth,800),height:Math.min(el.scrollHeight,1200),windowWidth:Math.min(el.scrollWidth,800),windowHeight:Math.min(el.scrollHeight,1200),onclone:function(doc){const clone=doc.getElementById('struk-preview');if(clone){clone.style.transform='none';clone.style.boxShadow='none';}}}).then(canvas=>{document.getElementById('custom-modal').style.display='none';const link=document.createElement('a');link.download='struk-compact-'+strukSize+'mm-'+new Date().toISOString().slice(0,10)+'.png';link.href=canvas.toDataURL('image/png',1.0);link.click();showToast('✅ PNG SUPER HD berhasil!');}).catch(err=>{document.getElementById('custom-modal').style.display='none';showModal('Gagal','❌ Gagal: '+err.message,'OK','Tutup');});},150);}
 function cetakStrukPreview(){const previewEl=document.getElementById('struk-preview');if(!previewEl)return;const printContainer=document.getElementById('print-iframe-container');printContainer.innerHTML='';printContainer.style.display='block';const clone=previewEl.cloneNode(true);const iframe=document.createElement('iframe');iframe.style.width='100%';iframe.style.height='100vh';iframe.style.border='none';iframe.style.position='fixed';iframe.style.top='0';iframe.style.left='0';iframe.style.zIndex='9999';iframe.style.background='white';printContainer.appendChild(iframe);const doc=iframe.contentDocument||iframe.contentWindow.document;doc.open();const width=strukSize==='80'?'360px':'280px';const padding=strukSize==='80'?'12px':'10px';const fontSize=strukSize==='80'?'11px':'10.5px';doc.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Cetak Struk</title><style>*{margin:0;padding:0;box-sizing:border-box}body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:white;margin:0;padding:8px}#struk-preview{width:${width};max-width:${width};background:#fff!important;color:#000!important;padding:${padding};font-family:"Courier Prime",monospace!important;font-size:${fontSize};line-height:1.2!important;white-space:pre-wrap;word-wrap:break-word;border:1px solid #000;box-shadow:none;flex-shrink:0}#struk-preview *{color:#000!important;font-family:"Courier Prime",monospace!important}.s-line{border:none;border-top:1px dashed #000;margin:5px 0;height:0}.s-line-solid{border:none;border-top:1px solid #000;margin:5px 0;height:0}.s-store{font-family:Inter,sans-serif!important;font-weight:900;font-size:${strukSize==='80'?'13px':'12px'};text-align:center;letter-spacing:.5px;text-transform:uppercase;line-height:1.1}.s-addr{font-size:8.5px;text-align:center;margin-top:3px;white-space:pre-wrap;line-height:1.2;opacity:.9}.s-meta{font-size:9px;line-height:1.25;display:flex;justify-content:space-between}.s-item-name{font-weight:700;font-size:10px;line-height:1.2;word-break:break-word;white-space:pre-wrap}.s-item-detail{display:flex;justify-content:space-between;font-size:9.5px;margin-top:1px}.s-tot{display:flex;justify-content:space-between;font-size:10px;padding:1px 0}.s-tot.grand{font-weight:700;font-size:11.5px;border-top:1px solid #000;padding-top:4px;margin-top:3px;font-family:Inter,sans-serif!important}.s-promo{border:1px dashed #000;padding:4px;text-align:center;font-size:8.5px;margin:5px 0;white-space:pre-wrap;line-height:1.2}.s-foot{font-size:8.5px;text-align:center;white-space:pre-wrap;line-height:1.2;margin-top:4px}@media print{body{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:0;margin:0;background:white}#struk-preview{box-shadow:none;border:1px solid #000}@page{margin:3mm;size:${width} auto}}#struk-preview{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}</style></head><body>${clone.outerHTML}</body></html>`);doc.close();setTimeout(()=>{iframe.contentWindow.focus();iframe.contentWindow.print();setTimeout(()=>{printContainer.style.display='none';printContainer.innerHTML='';},500);},400);}
 function updateSummary(){
