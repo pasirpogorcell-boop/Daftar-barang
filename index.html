@@ -21,27 +21,6 @@
 :where(code, pre, kbd, samp) {
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
-</style><style>
-@font-face {
-  font-family: "Optimistic";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Optimistic Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
-}
-:where(html) {
-  font-family: "Optimistic", system-ui, sans-serif;
-}
-:where(code, pre, kbd, samp) {
-  font-family: "Optimistic Mono", ui-monospace, monospace;
-}
 
 .fitur-info-content{max-height:70vh; overflow-y:auto; padding-right:4px;}
 .fitur-info-content h3{font-size:14px; font-weight:900; margin:16px 0 8px; color:#1e3a5f; display:flex; align-items:center; gap:6px;}
@@ -182,10 +161,11 @@ body.dark .bg-white.border {background: #1a1a2e !important;}
 </div>
 <div class="grid grid-cols-3 gap-2 mb-4"><div class="card-summary text-center p-2.5 rounded-xl"><div class="text-[9px] uppercase font-extrabold opacity-60">Penjualan</div><div class="font-black text-[12px]" id="summary-penjualan">Rp 0</div></div><div class="card-summary text-center p-2.5 rounded-xl"><div class="text-[9px] uppercase font-extrabold opacity-60">Kasbon</div><div class="font-black text-[12px]" id="summary-kasbon">Rp 0</div></div><div class="card-summary text-center p-2.5 rounded-xl border-2" style="border-color:#0f6e4a"><div class="text-[9px] uppercase font-extrabold opacity-60">Laba</div><div class="font-black text-[12px] text-green-700" id="summary-laba">Rp 0</div></div></div>
 <div class="flex justify-between items-center mb-2"><h3 class="text-[10px] font-black uppercase opacity-50">Menu Utama</h3><button id="btn-atur-menu" class="text-[10px] bg-white border px-3 py-1 rounded-full font-black shadow-sm"><i class="fas fa-arrows-alt mr-1"></i> Atur</button></div><div id="menu-container" class="space-y-2"></div></div>
-<div id="view-info" class="view-container"><div class="flex items-center gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black">Informasi Aplikasi</h2><button onclick="showFiturInfo('dashboard')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info dashboard"><i class="fas fa-question text-[12px]"></i></button></div>
+<div id="view-info" class="view-container"><div class="flex items-center gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black">Informasi Aplikasi</h2></div>
     <div class="bg-white rounded-xl p-4 border mb-3"><div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl bg-green-700 flex items-center justify-center text-white text-lg"><i class="fas fa-store"></i></div><div><h3 class="font-black text-[16px]">WarungKu</h3><p class="text-[11px] opacity-60">Manajemen Warung Mandiri · v13.1 Compact Multi-Nomor</p></div></div><p class="text-[12px] leading-relaxed opacity-80">WarungKu adalah aplikasi pencatatan operasional warung berbasis browser untuk membantu pemilik warung mengelola transaksi, stok, dan keuangan harian secara mandiri tanpa koneksi server.</p></div></div>
 <div id="view-settings-app" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black">Pengaturan</h2></div><div class="form-card p-4 rounded-xl mb-3"><input id="app-nama-toko" placeholder="Nama Toko" class="w-full p-3 rounded-xl border mb-2 text-sm"><input id="app-jam-buka" placeholder="Jam Buka" class="w-full p-3 rounded-xl border mb-2 text-sm"><input id="app-target-penjualan" type="number" placeholder="Target Harian Rp" class="w-full p-3 rounded-xl border mb-2 text-sm"><div class="flex justify-between items-center mb-3 p-3 bg-gray-50 rounded-xl"><span class="font-bold text-[12px]">Mode Gelap</span><div id="toggle-dark" class="toggle-switch"><span class="slider"></span></div></div><button id="btn-reset-menu-order" class="w-full bg-orange-50 text-orange-700 border border-orange-200 font-bold py-2 rounded-xl mb-2 text-[12px]">Reset Urutan Menu</button><button id="btn-simpan-app-settings" class="w-full bg-green-700 text-white font-black py-3 rounded-xl text-sm">Simpan</button></div><div class="form-card p-4 rounded-xl"><div class="grid grid-cols-2 gap-2"><button id="btn-download-backup" class="bg-blue-900 text-white py-2.5 rounded-xl text-[12px] font-black">Download Backup</button><label for="input-upload-backup" class="bg-white border text-center py-2.5 rounded-xl text-[12px] font-black cursor-pointer">Upload Backup</label><input type="file" id="input-upload-backup" accept=".json" class="hidden"></div><button id="btn-clear-all-data" class="w-full mt-2 bg-red-50 text-red-600 border border-red-200 py-2 rounded-xl text-[11px] font-black">Hapus Semua Data</button></div></div>
-<div id="view-kasir" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-cash-register mr-2" style="color:#0f6e4a"></i>Kasir</h2><button onclick="showFiturInfo('kasir')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info kasir"><i class="fas fa-question text-[12px]"></i></button><button id="btn-kasir-fullscreen" class="ml-auto w-8 h-8 rounded-full border bg-white flex items-center justify-center"><i class="fas fa-expand text-[11px]"></i></button></div><div class="search-wrapper mb-2"><i class="fas fa-search"></i><input id="search-produk" placeholder="Cari produk..." class="w-full p-3 border rounded-xl text-sm"></div><div id="product-list"></div><div class="sticky-footer mt-3"><div class="bg-white border border-dashed rounded-xl p-2.5 mb-2" style="border-color:#0f6e4a"><label class="text-[10px] font-black uppercase">Promo</label><select id="kasir-promo-select" class="w-full p-2.5 border-2 border-black rounded-xl text-[12px] font-black mt-1"><option value="">-- Tanpa Promo --</option></select><div id="kasir-promo-info" class="text-[10px] mt-1 font-bold hidden"></div></div><div class="space-y-1 text-[12px] mb-2"><div class="flex justify-between"><span>Subtotal</span><span id="kasir-subtotal">Rp 0</span></div><div class="flex justify-between text-red-600 font-bold"><span>Diskon</span><span id="kasir-diskon">-Rp 0</span></div><div class="flex justify-between font-black text-[14px] border-t-2 border-black pt-1.5"><span>Total</span><span id="cart-total" class="text-green-700">Rp 0</span></div></div><button id="btn-checkout" class="w-full bg-green-700 text-white font-black py-3 rounded-xl text-sm">Bayar Sekarang</button></div></div>
+<div id="view-kasir" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-cash-register mr-2" style="color:#0f6e4a"></i>Kasir</h2>
+<button onclick="showFiturInfo('kasir')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info kasir"><i class="fas fa-question text-[12px]"></i></button><button id="btn-kasir-fullscreen" class="ml-auto w-8 h-8 rounded-full border bg-white flex items-center justify-center"><i class="fas fa-expand text-[11px]"></i></button></div><div class="search-wrapper mb-2"><i class="fas fa-search"></i><input id="search-produk" placeholder="Cari produk..." class="w-full p-3 border rounded-xl text-sm"></div><div id="product-list"></div><div class="sticky-footer mt-3"><div class="bg-white border border-dashed rounded-xl p-2.5 mb-2" style="border-color:#0f6e4a"><label class="text-[10px] font-black uppercase">Promo</label><select id="kasir-promo-select" class="w-full p-2.5 border-2 border-black rounded-xl text-[12px] font-black mt-1"><option value="">-- Tanpa Promo --</option></select><div id="kasir-promo-info" class="text-[10px] mt-1 font-bold hidden"></div></div><div class="space-y-1 text-[12px] mb-2"><div class="flex justify-between"><span>Subtotal</span><span id="kasir-subtotal">Rp 0</span></div><div class="flex justify-between text-red-600 font-bold"><span>Diskon</span><span id="kasir-diskon">-Rp 0</span></div><div class="flex justify-between font-black text-[14px] border-t-2 border-black pt-1.5"><span>Total</span><span id="cart-total" class="text-green-700">Rp 0</span></div></div><button id="btn-checkout" class="w-full bg-green-700 text-white font-black py-3 rounded-xl text-sm">Bayar Sekarang</button></div></div>
 <div id="view-stok" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-boxes mr-2" style="color:#1e3a5f"></i>Stok</h2><button onclick="showFiturInfo('stok')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info stok"><i class="fas fa-question text-[12px]"></i></button><span id="badge-stok2" class="ml-auto text-[11px] bg-white border px-2.5 py-1 rounded-full font-bold">0 menipis</span></div><div class="search-wrapper mb-2"><i class="fas fa-search"></i><input id="search-stok" placeholder="Cari..." class="w-full p-3 border rounded-xl text-sm"></div><button id="btn-toggle-form-produk" class="w-full bg-blue-900 text-white font-black py-3 rounded-xl mb-3 text-sm">+ Tambah Produk</button><div id="form-produk-container" class="border p-3 rounded-xl mb-3 bg-white" style="display:none"><div class="grid grid-cols-2 gap-2"><input id="input-nama" placeholder="Nama Produk" class="p-2.5 border rounded-xl text-sm"><input id="input-harga" type="number" placeholder="Harga Jual" class="p-2.5 border rounded-xl text-sm"><input id="input-harga-beli" type="number" placeholder="Harga Beli" class="p-2.5 border rounded-xl text-sm"><input id="input-stok" type="number" placeholder="Stok" class="p-2.5 border rounded-xl text-sm"><input id="input-expired" type="date" class="p-2.5 border rounded-xl text-sm col-span-2"></div><button id="btn-tambah-produk" class="w-full bg-green-700 text-white font-black py-2.5 rounded-xl mt-2 text-sm">Simpan</button></div><div id="stok-list" class="bg-white p-2.5 border rounded-xl"></div></div>
 <div id="view-struk" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-receipt mr-2" style="color:#0f6e4a"></i>Struk Compact</h2><button onclick="showFiturInfo('struk')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info struk"><i class="fas fa-question text-[12px]"></i></button><span class="ml-auto text-[11px] bg-green-100 px-2.5 py-1 rounded-full font-bold" id="struk-count">0 transaksi</span></div><div class="mb-2 flex gap-2 items-center text-[11px]"><input type="file" id="struk-logo-input" accept="image/*" class="hidden"><button id="btn-upload-logo" class="bg-blue-900 text-white px-2.5 py-1.5 rounded-xl text-[11px] font-black">Pilih Logo</button><button id="btn-hapus-logo" class="bg-red-100 text-red-600 px-2.5 py-1.5 rounded-xl text-[11px] font-black hidden">Hapus Logo</button><span id="logo-status" class="opacity-60">Belum ada logo</span></div><div class="bg-white rounded-xl p-3 border mb-3"><div class="grid grid-cols-2 gap-2 mb-2"><input id="struk-store-name" value="" placeholder="Nama Toko" class="p-2.5 border-2 border-black rounded-xl font-black text-[12px]"><input id="struk-store-info" value="" placeholder="Alamat / Info Toko" class="p-2.5 border-2 border-black rounded-xl text-[11px]"></div><div class="bg-gray-50 border border-dashed rounded-xl p-2.5 mb-2" style="border-color:#0f6e4a"><label class="text-[10px] font-black uppercase" style="color:#0f6e4a">Multi-Item</label><div class="grid grid-cols-12 gap-1.5 mt-1.5"><div class="col-span-5"><input id="struk-item-name" placeholder="Nama barang" class="w-full p-2.5 border rounded-xl text-[12px]"></div><div class="col-span-2"><input id="struk-qty" type="number" value="1" min="1" class="w-full p-2.5 border rounded-xl text-[12px] text-center font-black"></div><div class="col-span-5"><input id="struk-price" type="number" placeholder="Harga" class="w-full p-2.5 border rounded-xl text-[12px]"></div></div><button id="btn-tambah-ke-struk" class="w-full mt-1.5 bg-green-700 text-white font-black py-2.5 rounded-xl text-[12px]">+ Tambah ke Struk</button><div id="struk-item-list-aktif" class="mt-2 space-y-1.5"></div></div><div class="bg-yellow-50 border border-dashed border-yellow-600 rounded-xl p-2.5 mb-2"><label class="text-[10px] font-black uppercase">Promo Struk</label><select id="struk-promo-select" class="w-full p-2.5 border-2 border-black rounded-xl text-[12px] font-black mt-1"><option value="">-- Tanpa Promo --</option></select></div>
 <div class="grid grid-cols-2 gap-2">
@@ -1166,9 +1146,8 @@ window.titipanJualCustom=async function(id){
   const laba=t.komisi*jumlah;
   const totalHarga=t.harga_jual*jumlah;
   transaksi.push({id:generateId(transaksi),jenis:'pemasukan',deskripsi:'Titipan terjual: '+t.nama+' ('+jumlah+' pcs)',total:totalHarga,subtotal:totalHarga,diskon:0,laba_total:laba,items:[{nama:t.nama,harga_jual:t.harga_jual,harga_beli:t.harga_jual - t.komisi,qty:jumlah,laba:laba}],tgl:new Date().toISOString().slice(0,10), isTitipan:true, titipan_id:t.id});
-  setData(KEYS.transaksi,titipan);
   setData(KEYS.titipan,titipan);
-  setData(KEYS.transaksi,transaksi);
+setData(KEYS.transaksi,transaksi);
   renderTitipan();updateSummary();renderTransaksi();
   showToast(jumlah+' pcs terjual! Komisi '+rupiah(laba));
 };
@@ -1785,24 +1764,6 @@ const INFO_FITUR = {
     icon: 'fa-store',
     color: '#1e3a5f',
     isi: `<h3><i class="fas fa-bullseye"></i> Untuk Apa?</h3><p>Untuk mengatur alamat warung dan QRIS/Link pembayaran yang muncul di struk dan dashboard.</p><h3><i class="fas fa-edit"></i> Cara Isi</h3><ul><li><i class="fas fa-map-marker"></i><span><b>Alamat Warung:</b> Isi alamat lengkap → muncul di dashboard dan struk</span></li><li><i class="fas fa-qrcode"></i><span><b>QRIS/Link:</b> Isi link QRIS, Dana, OVO, dll → otomatis jadi QR Code di profil</span></li></ul>`
-  },
-  'dashboard': {
-    judul: 'Dashboard & Pengaturan - Panduan',
-    icon: 'fa-home',
-    color: '#1e3a5f',
-    isi: `
-      <h3><i class="fas fa-bullseye"></i> Dashboard</h3><p>Halaman utama yang menampilkan ringkasan: Penjualan hari ini, Kasbon, Laba, Target Harian, dan semua menu utama yang bisa di-drag urutannya.</p>
-      <h3><i class="fas fa-arrows-alt"></i> Atur Urutan Menu</h3><p>Klik Atur → drag menu untuk ubah urutan → klik Selesai → urutan tersimpan.</p>
-      <h3><i class="fas fa-cog"></i> Pengaturan (Icon Ger di Pojok)</h3>
-      <ul>
-        <li><i class="fas fa-store"></i><span><b>Nama Toko & Jam Buka:</b> Muncul di dashboard</span></li>
-        <li><i class="fas fa-bullseye"></i><span><b>Target Harian:</b> Set target omset harian, misal 500000 → progress bar muncul di dashboard, kalau tercapai ada notifikasi</span></li>
-        <li><i class="fas fa-moon"></i><span><b>Mode Gelap:</b> Ganti tema terang/gelap</span></li>
-        <li><i class="fas fa-download"></i><span><b>Download Backup:</b> Simpan semua data ke file JSON untuk cadangan</span></li>
-        <li><i class="fas fa-upload"></i><span><b>Upload Backup:</b> Restore data dari file backup</span></li>
-        <li><i class="fas fa-trash"></i><span><b>Hapus Semua Data:</b> Reset total (hati-hati!)</span></li>
-      </ul>
-    `
   }
 };
 
@@ -1816,9 +1777,9 @@ function showFiturInfo(key){
   title.innerHTML='<i class="fas '+data.icon+' mr-2" style="color:'+data.color+'"></i>'+data.judul;
   body.innerHTML=data.isi;
   modal.style.display='flex';
-  // prevent body scroll
   document.body.style.overflow='hidden';
 }
+window.showFiturInfo = showFiturInfo; 
 function closeInfoModal(){
   const modal=document.getElementById('info-modal');
   if(modal) modal.style.display='none';
