@@ -94,9 +94,11 @@ body{background:#f5f7fa;font-family:Inter,sans-serif;color:#1a2634;padding-botto
 .nomor-row:hover{background:#f0fdf4;border-color:#bbf7d0}
 .nomor-row-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
 .nomor-jenis-badge{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;padding:4px 7px;border-radius:20px;color:white;flex-shrink:0}
-.nomor-jenis-badge.HP{background:#0f6e4a}
-.nomor-jenis-badge.ID\ Game{background:#1e3a5f}
-.nomor-jenis-badge.No\ kWh{background:#b45309}
+.nomor-jenis-badge{background:#475569; color:white}
+.nomor-jenis-badge.HP,
+.nomor-jenis-badge[class*="HP"]{background:#0f6e4a}
+.nomor-jenis-badge[class*="ID Game"]{background:#1e3a5f}
+.nomor-jenis-badge[class*="No kWh"]{background:#b45309}
 .nomor-jenis-badge.Lainnya{background:#475569}
 .nomor-text{font-size:15px;font-weight:700;color:#0f172a;letter-spacing:-.1px;font-family:Inter,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nomor-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
