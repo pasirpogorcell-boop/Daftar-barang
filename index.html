@@ -94,9 +94,11 @@ body{background:#f5f7fa;font-family:Inter,sans-serif;color:#1a2634;padding-botto
 .nomor-row:hover{background:#f0fdf4;border-color:#bbf7d0}
 .nomor-row-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
 .nomor-jenis-badge{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;padding:4px 7px;border-radius:20px;color:white;flex-shrink:0}
-.nomor-jenis-badge.HP{background:#0f6e4a}
-.nomor-jenis-badge.ID\ Game{background:#1e3a5f}
-.nomor-jenis-badge.No\ kWh{background:#b45309}
+.nomor-jenis-badge{background:#475569; color:white}
+.nomor-jenis-badge.HP,
+.nomor-jenis-badge[class*="HP"]{background:#0f6e4a}
+.nomor-jenis-badge[class*="ID Game"]{background:#1e3a5f}
+.nomor-jenis-badge[class*="No kWh"]{background:#b45309}
 .nomor-jenis-badge.Lainnya{background:#475569}
 .nomor-text{font-size:15px;font-weight:700;color:#0f172a;letter-spacing:-.1px;font-family:Inter,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nomor-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
@@ -143,112 +145,6 @@ body.dark button.bg-gray-100,body.dark button.bg-gray-50 {background: #252540 !i
 body.dark .bg-white.border {background: #1a1a2e !important;}
 #target-bar {transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);}
 #target-progress-container {transition: all 0.3s ease;}
-/* ============ BRANDING ASKOLANI (SUBTLE) ============ */
-.app-brand {
-  text-align: center;
-  padding: 22px 8px 18px;
-  margin-top: 14px;
-  font-size: 9px;
-  color: #cbd5e1;
-  letter-spacing: 0.5px;
-}
-.app-brand .brand-line {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-bottom: 3px;
-}
-.app-brand .brand-mark {
-  width: 18px;
-  height: 18px;
-  border-radius: 5px;
-  background: #e2e8f0;
-  color: #94a3b8;
-  font-size: 9px;
-  font-weight: 800;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: -0.3px;
-}
-.app-brand .brand-name {
-  font-weight: 600;
-  color: #94a3b8;
-  letter-spacing: 0.6px;
-}
-.app-brand .brand-tag {
-  color: #cbd5e1;
-  font-weight: 400;
-  font-size: 8.5px;
-}
-.app-brand .brand-version {
-  font-size: 10px;
-  color: #94a3b8;
-  opacity: 0.85;
-  margin-top: 5px;
-  letter-spacing: 0.5px;
-  font-weight: 500;
-}
-
-body.dark .app-brand { color: #4a5568; }
-body.dark .app-brand .brand-mark { background: #2a2a44; color: #6a7a90; }
-body.dark .app-brand .brand-name { color: #6a7a90; }
-body.dark .app-brand .brand-tag { color: #4a5568; }
-body.dark .app-brand .brand-version { color: #6a7a90; }
-
-/* Kartu developer di halaman Info - versi samar */
-.dev-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: #fff;
-  border: 1px solid #f1f5f9;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  opacity: 0.75;
-}
-.dev-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  background: #e2e8f0;
-  color: #94a3b8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 12px;
-  flex-shrink: 0;
-}
-.dev-info { flex: 1; min-width: 0; }
-.dev-name {
-  font-size: 11.5px;
-  font-weight: 700;
-  color: #94a3b8;
-  line-height: 1.2;
-  letter-spacing: 0.3px;
-}
-.dev-role {
-  font-size: 9.5px;
-  color: #cbd5e1;
-  margin-top: 2px;
-  font-weight: 400;
-}
-.dev-handle {
-  font-size: 9px;
-  color: #cbd5e1;
-  font-weight: 500;
-  margin-top: 2px;
-  letter-spacing: 0.3px;
-}
-.dev-handle::before { content: "@"; opacity: 0.6; }
-body.dark .dev-card { background: #1a1a2e; border-color: #2a2a44; }
-body.dark .dev-avatar { background: #2a2a44; color: #6a7a90; }
-body.dark .dev-name { color: #6a7a90; }
-body.dark .dev-role { color: #4a5568; }
-body.dark .dev-handle { color: #4a5568; }
 </style>
 </head>
 <body>
@@ -268,7 +164,7 @@ body.dark .dev-handle { color: #4a5568; }
 <div class="grid grid-cols-3 gap-2 mb-4"><div class="card-summary text-center p-2.5 rounded-xl"><div class="text-[9px] uppercase font-extrabold opacity-60">Penjualan</div><div class="font-black text-[12px]" id="summary-penjualan">Rp 0</div></div><div class="card-summary text-center p-2.5 rounded-xl"><div class="text-[9px] uppercase font-extrabold opacity-60">Kasbon</div><div class="font-black text-[12px]" id="summary-kasbon">Rp 0</div></div><div class="card-summary text-center p-2.5 rounded-xl border-2" style="border-color:#0f6e4a"><div class="text-[9px] uppercase font-extrabold opacity-60">Laba</div><div class="font-black text-[12px] text-green-700" id="summary-laba">Rp 0</div></div></div>
 <div class="flex justify-between items-center mb-2"><h3 class="text-[10px] font-black uppercase opacity-50">Menu Utama</h3><button id="btn-atur-menu" class="text-[10px] bg-white border px-3 py-1 rounded-full font-black shadow-sm"><i class="fas fa-arrows-alt mr-1"></i> Atur</button></div><div id="menu-container" class="space-y-2"></div></div>
 <div id="view-info" class="view-container"><div class="flex items-center gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black">Informasi Aplikasi</h2></div>
-    <div class="bg-white rounded-xl p-4 border mb-3"><div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl bg-green-700 flex items-center justify-center text-white text-lg"><i class="fas fa-store"></i></div><div><h3 class="font-black text-[16px]">WarungKu</h3><p class="text-[11px] opacity-60">Manajemen Warung Mandiri</p></div></div><p class="text-[12px] leading-relaxed opacity-80">WarungKu adalah aplikasi pencatatan operasional warung berbasis browser untuk membantu pemilik warung mengelola transaksi, stok, dan keuangan harian secara mandiri tanpa koneksi server.</p></div></div>
+    <div class="bg-white rounded-xl p-4 border mb-3"><div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl bg-green-700 flex items-center justify-center text-white text-lg"><i class="fas fa-store"></i></div><div><h3 class="font-black text-[16px]">WarungKu</h3><p class="text-[11px] opacity-60">Manajemen Warung Mandiri · v13.1 Compact Multi-Nomor</p></div></div><p class="text-[12px] leading-relaxed opacity-80">WarungKu adalah aplikasi pencatatan operasional warung berbasis browser untuk membantu pemilik warung mengelola transaksi, stok, dan keuangan harian secara mandiri tanpa koneksi server.</p></div></div>
 <div id="view-settings-app" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black">Pengaturan</h2></div><div class="form-card p-4 rounded-xl mb-3"><input id="app-nama-toko" placeholder="Nama Toko" class="w-full p-3 rounded-xl border mb-2 text-sm"><input id="app-jam-buka" placeholder="Jam Buka" class="w-full p-3 rounded-xl border mb-2 text-sm"><input id="app-target-penjualan" type="number" placeholder="Target Harian Rp" class="w-full p-3 rounded-xl border mb-2 text-sm"><div class="flex justify-between items-center mb-3 p-3 bg-gray-50 rounded-xl"><span class="font-bold text-[12px]">Mode Gelap</span><div id="toggle-dark" class="toggle-switch"><span class="slider"></span></div></div><button id="btn-reset-menu-order" class="w-full bg-orange-50 text-orange-700 border border-orange-200 font-bold py-2 rounded-xl mb-2 text-[12px]">Reset Urutan Menu</button><button id="btn-simpan-app-settings" class="w-full bg-green-700 text-white font-black py-3 rounded-xl text-sm">Simpan</button></div><div class="form-card p-4 rounded-xl"><div class="grid grid-cols-2 gap-2"><button id="btn-download-backup" class="bg-blue-900 text-white py-2.5 rounded-xl text-[12px] font-black">Download Backup</button><label for="input-upload-backup" class="bg-white border text-center py-2.5 rounded-xl text-[12px] font-black cursor-pointer">Upload Backup</label><input type="file" id="input-upload-backup" accept=".json" class="hidden"></div><button id="btn-clear-all-data" class="w-full mt-2 bg-red-50 text-red-600 border border-red-200 py-2 rounded-xl text-[11px] font-black">Hapus Semua Data</button></div></div>
 <div id="view-kasir" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-cash-register mr-2" style="color:#0f6e4a"></i>Kasir</h2>
 <button onclick="showFiturInfo('kasir')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info kasir"><i class="fas fa-question text-[12px]"></i></button><button id="btn-kasir-fullscreen" class="ml-auto w-8 h-8 rounded-full border bg-white flex items-center justify-center"><i class="fas fa-expand text-[11px]"></i></button></div><div class="search-wrapper mb-2"><i class="fas fa-search"></i><input id="search-produk" placeholder="Cari produk..." class="w-full p-3 border rounded-xl text-sm"></div><div id="product-list"></div><div class="sticky-footer mt-3"><div class="bg-white border border-dashed rounded-xl p-2.5 mb-2" style="border-color:#0f6e4a"><label class="text-[10px] font-black uppercase">Promo</label><select id="kasir-promo-select" class="w-full p-2.5 border-2 border-black rounded-xl text-[12px] font-black mt-1"><option value="">-- Tanpa Promo --</option></select><div id="kasir-promo-info" class="text-[10px] mt-1 font-bold hidden"></div></div><div class="space-y-1 text-[12px] mb-2"><div class="flex justify-between"><span>Subtotal</span><span id="kasir-subtotal">Rp 0</span></div><div class="flex justify-between text-red-600 font-bold"><span>Diskon</span><span id="kasir-diskon">-Rp 0</span></div><div class="flex justify-between font-black text-[14px] border-t-2 border-black pt-1.5"><span>Total</span><span id="cart-total" class="text-green-700">Rp 0</span></div></div><button id="btn-checkout" class="w-full bg-green-700 text-white font-black py-3 rounded-xl text-sm">Bayar Sekarang</button></div></div>
@@ -393,19 +289,6 @@ Sampai jumpa lagi!</textarea>
 <div id="view-pelanggan" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-address-book mr-2" style="color:#1e3a5f"></i>Pelanggan</h2><button onclick="showFiturInfo('pelanggan')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info pelanggan"><i class="fas fa-question text-[12px]"></i></button><span id="pelanggan-count" class="ml-auto text-[11px] bg-blue-100 text-blue-900 px-2.5 py-1 rounded-full font-black">0 pelanggan</span></div><div class="search-wrapper mb-2"><i class="fas fa-search"></i><input id="search-pelanggan" placeholder="Cari nama/nomor..." class="w-full p-3 border rounded-xl text-sm"></div><button id="btn-toggle-form-pelanggan" class="w-full bg-blue-900 text-white font-black py-3 rounded-xl mb-3 text-sm">+ Tambah Pelanggan</button><div id="form-pelanggan-container" class="border p-3 rounded-xl mb-3 bg-white" style="display:none"><input id="pelanggan-nama" placeholder="Nama pelanggan (mis: Budi)" class="w-full p-2.5 border rounded-xl text-sm mb-2 font-bold"><div class="bg-gray-50 border border-dashed rounded-xl p-2.5 mb-2"><div class="flex justify-between items-center mb-2"><label class="text-[10px] font-black uppercase opacity-70"><i class="fas fa-list-ol mr-1"></i> Daftar Nomor (bisa banyak)</label><button id="btn-add-nomor-row" type="button" class="text-[10px] bg-white border px-2.5 py-1 rounded-full font-black hover:bg-green-50"><i class="fas fa-plus mr-1"></i> Tambah Nomor</button></div><div id="pelanggan-nomor-rows" class="space-y-1.5"></div><p class="text-[9px] opacity-50 mt-1.5 leading-tight">* 1 pelanggan bisa punya banyak nomor. Contoh: HP 1, HP 2, ID Game, No kWh.</p></div><input id="pelanggan-catatan" placeholder="Catatan (opsional)" class="w-full p-2.5 border rounded-xl text-sm mb-2"><button id="btn-tambah-pelanggan" class="w-full bg-green-700 text-white font-black py-2.5 rounded-xl text-sm">Simpan Pelanggan</button></div><div id="pelanggan-list"></div></div>
 
 <div id="view-profil" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-store mr-2" style="color:#1e3a5f"></i>Profil</h2><button onclick="showFiturInfo('profil')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info profil"><i class="fas fa-question text-[12px]"></i></button></div><div class="border p-3 rounded-xl mb-3 bg-white"><input id="set-alamat" placeholder="Alamat Warung" class="w-full p-2.5 border rounded-xl mb-2 text-sm"><input id="set-qris" placeholder="QRIS / Link" class="w-full p-2.5 border rounded-xl mb-2 text-sm"><button id="btn-simpan-profil" class="w-full bg-green-700 text-white font-black py-2.5 rounded-xl text-sm">Simpan</button></div><div class="bg-white p-4 border rounded-xl"><div id="tampil-alamat" class="font-medium text-sm">Belum diisi</div><div id="qris-container" class="mt-3 text-center p-3 border rounded-xl bg-gray-50 text-[11px]">Belum ada QRIS</div></div></div>
-
-<!-- FOOTER BRANDING ASKOLANI -->
-<div class="app-brand">
-  <div class="brand-line">
-    <span class="brand-mark">A</span>
-    <span class="brand-name">Askolani</span>
-  </div>
-  <div class="brand-tag">Developer & Maintainer</div>
-  <div class="brand-version">WarungKu v13.1 · © 2025</div>
-</div>
-
-</div>
-<div id="print-iframe-container" style="display:none"></div>
 </div>
 <div id="print-iframe-container" style="display:none"></div>
 
