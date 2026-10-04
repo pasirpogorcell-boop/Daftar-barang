@@ -156,6 +156,8 @@ body.dark .menu-item:hover .info-uniform-icon{background:#0f6e4a!important;color
 .produk-exp{display:flex;align-items:center;gap:5px;color:#b45309}
 .produk-exp i{font-size:9px}
 .produk-exp.kosong{visibility:hidden}
+/* QRIS: matikan semua interaksi langsung, hanya tombol Download yang aktif */
+#qris-container img{pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none;user-drag:none;pointer-events:none}
 body.dark .produk-card{background:#1a1a2e!important;border-color:#2a2a44!important}
 body.dark .produk-card:hover{border-color:#0f6e4a!important}
 body.dark .produk-card-title{color:#e8edf5}
@@ -200,8 +202,7 @@ body.dark .produk-exp{color:#f6ad55}
 .edit-produk-btn.simpan{flex:2;background:#0f6e4a;color:white;box-shadow:0 4px 12px rgba(15,110,74,.24)}
 .edit-produk-btn.simpan:hover{background:#0a5a3c}
 .edit-produk-close{width:32px;height:32px;border-radius:50%;background:#f1f5f9;border:none;color:#64748b;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
-.edit-produk-close:hover{background:#e2e8f0;color:#
-
+.edit-produk-close:hover{background:#e2e8f0;color:#334155}
 body.dark {background: #0f0f1a !important;color: #e8edf5 !important;}
 body.dark .bg-white,body.dark .card-summary,body.dark .menu-item,body.dark .product-item,body.dark .form-card,body.dark .border,body.dark .bg-gray-50,body.dark .bg-gray-100,body.dark .pelanggan-card,body.dark .search-wrapper input,body.dark #stok-list,body.dark #kasbon-list,body.dark #supplier-list,body.dark #hutang-list,body.dark #transaksi-list,body.dark #promo-list,body.dark #pelanggan-list,body.dark #kadaluarsa-list,body.dark .struk-preview-wrapper {background: #1a1a2e !important;border-color: #2a2a44 !important;color: #e8edf5 !important;}
 body.dark input,body.dark select,body.dark textarea,body.dark .form-card input,body.dark .form-card select {background: #252540 !important;border-color: #3a3a5a !important;color: #e8edf5 !important;}
@@ -1652,7 +1653,16 @@ function updateSummary(){
   const elHeader=document.getElementById('warung-nama-header'); if(elHeader) elHeader.textContent=appSettings.namaToko||'Warung Saya';
   const elJamDisplay=document.getElementById('jam-buka-display'); if(elJamDisplay) elJamDisplay.textContent=appSettings.jamBuka||'Atur jam buka di pengaturan';
   const elTampilAlamat=document.getElementById('tampil-alamat'); if(elTampilAlamat) elTampilAlamat.textContent=profil.alamat||'Belum diisi - atur di Profil';
-  const qrisC=document.getElementById('qris-container'); if(qrisC){const qrisT=profil.qris||'';if(qrisT.trim()!==''){qrisC.innerHTML='<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(qrisT)+'" class="mx-auto" style="max-width:140px"><p class="text-[11px] mt-2">'+qrisT+'</p>';}else{qrisC.innerHTML='<p class="text-[11px]">Belum ada QRIS - isi di pengaturan profil</p>';}}
+  const qrisC=document.getElementById('qris-container');
+if(qrisC){
+  const qrisT=profil.qris||'';
+  if(qrisT.trim()!==''){
+    qrisC.innerHTML='<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data='+encodeURIComponent(qrisT)+'" alt="QRIS Warung" draggable="false" oncontextmenu="return false" onmousedown="return false" class="mx-auto" style="max-width:180px;border-radius:8px;pointer-events:none;user-select:none;-webkit-user-drag:none;-webkit-touch-callout:none"><p class="text-[11px] mt-2 break-all opacity-70 select-none">'+qrisT+'</p>'
+  +'<button onclick="downloadQRIS()" class="mt-3 w-full bg-green-700 hover:bg-green-800 text-white font-black py-2.5 rounded-xl text-[12px] transition"><i class="fas fa-download mr-1"></i> Download QRIS</button>';
+  } else {
+    qrisC.innerHTML='<p class="text-[11px] opacity-60">Belum ada QRIS — isi di form di atas</p>';
+  }
+}
   const hariIni=new Date().toISOString().slice(0,10);
   const penjualanHariIni=transaksi.filter(t=>t.tgl===hariIni&&t.jenis==='pemasukan').reduce((s,t)=>s+t.total,0);
   const elLblPenjualan=document.getElementById('lbl-penjualan'); if(elLblPenjualan) elLblPenjualan.textContent=rupiah(penjualanHariIni);
@@ -1819,9 +1829,6 @@ if (id === 'view-settings-target') {
     const elTargetDurasi = document.getElementById('app-target-durasi'); if(elTargetDurasi) elTargetDurasi.value = target.durasi || 1;
     const elTargetUnit = document.getElementById('app-target-unit'); if(elTargetUnit) elTargetUnit.value = target.unit || 'hari';
     const elTargetMulai = document.getElementById('app-target-tanggal-mulai'); if(elTargetMulai) elTargetMulai.value = target.tanggalMulai || new Date().toISOString().slice(0,10);
-}
-if (id === 'view-settings-notif') {
-    updateNotifUI();
 }
 if (id === 'view-settings-notif') {
     updateNotifUI();
@@ -2665,11 +2672,6 @@ window.pilihWANomor=function(waNum){
   document.body.style.overflow='';
   if(!waNum){ showToast('Nomor tidak valid'); return; }
   window.open('https://wa.me/'+waNum,'_blank');
-};
-window.closeWAPilihModal=function(){
-  const modal=document.getElementById('wa-pilih-modal');
-  if(modal) modal.style.display='none';
-  document.body.style.overflow='';
 };
 window.closeWAPilihModal=function(){
   const modal=document.getElementById('wa-pilih-modal');
@@ -4334,6 +4336,32 @@ for(const id in cart){
 const promoObj=promo.find(x=>x.id==kasirPromoId);
 const hasil=hitungDiskonItems(itemsKasirCheckout, promoObj);
 const totalBayar=subtotal-hasil.diskon;const ok=await showModal('Konfirmasi','Subtotal: '+rupiah(subtotal)+'\n'+(hasil.diskon>0?'Diskon '+hasil.label+': -'+rupiah(hasil.diskon)+'\n':'')+'Total: '+rupiah(totalBayar)+'\nLanjutkan?','Bayar','Batal');if(!ok)return;for(const id in cart){const p=produk.find(x=>x.id==id);if(p)p.stok=Math.max(0,p.stok-cart[id]);}const totalLaba=items.reduce((s,i)=>s+i.laba,0)-hasil.diskon;transaksi.push({id:generateId(transaksi),jenis:'pemasukan',deskripsi:'Penjualan '+totalItem+' item'+(hasil.label?' ('+hasil.label+')':''),total:totalBayar,subtotal,diskon:hasil.diskon,promoLabel:hasil.label,promoId:kasirPromoId,laba_total:totalLaba>0?totalLaba:0,items,tgl:new Date().toISOString().slice(0,10)});setData(KEYS.transaksi,transaksi);setData(KEYS.produk,produk);cart={};kasirPromoId=null;const mOk=await showModal('Berhasil','Transaksi '+rupiah(totalBayar)+' berhasil'+(hasil.diskon>0?' (Diskon '+rupiah(hasil.diskon)+')':'')+'. Cetak struk?','Ya, Cetak','Tutup');if(mOk){window.strukItemsAktif=items.map(i=>({name:i.nama,qty:i.qty,price:i.harga_jual}));strukPromoId=promoObj?promoObj.id:null;saveStrukData();renderStrukAktifList();refreshPromoSelects();if(strukPromoId)document.getElementById('struk-promo-select').value=strukPromoId;updateStrukPreview();applyStrukSize(strukSize);showView('view-struk');}renderKasir();renderStok();renderTransaksi();updateSummary();cekNotifStok();const selKasir=document.getElementById('kasir-promo-select'); if(selKasir) selKasir.value='';});
+window.downloadQRIS = async function(){
+  const qrisT = (profil.qris || '').trim();
+  if(!qrisT){ showToast('QRIS belum diisi'); return; }
+
+  // Request resolusi tinggi (800px) untuk kualitas download
+  const url = 'https://api.qrserver.com/v1/create-qr-code/?size=800x800&data=' + encodeURIComponent(qrisT);
+  try {
+    const res = await fetch(url, { mode: 'cors' });
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const blob = await res.blob();
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'qris-warungku-' + new Date().toISOString().slice(0,10) + '.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(function(){ URL.revokeObjectURL(link.href); }, 1000);
+    showToast('✅ QRIS berhasil di-download');
+  } catch(e){
+    console.warn('Download QRIS gagal:', e);
+    // Fallback: buka tab baru biar user bisa save manual
+    window.open(url, '_blank');
+    showToast('QR dibuka di tab baru — silakan save manual');
+  }
+};
+
 document.getElementById('btn-simpan-profil')?.addEventListener('click',()=>{
   const alamat = document.getElementById('set-alamat').value.trim();
   const telp = document.getElementById('set-telp').value.trim();
