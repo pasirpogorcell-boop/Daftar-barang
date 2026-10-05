@@ -149,7 +149,45 @@ body.dark .menu-item:hover .info-uniform-icon{background:#0f6e4a!important;color
 .produk-dot-status.hijau{background:#0f6e4a}
 .produk-dot-status.kuning{background:#eab308}
 .produk-dot-status.merah{background:#dc2626}
-.produk-card-footer{padding:10px 14px;background:#f8fafc;border-top:1px solid #eef2f6;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800;color:#64748b;gap:8px;flex-wrap:wrap}
+.produk-card-footer{padding:9px 14px;background:#f8fafc;border-top:1px solid #eef2f6;font-size:11px;font-weight:800;color:#64748b}
+.produk-card-footer .row1{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:3px}
+.produk-card-footer .row2{font-size:10.5px;color:#94a3b8;font-weight:800;display:flex;align-items:center;gap:5px}
+.produk-card-footer .row2 i{font-size:9px}
+body.dark .produk-card-footer .row2{color:#6a7a90}
+/* Summary Stok */
+.stok-summary{background:linear-gradient(135deg,#1e3a5f,#152a45);border-radius:14px;padding:14px;margin-bottom:10px;color:white;box-shadow:0 4px 12px rgba(30,58,95,.15)}
+.stok-summary-title{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.6px;opacity:.7;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.stok-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.stok-summary-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px 10px}
+.stok-summary-label{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;opacity:.6;margin-bottom:4px}
+.stok-summary-value{font-size:14px;font-weight:900;letter-spacing:-.3px}
+.stok-summary-asset{background:linear-gradient(135deg,rgba(15,110,74,.4),rgba(15,110,74,.2));border:1px solid rgba(104,211,145,.3);border-radius:10px;padding:10px 12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.stok-summary-asset .lbl{font-size:9.5px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;opacity:.8;display:flex;align-items:center;gap:5px}
+.stok-summary-asset .val{font-size:16px;font-weight:900;letter-spacing:-.4px;color:#68d391}
+.stok-summary-warn{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;font-weight:800}
+.stok-summary-warn span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);padding:4px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px}
+.stok-summary-warn span.danger{background:rgba(220,38,38,.25);border-color:rgba(220,38,38,.4)}
+.stok-summary-warn span.warn{background:rgba(234,179,8,.2);border-color:rgba(234,179,8,.35)}
+.stok-summary-warn span.info{background:rgba(59,130,246,.2);border-color:rgba(59,130,246,.35)}
+body.dark .stok-summary{background:linear-gradient(135deg,#252540,#1a1a2e);box-shadow:0 4px 12px rgba(0,0,0,.4)}
+/* Sort & Filter Bar */
+.stok-toolbar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stok-filter{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;flex:1;min-width:0;scrollbar-width:none}
+.stok-filter::-webkit-scrollbar{display:none}
+.stok-filter-btn{background:white;border:1px solid #e5e7eb;color:#475569;font-size:11px;font-weight:800;padding:7px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:.15s;flex-shrink:0}
+.stok-filter-btn:hover{background:#f8fafc}
+.stok-filter-btn.active{background:#0f6e4a;color:white;border-color:#0f6e4a}
+.stok-filter-btn .badge{background:rgba(0,0,0,.08);padding:1px 6px;border-radius:10px;font-size:9.5px;margin-left:4px;font-weight:900}
+.stok-filter-btn.active .badge{background:rgba(255,255,255,.2)}
+.stok-sort{background:white;border:1px solid #e5e7eb;color:#0f172a;font-size:11px;font-weight:800;padding:7px 10px;border-radius:10px;cursor:pointer;flex-shrink:0}
+body.dark .stok-filter-btn{background:#252540;border-color:#3a3a5a;color:#9aa8c0}
+body.dark .stok-filter-btn:hover{background:#3a3a5a}
+body.dark .stok-filter-btn.active{background:#0f6e4a;color:white;border-color:#0f6e4a}
+body.dark .stok-sort{background:#252540;border-color:#3a3a5a;color:#e8edf5}
+/* Compact card actions */
+.produk-card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px;background:#f8fafc;border-top:1px solid #eef2f6}
+.produk-card-actions .produk-btn-tambah{margin-top:0}
+body.dark .produk-card-actions{background:#252540;border-top-color:#2a2a44}
 .produk-laba{display:flex;align-items:center;gap:5px;color:#0f6e4a}
 .produk-laba i{font-size:9px}
 .produk-laba b{font-weight:900;color:#0f6e4a}
@@ -175,6 +213,66 @@ body.dark .produk-card-footer{background:#252540;border-top-color:#2a2a44;color:
 body.dark .produk-laba{color:#68d391}
 body.dark .produk-laba b{color:#68d391}
 body.dark .produk-exp{color:#f6ad55}
+/* MODAL RATA-RATA (v13.5) */
+.produk-btn-tambah{width:100%;background:#f0fdf4;color:#0f6e4a;border:1px solid #bbf7d0;border-radius:10px;padding:9px;font-size:11.5px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s;margin-top:10px}
+.produk-btn-tambah:hover{background:#0f6e4a;color:white;border-color:#0f6e4a}
+body.dark .produk-btn-tambah{background:#1a2a1f;color:#68d391;border-color:#2a4a35}
+body.dark .produk-btn-tambah:hover{background:#0f6e4a;color:white;border-color:#0f6e4a}
+.produk-modal-info{margin-top:8px;padding-top:8px;border-top:1px dashed #eef2f6;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#0f6e4a}
+.produk-modal-info i{font-size:9px}
+body.dark .produk-modal-info{border-top-color:#2a2a44;color:#68d391}
+/* Modal Tambah Stok */
+.tambah-stok-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);display:flex;align-items:center;justify-content:center;z-index:1007;padding:16px}
+.tambah-stok-modal{background:white;border-radius:18px;width:100%;max-width:420px;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:backupPop .25s cubic-bezier(.34,1.56,.64,1)}
+.tambah-stok-info{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px;margin-bottom:14px}
+.tambah-stok-info-name{font-size:12.5px;font-weight:900;color:#0f6e4a;letter-spacing:-.2px;word-break:break-word}
+.tambah-stok-info-stats{font-size:10.5px;color:#475569;margin-top:3px;font-weight:700}
+.tambah-stok-info-stats b{color:#0f172a;font-weight:900}
+/* Koreksi Stok Modal */
+.koreksi-stok-info{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;margin-bottom:14px}
+.koreksi-stok-info-name{font-size:12.5px;font-weight:900;color:#b45309;letter-spacing:-.2px;word-break:break-word}
+.koreksi-stok-info-stats{font-size:10.5px;color:#78350f;margin-top:3px;font-weight:700}
+.koreksi-stok-info-stats b{color:#451a03;font-weight:900}
+.koreksi-stok-warning{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:11px;line-height:1.5;color:#991b1b;font-weight:700}
+.koreksi-stok-warning i{color:#dc2626;margin-right:4px}
+body.dark .koreksi-stok-info{background:#3a2a1a;border-color:#5a3a2a}
+body.dark .koreksi-stok-info-name{color:#f6ad55}
+body.dark .koreksi-stok-info-stats{color:#fbbf24}
+body.dark .koreksi-stok-info-stats b{color:#fed7aa}
+body.dark .koreksi-stok-warning{background:#3a1a1a;border-color:#5a2a2a;color:#fc8181}
+.tambah-stok-preview{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:12px;margin-bottom:14px}
+.tambah-stok-preview-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;color:#475569}
+.tambah-stok-preview-row b{font-weight:900;color:#0f172a}
+.tambah-stok-preview-row b.green{color:#0f6e4a}
+.tambah-stok-preview-row.separator{border-top:1px solid #e2e8f0;padding-top:8px;margin-top:4px}
+body.dark .tambah-stok-modal{background:#1a1a2e;border:1px solid #2a2a44}
+body.dark .tambah-stok-info{background:#1a2a1f;border-color:#2a4a35}
+body.dark .tambah-stok-info-name{color:#68d391}
+body.dark .tambah-stok-info-stats{color:#9aa8c0}
+body.dark .tambah-stok-info-stats b{color:#e8edf5}
+body.dark .tambah-stok-preview{background:#252540;border-color:#3a3a5a}
+body.dark .tambah-stok-preview-row{color:#9aa8c0}
+body.dark .tambah-stok-preview-row b{color:#e8edf5}
+body.dark .tambah-stok-preview-row b.green{color:#68d391}
+/* Riwayat Beli di Modal Edit */
+.riwayat-beli-section{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:12px;margin-bottom:14px}
+.riwayat-beli-title{font-size:10px;font-weight:900;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.riwayat-beli-title i{color:#0f6e4a}
+.riwayat-beli-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #eef2f6}
+.riwayat-beli-item:last-child{border-bottom:none}
+.riwayat-beli-item-left{flex:1;min-width:0}
+.riwayat-beli-item-date{font-size:10.5px;font-weight:800;color:#0f172a}
+.riwayat-beli-item-detail{font-size:10px;color:#64748b;margin-top:1px}
+.riwayat-beli-item-total{font-size:12px;font-weight:900;color:#0f6e4a;flex-shrink:0}
+.riwayat-beli-more{text-align:center;font-size:9.5px;color:#94a3b8;padding:6px 0 0;font-weight:800}
+body.dark .riwayat-beli-section{background:#252540;border-color:#3a3a5a}
+body.dark .riwayat-beli-title{color:#9aa8c0}
+body.dark .riwayat-beli-title i{color:#68d391}
+body.dark .riwayat-beli-item{border-bottom-color:#2a2a44}
+body.dark .riwayat-beli-item-date{color:#e8edf5}
+body.dark .riwayat-beli-item-detail{color:#9aa8c0}
+body.dark .riwayat-beli-item-total{color:#68d391}
+body.dark .riwayat-beli-more{color:#6a7a90}
 /* Modal Edit Produk */
 .edit-produk-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);display:flex;align-items:center;justify-content:center;z-index:1006;padding:16px}
 .edit-produk-modal{background:white;border-radius:18px;width:100%;max-width:420px;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:backupPop .25s cubic-bezier(.34,1.56,.64,1)}
@@ -507,7 +605,54 @@ body.dark .backup-modal-footer{background:#252540;border-top-color:#3a3a5a;color
 
 <div id="view-kasir" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-cash-register mr-2" style="color:#0f6e4a"></i>Kasir</h2>
 <button onclick="showFiturInfo('kasir')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info kasir"><i class="fas fa-question text-[12px]"></i></button><button id="btn-kasir-fullscreen" class="ml-auto w-8 h-8 rounded-full border bg-white flex items-center justify-center"><i class="fas fa-expand text-[11px]"></i></button></div><div class="search-wrapper mb-2"><i class="fas fa-search"></i><input id="search-produk" placeholder="Cari produk..." class="w-full p-3 border rounded-xl text-sm"></div><div id="product-list"></div><div class="sticky-footer mt-3"><div class="bg-white border border-dashed rounded-xl p-2.5 mb-2" style="border-color:#0f6e4a"><label class="text-[10px] font-black uppercase">Promo</label><select id="kasir-promo-select" class="w-full p-2.5 border-2 border-black rounded-xl text-[12px] font-black mt-1"><option value="">-- Tanpa Promo --</option></select><div id="kasir-promo-info" class="text-[10px] mt-1 font-bold hidden"></div></div><div class="space-y-1 text-[12px] mb-2"><div class="flex justify-between"><span>Subtotal</span><span id="kasir-subtotal">Rp 0</span></div><div class="flex justify-between text-red-600 font-bold"><span>Diskon</span><span id="kasir-diskon">-Rp 0</span></div><div class="flex justify-between font-black text-[14px] border-t-2 border-black pt-1.5"><span>Total</span><span id="cart-total" class="text-green-700">Rp 0</span></div></div><button id="btn-checkout" class="w-full bg-green-700 text-white font-black py-3 rounded-xl text-sm">Bayar Sekarang</button></div></div>
-<div id="view-stok" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-boxes mr-2" style="color:#1e3a5f"></i>Stok</h2><button onclick="showFiturInfo('stok')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info stok"><i class="fas fa-question text-[12px]"></i></button><span id="badge-stok2" class="ml-auto text-[11px] bg-white border px-2.5 py-1 rounded-full font-bold">0 menipis</span></div><div class="search-wrapper mb-2"><i class="fas fa-search"></i><input id="search-stok" placeholder="Cari..." class="w-full p-3 border rounded-xl text-sm"></div><button id="btn-toggle-form-produk" class="w-full bg-blue-900 text-white font-black py-3 rounded-xl mb-3 text-sm">+ Tambah Produk</button><div id="form-produk-container" class="border p-3 rounded-xl mb-3 bg-white" style="display:none"><div class="grid grid-cols-2 gap-2"><input id="input-nama" placeholder="Nama Produk" class="p-2.5 border rounded-xl text-sm"><input id="input-harga" type="number" placeholder="Harga Jual" class="p-2.5 border rounded-xl text-sm"><input id="input-harga-beli" type="number" placeholder="Harga Beli" class="p-2.5 border rounded-xl text-sm"><input id="input-stok" type="number" placeholder="Stok" class="p-2.5 border rounded-xl text-sm"><input id="input-expired" type="date" class="p-2.5 border rounded-xl text-sm col-span-2"></div><button id="btn-tambah-produk" class="w-full bg-green-700 text-white font-black py-2.5 rounded-xl mt-2 text-sm">Simpan</button></div><div id="stok-list" class="bg-white p-2.5 border rounded-xl"></div></div>
+<div id="view-stok" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-boxes mr-2" style="color:#1e3a5f"></i>Stok</h2><button onclick="showFiturInfo('stok')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info stok"><i class="fas fa-question text-[12px]"></i></button><span id="badge-stok2" class="ml-auto text-[11px] bg-white border px-2.5 py-1 rounded-full font-bold">0 menipis</span></div><div class="stok-summary" id="stok-summary" style="display:none">
+  <div class="stok-summary-title"><i class="fas fa-boxes"></i> Ringkasan Stok</div>
+  <div class="stok-summary-grid">
+    <div class="stok-summary-item">
+      <div class="stok-summary-label"><i class="fas fa-cube"></i> Produk</div>
+      <div class="stok-summary-value" id="stok-sum-jenis">0 jenis</div>
+    </div>
+    <div class="stok-summary-item">
+      <div class="stok-summary-label"><i class="fas fa-cubes"></i> Total Item</div>
+      <div class="stok-summary-value" id="stok-sum-pcs">0 pcs</div>
+    </div>
+  </div>
+  <div class="stok-summary-asset">
+    <span class="lbl"><i class="fas fa-coins"></i> Nilai Aset</span>
+    <span class="val" id="stok-sum-aset">Rp 0</span>
+  </div>
+  <div class="stok-summary-warn" id="stok-sum-warn"></div>
+</div>
+<div class="search-wrapper mb-2"><i class="fas fa-search"></i><input id="search-stok" placeholder="Cari produk..." class="w-full p-3 border rounded-xl text-sm"></div>
+<div class="stok-toolbar">
+  <div class="stok-filter" id="stok-filter-container">
+    <button class="stok-filter-btn active" data-filter="semua">Semua <span class="badge" id="stok-badge-semua">0</span></button>
+    <button class="stok-filter-btn" data-filter="menipis">Menipis <span class="badge" id="stok-badge-menipis">0</span></button>
+    <button class="stok-filter-btn" data-filter="habis">Habis <span class="badge" id="stok-badge-habis">0</span></button>
+    <button class="stok-filter-btn" data-filter="expired">Akan Expired <span class="badge" id="stok-badge-expired">0</span></button>
+  </div>
+  <select class="stok-sort" id="stok-sort">
+    <option value="nama">Nama A-Z</option>
+    <option value="stok-asc">Stok Terkecil</option>
+    <option value="stok-desc">Stok Terbesar</option>
+    <option value="harga-desc">Harga Tertinggi</option>
+    <option value="harga-asc">Harga Terendah</option>
+  </select>
+</div>
+<button id="btn-toggle-form-produk" class="w-full bg-blue-900 text-white font-black py-3 rounded-xl mb-3 text-sm">+ Tambah Produk</button><div id="form-produk-container" class="border p-3 rounded-xl mb-3 bg-white" style="display:none">
+  <div class="grid grid-cols-2 gap-2">
+    <input id="input-nama" placeholder="Nama Produk" class="p-2.5 border rounded-xl text-sm col-span-2">
+    <input id="input-harga" type="number" placeholder="Harga Jual /pcs" class="p-2.5 border rounded-xl text-sm">
+    <input id="input-expired" type="date" class="p-2.5 border rounded-xl text-sm">
+    <input id="input-stok" type="number" placeholder="Stok Awal (pcs)" class="p-2.5 border rounded-xl text-sm" oninput="updatePreviewProdukBaru()">
+    <input id="input-total-belanja" type="number" placeholder="Total Belanja (Rp)" class="p-2.5 border rounded-xl text-sm" oninput="updatePreviewProdukBaru()">
+  </div>
+  <div id="preview-produk-baru" class="bg-blue-50 border border-blue-200 rounded-lg p-2.5 mt-2 text-[11px] leading-relaxed" style="display:none">
+    <div class="flex justify-between"><span>Modal per pcs</span><span class="font-black" id="preview-pb-perpcs">Rp 0</span></div>
+    <div class="flex justify-between mt-1 pt-1 border-t border-blue-200"><span>Laba per pcs</span><span class="font-black text-green-700" id="preview-pb-laba">Rp 0</span></div>
+  </div>
+  <button id="btn-tambah-produk" class="w-full bg-green-700 text-white font-black py-2.5 rounded-xl mt-2 text-sm">Simpan</button>
+</div><div id="stok-list" class="bg-white p-2.5 border rounded-xl"></div></div>
 <div id="view-struk" class="view-container"><div class="flex gap-2 mb-4"><button class="back-btn" data-back="view-dashboard"><i class="fas fa-arrow-left"></i></button><h2 class="text-lg font-black"><i class="fas fa-receipt mr-2" style="color:#0f6e4a"></i>Struk Compact</h2><button onclick="showFiturInfo('struk')" class="ml-2 w-7 h-7 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0" title="Info struk"><i class="fas fa-question text-[12px]"></i></button><span class="ml-auto text-[11px] bg-green-100 px-2.5 py-1 rounded-full font-bold" id="struk-count">0 transaksi</span></div><div class="mb-2 flex gap-2 items-center text-[11px]"><input type="file" id="struk-logo-input" accept="image/*" class="hidden"><button id="btn-upload-logo" class="bg-blue-900 text-white px-2.5 py-1.5 rounded-xl text-[11px] font-black">Pilih Logo</button><button id="btn-hapus-logo" class="bg-red-100 text-red-600 px-2.5 py-1.5 rounded-xl text-[11px] font-black hidden">Hapus Logo</button><span id="logo-status" class="opacity-60">Belum ada logo</span></div><div class="bg-white rounded-xl p-3 border mb-3"><div class="grid grid-cols-2 gap-2 mb-2"><input id="struk-store-name" value="" placeholder="Nama Toko" class="p-2.5 border-2 border-black rounded-xl font-black text-[12px]"><input id="struk-store-info" value="" placeholder="Alamat / Info Toko" class="p-2.5 border-2 border-black rounded-xl text-[11px]"></div><div class="bg-gray-50 border border-dashed rounded-xl p-2.5 mb-2" style="border-color:#0f6e4a"><label class="text-[10px] font-black uppercase" style="color:#0f6e4a">Multi-Item</label><div class="grid grid-cols-12 gap-1.5 mt-1.5"><div class="col-span-5"><input id="struk-item-name" placeholder="Nama barang" class="w-full p-2.5 border rounded-xl text-[12px]"></div><div class="col-span-2"><input id="struk-qty" type="number" value="1" min="1" class="w-full p-2.5 border rounded-xl text-[12px] text-center font-black"></div><div class="col-span-5"><input id="struk-price" type="number" placeholder="Harga" class="w-full p-2.5 border rounded-xl text-[12px]"></div></div><button id="btn-tambah-ke-struk" class="w-full mt-1.5 bg-green-700 text-white font-black py-2.5 rounded-xl text-[12px]">+ Tambah ke Struk</button><div id="struk-item-list-aktif" class="mt-2 space-y-1.5"></div></div><div class="bg-yellow-50 border border-dashed border-yellow-600 rounded-xl p-2.5 mb-2"><label class="text-[10px] font-black uppercase">Promo Struk</label><select id="struk-promo-select" class="w-full p-2.5 border-2 border-black rounded-xl text-[12px] font-black mt-1"><option value="">-- Tanpa Promo --</option></select></div>
 <div class="grid grid-cols-2 gap-2">
   <div>
@@ -826,6 +971,74 @@ Sampai jumpa lagi!</textarea>
 
 <div id="custom-modal" class="modal-overlay" style="display:none"><div class="modal-box"><div class="font-black text-[14px] mb-2" id="modal-title">Konfirmasi</div><div class="text-[12px] mb-3" id="modal-body"></div><div class="flex justify-end gap-2"><button id="modal-cancel" class="px-4 py-2 bg-gray-100 rounded-xl font-bold text-[12px]">Batal</button><button id="modal-confirm" class="px-4 py-2 bg-green-700 text-white rounded-xl font-bold text-[12px]">Ya</button></div></div></div>
 
+<!-- Modal Koreksi Stok -->
+<div id="koreksi-stok-overlay" class="tambah-stok-overlay" style="display:none;">
+  <div class="tambah-stok-modal" onclick="event.stopPropagation()">
+    <div class="edit-produk-header">
+      <div class="edit-produk-title"><i class="fas fa-tools" style="color:#b45309"></i> Koreksi Stok</div>
+      <button class="edit-produk-close" onclick="closeKoreksiStok()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="edit-produk-body">
+      <div class="koreksi-stok-info">
+        <div class="koreksi-stok-info-name" id="koreksi-stok-nama-produk">-</div>
+        <div class="koreksi-stok-info-stats" id="koreksi-stok-info-sekarang">Stok tercatat: <b>0</b> pcs</div>
+      </div>
+      <div class="koreksi-stok-warning">
+        <i class="fas fa-exclamation-triangle"></i> Koreksi stok untuk <b>koreksi fisik</b> (barang rusak, hilang, salah hitung). Harga modal rata-rata <b>tidak berubah</b>.
+      </div>
+      <div class="edit-produk-field">
+        <label class="edit-produk-label">Stok Fisik Sekarang</label>
+        <input id="koreksi-stok-fisik" type="number" class="edit-produk-input" placeholder="Contoh: 5" min="0" oninput="updateKoreksiStokPreview()">
+      </div>
+      <div class="tambah-stok-preview" id="koreksi-stok-preview" style="display:none">
+        <div class="tambah-stok-preview-row"><span>Selisih</span><b id="koreksi-stok-selisih">0</b></div>
+        <div class="tambah-stok-preview-row"><span>Stok setelah koreksi</span><b class="green" id="koreksi-stok-hasil">0 pcs</b></div>
+      </div>
+      <div class="edit-produk-field">
+        <label class="edit-produk-label">Alasan (opsional)</label>
+        <input id="koreksi-stok-alasan" type="text" class="edit-produk-input" placeholder="Contoh: Barang rusak">
+      </div>
+    </div>
+    <div class="edit-produk-footer">
+      <button class="edit-produk-btn batal" onclick="closeKoreksiStok()">Batal</button>
+      <button class="edit-produk-btn simpan" onclick="simpanKoreksiStok()" style="background:#b45309;box-shadow:0 4px 12px rgba(180,83,9,.24)"><i class="fas fa-check"></i> Koreksi</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Tambah Stok (Moving Average Cost) -->
+<div id="tambah-stok-overlay" class="tambah-stok-overlay" style="display:none;">
+  <div class="tambah-stok-modal" onclick="event.stopPropagation()">
+    <div class="edit-produk-header">
+      <div class="edit-produk-title"><i class="fas fa-plus-circle"></i> Tambah Stok</div>
+      <button class="edit-produk-close" onclick="closeTambahStok()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="edit-produk-body">
+      <div class="tambah-stok-info">
+        <div class="tambah-stok-info-name" id="tambah-stok-nama-produk">-</div>
+        <div class="tambah-stok-info-stats" id="tambah-stok-info-sekarang">Stok: <b>0</b> pcs • Modal: <b>Rp 0</b>/pcs</div>
+      </div>
+      <div class="edit-produk-field">
+        <label class="edit-produk-label">Jumlah Pcs Masuk</label>
+        <input id="tambah-stok-qty" type="number" class="edit-produk-input" placeholder="Contoh: 12" min="1" oninput="updateTambahStokPreview()">
+      </div>
+      <div class="edit-produk-field">
+        <label class="edit-produk-label">Total Harga Belanja (Rp)</label>
+        <input id="tambah-stok-total" type="number" class="edit-produk-input" placeholder="Contoh: 24000" min="0" oninput="updateTambahStokPreview()">
+      </div>
+      <div class="tambah-stok-preview" id="tambah-stok-preview" style="display:none">
+        <div class="tambah-stok-preview-row"><span>Modal per pcs (baru)</span><b class="green" id="tambah-stok-perpcs">Rp 0</b></div>
+        <div class="tambah-stok-preview-row separator"><span>Stok setelah ditambah</span><b id="tambah-stok-totalakhir">0 pcs</b></div>
+        <div class="tambah-stok-preview-row"><span>Modal rata-rata baru</span><b class="green" id="tambah-stok-rata2">Rp 0</b></div>
+      </div>
+    </div>
+    <div class="edit-produk-footer">
+      <button class="edit-produk-btn batal" onclick="closeTambahStok()">Batal</button>
+      <button class="edit-produk-btn simpan" onclick="simpanTambahStok()"><i class="fas fa-check"></i> Tambah Stok</button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal Edit Produk -->
 <div id="edit-produk-overlay" class="edit-produk-overlay" style="display:none;">
   <div class="edit-produk-modal" onclick="event.stopPropagation()">
@@ -842,26 +1055,36 @@ Sampai jumpa lagi!</textarea>
         <label class="edit-produk-label">Harga Jual (Rp)</label>
         <input id="edit-produk-harga" type="number" class="edit-produk-input" placeholder="3500" oninput="updateEditPreview()">
       </div>
-      <div class="edit-produk-field">
-        <label class="edit-produk-label">Harga Beli (Rp)</label>
-        <input id="edit-produk-harga-beli" type="number" class="edit-produk-input" placeholder="3000" oninput="updateEditPreview()">
-      </div>
-      <div class="edit-produk-field">
-        <label class="edit-produk-label">Stok</label>
-        <div class="edit-produk-stok-wrap">
-          <button type="button" class="edit-produk-stok-btn" onclick="editStokStep(-1)">−</button>
-          <input id="edit-produk-stok" type="number" class="edit-produk-input" placeholder="0" oninput="updateEditPreview()">
-          <button type="button" class="edit-produk-stok-btn" onclick="editStokStep(1)">+</button>
-        </div>
-      </div>
+<div class="edit-produk-field">
+  <label class="edit-produk-label">Harga Beli (Rp)</label>
+  <input id="edit-produk-harga-beli" type="number" class="edit-produk-input" placeholder="3000" oninput="updateEditPreview()">
+  <div id="edit-produk-harga-beli-hint" style="display:none;font-size:10px;color:#64748b;margin-top:6px;line-height:1.5;background:#f1f5f9;padding:8px 10px;border-radius:8px">
+    <i class="fas fa-lock" style="color:#94a3b8;margin-right:4px"></i> Harga beli dikunci karena sudah ada riwayat pembelian. Gunakan tombol <b>+ Tambah Stok</b> untuk memperbarui.
+  </div>
+</div>
+<div class="edit-produk-field">
+  <label class="edit-produk-label">Stok</label>
+  <div class="edit-produk-stok-wrap">
+    <button type="button" class="edit-produk-stok-btn" onclick="editStokStep(-1)">−</button>
+    <input id="edit-produk-stok" type="number" class="edit-produk-input" placeholder="0" oninput="updateEditPreview()">
+    <button type="button" class="edit-produk-stok-btn" onclick="editStokStep(1)">+</button>
+  </div>
+  <div id="edit-produk-stok-hint" style="display:none;font-size:10px;color:#64748b;margin-top:6px;line-height:1.5;background:#f1f5f9;padding:8px 10px;border-radius:8px">
+    <i class="fas fa-lock" style="color:#94a3b8;margin-right:4px"></i> Stok dikunci karena sudah ada riwayat pembelian. Gunakan tombol <b>+ Tambah Stok</b> atau <b>Koreksi Stok</b> untuk mengubah.
+  </div>
+</div>
       <div class="edit-produk-field">
         <label class="edit-produk-label">Tanggal Expired (opsional)</label>
         <input id="edit-produk-expired" type="date" class="edit-produk-input">
       </div>
-      <div class="edit-produk-preview">
-        <div class="edit-produk-preview-row"><span>Laba per pcs</span><b class="val-green" id="edit-produk-laba">Rp 0</b></div>
-        <div class="edit-produk-preview-row"><span>Nilai stok (Harga Beli × Stok)</span><b class="val-blue" id="edit-produk-nilai">Rp 0</b></div>
-      </div>
+<div class="edit-produk-preview">
+  <div class="edit-produk-preview-row"><span>Laba per pcs</span><b class="val-green" id="edit-produk-laba">Rp 0</b></div>
+  <div class="edit-produk-preview-row"><span>Nilai stok (Harga Beli × Stok)</span><b class="val-blue" id="edit-produk-nilai">Rp 0</b></div>
+</div>
+<div class="riwayat-beli-section" id="edit-produk-riwayat-section" style="display:none">
+  <div class="riwayat-beli-title"><i class="fas fa-history"></i> Riwayat Pembelian</div>
+  <div id="edit-produk-riwayat-list"></div>
+</div>
     </div>
     <div class="edit-produk-footer">
       <button class="edit-produk-btn batal" onclick="closeEditProduk()">Batal</button>
@@ -1010,6 +1233,9 @@ if(!localStorage.getItem(KEYS.target)){
 let produk=[],kasbon=[],transaksi=[],supplier=[],hutang=[],titipan=[],promo=[],pelanggan=[],profil={},appSettings={},target={},notifSettings={};
 let lastNotifStok='', lastNotifKadaluarsa='';
 let cart={},kasirPromoId=null,strukPromoId=null;let isEditMode=false,sortableInstance=null;let strukSize='58';window.strukItemsAktif=[];
+// State Stok: filter & sort
+let stokFilter='semua';
+let stokSort='nama';
 // Posisi scroll tiap view (untuk restore saat back)
 let scrollPositions={};
 try{const s=sessionStorage.getItem('warungku_scroll_positions');if(s)scrollPositions=JSON.parse(s)||{};}catch(e){}
@@ -1625,7 +1851,8 @@ function updateSummary(){
   const promoKasir=promo.find(p=>p.id==kasirPromoId);
   const hasil=hitungDiskonItems(itemsKasirSummary,promoKasir);
   const totalBayar=subtotalKasir-hasil.diskon;
-  const elPenjualan=document.getElementById('summary-penjualan'); if(elPenjualan) elPenjualan.textContent=rupiah(totalBayar>0?totalBayar:transaksi.filter(t=>t.jenis==='pemasukan'&&t.tgl===new Date().toISOString().slice(0,10)).reduce((s,t)=>s+t.total,0));
+  const penjualanHariIniSummary=transaksi.filter(t=>t.jenis==='pemasukan'&&t.tgl===new Date().toISOString().slice(0,10)).reduce((s,t)=>s+t.total,0);
+const elPenjualan=document.getElementById('summary-penjualan'); if(elPenjualan) elPenjualan.textContent=rupiah(penjualanHariIniSummary);
   const elKasbon=document.getElementById('summary-kasbon'); if(elKasbon) elKasbon.textContent=rupiah(kasbon.reduce((s,x)=>s+x.jumlah,0));
   const kasCount=document.getElementById('kasbon-count'); if(kasCount) kasCount.textContent=kasbon.length+' orang';
   const menipis=produk.filter(x=>x.stok<=3).length;
@@ -1907,15 +2134,93 @@ function updateKasirUI(){
   }
   updateSummary();
 }
+function renderStokSummary(){
+  const sumEl = document.getElementById('stok-summary');
+  if(!sumEl) return;
+  if(produk.length === 0){
+    sumEl.style.display = 'none';
+    return;
+  }
+  sumEl.style.display = 'block';
+
+  let totalPcs = 0, totalAset = 0;
+  let jmlHabis = 0, jmlMenipis = 0, jmlExpired = 0;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const batas30 = new Date(today); batas30.setDate(batas30.getDate()+30);
+
+  produk.forEach(p => {
+    const s = p.stok || 0;
+    totalPcs += s;
+    totalAset += (p.harga_beli || 0) * s;
+    if(s <= 0) jmlHabis++;
+    else if(s <= 3) jmlMenipis++;
+    if(p.expired && new Date(p.expired) <= batas30) jmlExpired++;
+  });
+
+  document.getElementById('stok-sum-jenis').textContent = produk.length + ' jenis';
+  document.getElementById('stok-sum-pcs').textContent = totalPcs.toLocaleString('id-ID') + ' pcs';
+  document.getElementById('stok-sum-aset').textContent = rupiah(totalAset);
+
+  // Badge counts
+  document.getElementById('stok-badge-semua').textContent = produk.length;
+  document.getElementById('stok-badge-menipis').textContent = jmlMenipis;
+  document.getElementById('stok-badge-habis').textContent = jmlHabis;
+  document.getElementById('stok-badge-expired').textContent = jmlExpired;
+
+  // Warning row
+  const warnEl = document.getElementById('stok-sum-warn');
+  let warnHtml = '';
+  if(jmlHabis > 0) warnHtml += '<span class="danger"><i class="fas fa-times-circle"></i> '+jmlHabis+' habis</span>';
+  if(jmlMenipis > 0) warnHtml += '<span class="warn"><i class="fas fa-exclamation-triangle"></i> '+jmlMenipis+' menipis</span>';
+  if(jmlExpired > 0) warnHtml += '<span class="info"><i class="fas fa-calendar-alt"></i> '+jmlExpired+' akan expired</span>';
+  if(!warnHtml) warnHtml = '<span style="background:rgba(15,110,74,.3);border-color:rgba(104,211,145,.4)"><i class="fas fa-check-circle" style="color:#68d391"></i> Semua stok aman</span>';
+  warnEl.innerHTML = warnHtml;
+}
+
 function renderStok(){
   const c=document.getElementById('stok-list');
   if(!c)return;
+
+  renderStokSummary();
+
   const f=(document.getElementById('search-stok')?.value||'').toLowerCase();
-  let filtered=f?produk.filter(p=>p.nama.toLowerCase().includes(f)):produk;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const batas30 = new Date(today); batas30.setDate(batas30.getDate()+30);
+
+  // Filter
+  let filtered = f ? produk.filter(p => p.nama.toLowerCase().includes(f)) : produk.slice();
+  if(stokFilter === 'menipis'){
+    filtered = filtered.filter(p => (p.stok||0) > 0 && (p.stok||0) <= 3);
+  } else if(stokFilter === 'habis'){
+    filtered = filtered.filter(p => (p.stok||0) <= 0);
+  } else if(stokFilter === 'expired'){
+    filtered = filtered.filter(p => p.expired && new Date(p.expired) <= batas30);
+  }
+
+  // Sort
+  if(stokSort === 'nama'){
+    filtered.sort((a,b) => (a.nama||'').localeCompare(b.nama||''));
+  } else if(stokSort === 'stok-asc'){
+    filtered.sort((a,b) => (a.stok||0) - (b.stok||0));
+  } else if(stokSort === 'stok-desc'){
+    filtered.sort((a,b) => (b.stok||0) - (a.stok||0));
+  } else if(stokSort === 'harga-desc'){
+    filtered.sort((a,b) => (b.harga||0) - (a.harga||0));
+  } else if(stokSort === 'harga-asc'){
+    filtered.sort((a,b) => (a.harga||0) - (b.harga||0));
+  }
+
   if(!filtered.length){
-    c.innerHTML='<div class="empty-state">Belum ada produk<br><span class="text-[10px] opacity-60">Klik + Tambah Produk untuk menambah</span></div>';
+    const msg = f
+      ? 'Produk tidak ditemukan'
+      : (stokFilter === 'semua' ? 'Belum ada produk' : 'Tidak ada produk di filter ini');
+    const sub = f
+      ? 'Coba kata kunci lain'
+      : (stokFilter === 'semua' ? 'Klik + Tambah Produk untuk menambah' : 'Coba filter lain');
+    c.innerHTML='<div class="empty-state">'+msg+'<br><span class="text-[10px] opacity-60">'+sub+'</span></div>';
     return;
   }
+
   c.innerHTML=filtered.map(p=>{
     const stok=p.stok||0;
     let cls='hijau', statusText='Tersedia';
@@ -1925,18 +2230,18 @@ function renderStok(){
     const expInfo = p.expired
       ? '<span class="produk-exp"><i class="fas fa-calendar-alt"></i> Exp '+p.expired+'</span>'
       : '<span class="produk-exp kosong"><i class="fas fa-calendar-alt"></i> -</span>';
-return '<div class="produk-card" data-id="'+p.id+'">'
-  +'<div class="produk-card-header">'
-    +'<div class="produk-card-avatar '+cls+'"><i class="fas fa-box"></i></div>'
-    +'<div style="flex:1;min-width:0">'
-      +'<div class="produk-card-title">'+p.nama+'</div>'
-      +'<div class="produk-card-subtitle '+cls+'">'+statusText+'</div>'
-    +'</div>'
-    +'<div class="produk-card-icons">'
-      +'<button class="produk-icon-btn" onclick="openEditProduk('+p.id+')" title="Edit produk"><i class="fas fa-pen"></i></button>'
-      +'<button class="produk-icon-btn delete" onclick="stokDel('+p.id+')" title="Hapus produk"><i class="fas fa-trash"></i></button>'
-    +'</div>'
-  +'</div>'
+    return '<div class="produk-card" data-id="'+p.id+'">'
+      +'<div class="produk-card-header">'
+        +'<div class="produk-card-avatar '+cls+'"><i class="fas fa-box"></i></div>'
+        +'<div style="flex:1;min-width:0">'
+          +'<div class="produk-card-title">'+p.nama+'</div>'
+          +'<div class="produk-card-subtitle '+cls+'">'+statusText+'</div>'
+        +'</div>'
+        +'<div class="produk-card-icons">'
+          +'<button class="produk-icon-btn" onclick="openEditProduk('+p.id+')" title="Edit produk"><i class="fas fa-pen"></i></button>'
+          +'<button class="produk-icon-btn delete" onclick="stokDel('+p.id+')" title="Hapus produk"><i class="fas fa-trash"></i></button>'
+        +'</div>'
+      +'</div>'
       +'<div class="produk-card-body">'
         +'<div class="produk-info-box">'
           +'<div class="produk-info-label"><i class="fas fa-tag"></i> Harga Jual</div>'
@@ -1948,8 +2253,15 @@ return '<div class="produk-card" data-id="'+p.id+'">'
         +'</div>'
       +'</div>'
       +'<div class="produk-card-footer">'
-        +'<span class="produk-laba"><i class="fas fa-arrow-up"></i> Laba <b>'+rupiah(laba)+'</b>/pcs</span>'
-        +expInfo
+        +'<div class="row1">'
+          +'<span class="produk-laba"><i class="fas fa-arrow-up"></i> Laba <b>'+rupiah(laba)+'</b>/pcs</span>'
+          +'<span class="produk-exp"><i class="fas fa-coins"></i> Modal <b style="color:#0f6e4a;font-weight:900">'+rupiah(p.harga_beli||0)+'</b></span>'
+        +'</div>'
+        +'<div class="row2">'+expInfo+'</div>'
+      +'</div>'
+      +'<div class="produk-card-actions">'
+        +'<button class="produk-btn-tambah" onclick="openTambahStok('+p.id+')"><i class="fas fa-plus"></i> Tambah Stok</button>'
+        +'<button class="produk-btn-tambah" style="background:#fffbeb;color:#b45309;border-color:#fde68a" onclick="openKoreksiStok('+p.id+')" title="Koreksi stok fisik"><i class="fas fa-tools"></i> Koreksi</button>'
       +'</div>'
     +'</div>';
   }).join('');
@@ -1957,7 +2269,13 @@ return '<div class="produk-card" data-id="'+p.id+'">'
 window.stokInc=function(id){const it=produk.find(p=>p.id===id);if(it){it.stok++;setData(KEYS.produk,produk);renderStok();renderKasir();updateSummary();}};window.stokDec=function(id){const it=produk.find(p=>p.id===id);if(it&&it.stok>0){it.stok--;setData(KEYS.produk,produk);renderStok();renderKasir();updateSummary();}};window.stokDel=async function(id){
   const p=produk.find(x=>x.id===id);
   if(!p)return;
-  const ok=await showModal('Hapus Produk','Hapus "'+p.nama+'" dari daftar?'+String.fromCharCode(10)+'Data tidak bisa dikembalikan.','Hapus','Batal');
+  const jmlRiwayat = Array.isArray(p.riwayat_beli) ? p.riwayat_beli.length : 0;
+  let pesan = 'Hapus "'+p.nama+'" dari daftar?'+String.fromCharCode(10);
+  if(jmlRiwayat > 0){
+    pesan += String.fromCharCode(10)+'⚠️ Produk ini punya '+jmlRiwayat+' riwayat pembelian yang akan HILANG.'+String.fromCharCode(10);
+  }
+  pesan += String.fromCharCode(10)+'Data tidak bisa dikembalikan.';
+  const ok=await showModal('Hapus Produk',pesan,'Hapus','Batal');
   if(ok){
     produk=produk.filter(x=>x.id!==id);
     setData(KEYS.produk,produk);
@@ -1980,10 +2298,80 @@ window.openEditProduk=function(id){
   document.getElementById('edit-produk-harga-beli').value=p.harga_beli||0;
   document.getElementById('edit-produk-stok').value=p.stok||0;
   document.getElementById('edit-produk-expired').value=p.expired||'';
+
+// Lock harga beli & stok jika sudah ada riwayat pembelian
+const hasRiwayat = Array.isArray(p.riwayat_beli) && p.riwayat_beli.length > 0;
+const inputHB = document.getElementById('edit-produk-harga-beli');
+const hintHB = document.getElementById('edit-produk-harga-beli-hint');
+const inputStok = document.getElementById('edit-produk-stok');
+const btnStokMin = document.querySelector('.edit-produk-stok-btn');
+const btnStokPlus = document.querySelectorAll('.edit-produk-stok-btn')[1];
+const hintStok = document.getElementById('edit-produk-stok-hint');
+if(hasRiwayat){
+  inputHB.readOnly = true;
+  inputHB.style.background = '#f1f5f9';
+  inputHB.style.color = '#64748b';
+  inputHB.style.cursor = 'not-allowed';
+  hintHB.style.display = 'block';
+
+  inputStok.readOnly = true;
+  inputStok.style.background = '#f1f5f9';
+  inputStok.style.color = '#64748b';
+  inputStok.style.cursor = 'not-allowed';
+  if(btnStokMin){ btnStokMin.disabled = true; btnStokMin.style.opacity = '.4'; btnStokMin.style.cursor = 'not-allowed'; }
+  if(btnStokPlus){ btnStokPlus.disabled = true; btnStokPlus.style.opacity = '.4'; btnStokPlus.style.cursor = 'not-allowed'; }
+  if(hintStok) hintStok.style.display = 'block';
+} else {
+  inputHB.readOnly = false;
+  inputHB.style.background = '';
+  inputHB.style.color = '';
+  inputHB.style.cursor = '';
+  hintHB.style.display = 'none';
+
+  inputStok.readOnly = false;
+  inputStok.style.background = '';
+  inputStok.style.color = '';
+  inputStok.style.cursor = '';
+  if(btnStokMin){ btnStokMin.disabled = false; btnStokMin.style.opacity = ''; btnStokMin.style.cursor = ''; }
+  if(btnStokPlus){ btnStokPlus.disabled = false; btnStokPlus.style.opacity = ''; btnStokPlus.style.cursor = ''; }
+  if(hintStok) hintStok.style.display = 'none';
+}
+
+  // Render riwayat beli
+  renderRiwayatBeli(p);
+
   updateEditPreview();
   document.getElementById('edit-produk-overlay').style.display='flex';
   document.body.style.overflow='hidden';
 };
+
+function renderRiwayatBeli(p){
+  const sec = document.getElementById('edit-produk-riwayat-section');
+  const list = document.getElementById('edit-produk-riwayat-list');
+  if(!sec || !list) return;
+  const riwayat = Array.isArray(p.riwayat_beli) ? p.riwayat_beli : [];
+  if(riwayat.length === 0){
+    sec.style.display = 'none';
+    return;
+  }
+  sec.style.display = 'block';
+  // Tampilkan 5 transaksi terbaru (reverse)
+  const display = riwayat.slice(-5).reverse();
+  let html = display.map(r => {
+    const tglStr = new Date(r.tgl).toLocaleDateString('id-ID', {day:'2-digit', month:'short', year:'numeric'});
+    return '<div class="riwayat-beli-item">'
+      +'<div class="riwayat-beli-item-left">'
+        +'<div class="riwayat-beli-item-date">'+tglStr+'</div>'
+        +'<div class="riwayat-beli-item-detail">'+r.qty+' pcs × '+rupiah(r.per_pcs)+'/pcs</div>'
+      +'</div>'
+      +'<div class="riwayat-beli-item-total">'+rupiah(r.total)+'</div>'
+    +'</div>';
+  }).join('');
+  if(riwayat.length > 5){
+    html += '<div class="riwayat-beli-more">+ '+(riwayat.length - 5)+' pembelian lainnya</div>';
+  }
+  list.innerHTML = html;
+}
 
 window.closeEditProduk=function(){
   document.getElementById('edit-produk-overlay').style.display='none';
@@ -2023,11 +2411,15 @@ window.simpanEditProduk=async function(){
     showModal('Perhatian','Nama dan harga jual harus diisi dengan benar');
     return;
   }
+  const hasRiwayat = Array.isArray(p.riwayat_beli) && p.riwayat_beli.length > 0;
   p.nama=nama;
   p.harga=harga;
-  p.harga_beli=harga_beli;
-  p.stok=stok;
   p.expired=expired;
+  // Hanya update harga_beli & stok jika belum ada riwayat
+  if(!hasRiwayat){
+    p.harga_beli=harga_beli;
+    p.stok=stok;
+  }
   setData(KEYS.produk,produk);
   closeEditProduk();
   renderStok();
@@ -2039,6 +2431,173 @@ window.simpanEditProduk=async function(){
 // Close modal edit saat klik di luar area modal
 document.getElementById('edit-produk-overlay')?.addEventListener('click', function(e){
   if(e.target === this) closeEditProduk();
+});
+
+// ==== MODAL TAMBAH STOK (Moving Average Cost) ====
+let tambahStokId = null;
+
+window.openTambahStok = function(id){
+  const p = produk.find(x => x.id === id);
+  if(!p) return;
+  tambahStokId = id;
+  document.getElementById('tambah-stok-nama-produk').textContent = p.nama || '-';
+  document.getElementById('tambah-stok-info-sekarang').innerHTML =
+    'Stok sekarang: <b>'+(p.stok||0)+'</b> pcs • Modal: <b>'+rupiah(p.harga_beli||0)+'</b>/pcs';
+  document.getElementById('tambah-stok-qty').value = '';
+  document.getElementById('tambah-stok-total').value = '';
+  document.getElementById('tambah-stok-preview').style.display = 'none';
+  document.getElementById('tambah-stok-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ document.getElementById('tambah-stok-qty')?.focus(); }, 150);
+};
+
+window.closeTambahStok = function(){
+  document.getElementById('tambah-stok-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+  tambahStokId = null;
+};
+
+window.updateTambahStokPreview = function(){
+  const p = produk.find(x => x.id === tambahStokId);
+  if(!p) return;
+  const qty = parseInt(document.getElementById('tambah-stok-qty')?.value) || 0;
+  const total = parseInt(document.getElementById('tambah-stok-total')?.value) || 0;
+  const box = document.getElementById('tambah-stok-preview');
+  if(qty > 0 && total > 0){
+    const perPcs = Math.round(total / qty);
+    const stokLama = Math.max(0, p.stok || 0);
+    const modalLama = p.harga_beli || 0;
+    const totalModalLama = stokLama * modalLama;
+    const totalModalBaru = totalModalLama + total;
+    const stokBaru = stokLama + qty;
+    const rata2Baru = stokBaru > 0 ? Math.round(totalModalBaru / stokBaru) : 0;
+    document.getElementById('tambah-stok-perpcs').textContent = rupiah(perPcs);
+    document.getElementById('tambah-stok-totalakhir').textContent = stokBaru + ' pcs';
+    document.getElementById('tambah-stok-rata2').textContent = rupiah(rata2Baru) + '/pcs';
+    box.style.display = 'block';
+  } else {
+    box.style.display = 'none';
+  }
+};
+
+window.simpanTambahStok = function(){
+  const p = produk.find(x => x.id === tambahStokId);
+  if(!p){ closeTambahStok(); return; }
+  const qty = parseInt(document.getElementById('tambah-stok-qty')?.value) || 0;
+  const total = parseInt(document.getElementById('tambah-stok-total')?.value) || 0;
+  if(qty <= 0 || total <= 0){
+    showModal('Perhatian', 'Jumlah pcs dan total harga harus diisi dengan benar');
+    return;
+  }
+  const perPcs = Math.round(total / qty);
+  const stokLama = Math.max(0, p.stok || 0);
+  const modalLama = p.harga_beli || 0;
+  const totalModalLama = stokLama * modalLama;
+  const totalModalBaru = totalModalLama + total;
+  const stokBaru = stokLama + qty;
+  const rata2Baru = stokBaru > 0 ? Math.round(totalModalBaru / stokBaru) : 0;
+
+  // Update produk
+  p.stok = stokBaru;
+  p.harga_beli = rata2Baru;
+  if(!Array.isArray(p.riwayat_beli)) p.riwayat_beli = [];
+  p.riwayat_beli.push({
+    tgl: new Date().toISOString().slice(0,10),
+    qty: qty,
+    total: total,
+    per_pcs: perPcs
+  });
+
+  setData(KEYS.produk, produk);
+  closeTambahStok();
+  renderStok();
+  renderKasir();
+  updateSummary();
+  showToast('✅ Stok +'+qty+' pcs • Modal rata-rata '+rupiah(rata2Baru)+'/pcs');
+};
+
+// Close modal tambah stok saat klik di luar
+document.getElementById('tambah-stok-overlay')?.addEventListener('click', function(e){
+  if(e.target === this) closeTambahStok();
+});
+
+// ==== MODAL KOREKSI STOK ====
+let koreksiStokId = null;
+
+window.openKoreksiStok = function(id){
+  const p = produk.find(x => x.id === id);
+  if(!p) return;
+  koreksiStokId = id;
+  document.getElementById('koreksi-stok-nama-produk').textContent = p.nama || '-';
+  document.getElementById('koreksi-stok-info-sekarang').innerHTML = 'Stok tercatat: <b>'+(p.stok||0)+'</b> pcs';
+  document.getElementById('koreksi-stok-fisik').value = '';
+  document.getElementById('koreksi-stok-alasan').value = '';
+  document.getElementById('koreksi-stok-preview').style.display = 'none';
+  document.getElementById('koreksi-stok-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ document.getElementById('koreksi-stok-fisik')?.focus(); }, 150);
+};
+
+window.closeKoreksiStok = function(){
+  document.getElementById('koreksi-stok-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+  koreksiStokId = null;
+};
+
+window.updateKoreksiStokPreview = function(){
+  const p = produk.find(x => x.id === koreksiStokId);
+  if(!p) return;
+  const fisik = parseInt(document.getElementById('koreksi-stok-fisik')?.value);
+  const box = document.getElementById('koreksi-stok-preview');
+  if(isNaN(fisik) || fisik < 0){ box.style.display = 'none'; return; }
+  const stokLama = p.stok || 0;
+  const selisih = fisik - stokLama;
+  const selisihStr = (selisih > 0 ? '+' : '') + selisih + ' pcs';
+  const selisihEl = document.getElementById('koreksi-stok-selisih');
+  selisihEl.textContent = selisihStr;
+  selisihEl.style.color = selisih < 0 ? '#dc2626' : (selisih > 0 ? '#0f6e4a' : '#64748b');
+  document.getElementById('koreksi-stok-hasil').textContent = fisik + ' pcs';
+  box.style.display = 'block';
+};
+
+window.simpanKoreksiStok = function(){
+  const p = produk.find(x => x.id === koreksiStokId);
+  if(!p){ closeKoreksiStok(); return; }
+  const fisik = parseInt(document.getElementById('koreksi-stok-fisik')?.value);
+  const alasan = (document.getElementById('koreksi-stok-alasan')?.value || '').trim();
+  if(isNaN(fisik) || fisik < 0){
+    showModal('Perhatian', 'Stok fisik harus diisi dengan angka ≥ 0');
+    return;
+  }
+  const stokLama = p.stok || 0;
+  const selisih = fisik - stokLama;
+  if(selisih === 0){
+    showModal('Info', 'Stok fisik sama dengan stok tercatat. Tidak ada perubahan.');
+    return;
+  }
+  p.stok = fisik;
+  // Catat di riwayat_beli sebagai penyesuaian (qty bisa negatif)
+  if(!Array.isArray(p.riwayat_beli)) p.riwayat_beli = [];
+  p.riwayat_beli.push({
+    tgl: new Date().toISOString().slice(0,10),
+    qty: selisih,
+    total: 0,
+    per_pcs: p.harga_beli || 0,
+    koreksi: true,
+    alasan: alasan || 'Koreksi stok'
+  });
+  setData(KEYS.produk, produk);
+  closeKoreksiStok();
+  renderStok();
+  renderKasir();
+  updateSummary();
+  const msg = selisih > 0 ? '✅ Stok +'+selisih+' pcs (koreksi)' : '✅ Stok '+selisih+' pcs (koreksi)';
+  showToast(msg);
+};
+
+// Close modal koreksi stok saat klik di luar
+document.getElementById('koreksi-stok-overlay')?.addEventListener('click', function(e){
+  if(e.target === this) closeKoreksiStok();
 });
 function renderKasbon(){const c=document.getElementById('kasbon-list');if(!c)return;const f=(document.getElementById('search-kasbon')?.value||'').toLowerCase();let filtered=f?kasbon.filter(k=>k.nama.toLowerCase().includes(f)):kasbon;if(!filtered.length){c.innerHTML='<div class="empty-state">Belum ada kasbon</div>';return;}c.innerHTML=filtered.map(k=>'<div class="flex justify-between p-2.5 border rounded-xl mb-1.5 bg-white"><div><div class="font-bold text-[13px]">'+k.nama+'</div><div class="text-[11px] opacity-60">'+(k.catatan||'')+' - '+k.tgl+'</div></div><div class="flex gap-2 items-center"><span class="font-black text-red-600 text-[12px]">'+rupiah(k.jumlah)+'</span><button onclick="kasbonDel('+k.id+')" class="w-6 h-6 bg-red-100 rounded-full font-black text-[10px]">x</button></div></div>').join('');}
 window.kasbonDel=async function(id){const ok=await showModal('Hapus','Hapus kasbon?','Hapus','Batal');if(ok){kasbon=kasbon.filter(k=>k.id!==id);setData(KEYS.kasbon,kasbon);renderKasbon();updateSummary();}};
@@ -4070,6 +4629,14 @@ promo = promo.map(p => {
   return p;
 });
 if(promoMigrated) setData(KEYS.promo, promo);
+
+// Migrasi produk lama: pastikan ada field riwayat_beli
+let produkMigrated = false;
+produk = produk.map(p => {
+  if(!Array.isArray(p.riwayat_beli)){ p.riwayat_beli = []; produkMigrated = true; }
+  return p;
+});
+if(produkMigrated) setData(KEYS.produk, produk);
 // ===== TAMBAHKAN BARIS INI =====
 document.getElementById('struk-custom-weight')?.addEventListener('change',()=>{updateStrukPreview();saveStrukData();});
 document.getElementById('struk-footer-weight')?.addEventListener('change',()=>{updateStrukPreview();saveStrukData();});
@@ -4222,11 +4789,61 @@ document.getElementById('btn-add-nomor-row')?.addEventListener('click',()=>{ tam
 // Tutup modal edit dengan tombol Escape
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){
-    const ov = document.getElementById('edit-produk-overlay');
-    if(ov && ov.style.display === 'flex') closeEditProduk();
+    const ovEdit = document.getElementById('edit-produk-overlay');
+    if(ovEdit && ovEdit.style.display === 'flex'){ closeEditProduk(); return; }
+    const ovStok = document.getElementById('tambah-stok-overlay');
+    if(ovStok && ovStok.style.display === 'flex'){ closeTambahStok(); return; }
   }
 });
-document.getElementById('btn-tambah-produk')?.addEventListener('click',()=>{const nama=document.getElementById('input-nama').value.trim(),harga=parseInt(document.getElementById('input-harga').value),harga_beli=parseInt(document.getElementById('input-harga-beli').value)||0,stok=parseInt(document.getElementById('input-stok').value)||0,expired=document.getElementById('input-expired').value||'';if(!nama||isNaN(harga)){showModal('Perhatian','Nama dan harga harus diisi');return;}produk.push({id:generateId(produk),nama,harga,harga_beli,stok,expired});setData(KEYS.produk,produk);document.getElementById('input-nama').value='';document.getElementById('input-harga').value='';document.getElementById('input-harga-beli').value='';document.getElementById('input-stok').value='';document.getElementById('input-expired').value='';renderStok();renderKasir();updateSummary();showToast('Produk ditambahkan');});
+window.updatePreviewProdukBaru = function(){
+  const harga = parseInt(document.getElementById('input-harga')?.value) || 0;
+  const stok = parseInt(document.getElementById('input-stok')?.value) || 0;
+  const total = parseInt(document.getElementById('input-total-belanja')?.value) || 0;
+  const box = document.getElementById('preview-produk-baru');
+  if(stok > 0 && total > 0){
+    const perPcs = Math.round(total / stok);
+    const laba = harga - perPcs;
+    document.getElementById('preview-pb-perpcs').textContent = rupiah(perPcs);
+    document.getElementById('preview-pb-laba').textContent = rupiah(laba);
+    document.getElementById('preview-pb-laba').style.color = laba < 0 ? '#dc2626' : '#0f6e4a';
+    box.style.display = 'block';
+  } else {
+    box.style.display = 'none';
+  }
+};
+
+document.getElementById('btn-tambah-produk')?.addEventListener('click',()=>{
+  const nama=(document.getElementById('input-nama').value||'').trim();
+  const harga=parseInt(document.getElementById('input-harga').value);
+  const stok=parseInt(document.getElementById('input-stok').value)||0;
+  const totalBelanja=parseInt(document.getElementById('input-total-belanja').value)||0;
+  const expired=document.getElementById('input-expired').value||'';
+  if(!nama||isNaN(harga)){showModal('Perhatian','Nama dan harga jual harus diisi');return;}
+  if(stok>0 && totalBelanja<=0){showModal('Perhatian','Jika stok diisi, Total Belanja juga harus diisi agar modal akurat');return;}
+  if(stok<=0 && totalBelanja>0){showModal('Perhatian','Jika Total Belanja diisi, Stok Awal juga harus diisi');return;}
+  const harga_beli = (stok>0 && totalBelanja>0) ? Math.round(totalBelanja / stok) : 0;
+  const riwayat_beli = [];
+  if(stok>0 && totalBelanja>0){
+    riwayat_beli.push({
+      tgl: new Date().toISOString().slice(0,10),
+      qty: stok,
+      total: totalBelanja,
+      per_pcs: harga_beli
+    });
+  }
+  produk.push({id:generateId(produk),nama,harga,harga_beli,stok,expired,riwayat_beli});
+  setData(KEYS.produk,produk);
+  document.getElementById('input-nama').value='';
+  document.getElementById('input-harga').value='';
+  document.getElementById('input-stok').value='';
+  document.getElementById('input-total-belanja').value='';
+  document.getElementById('input-expired').value='';
+  document.getElementById('preview-produk-baru').style.display='none';
+  renderStok();
+  renderKasir();
+  updateSummary();
+  showToast('Produk ditambahkan'+(harga_beli>0 ? ' (modal '+rupiah(harga_beli)+'/pcs)' : ''));
+});
 document.getElementById('btn-tambah-kasbon')?.addEventListener('click',()=>{const nama=document.getElementById('kasbon-nama').value.trim(),catatan=document.getElementById('kasbon-catatan').value.trim(),jumlah=parseInt(document.getElementById('kasbon-jumlah').value),tgl=document.getElementById('kasbon-tanggal').value||new Date().toISOString().slice(0,10);if(!nama||!jumlah){showModal('Perhatian','Nama dan jumlah harus diisi');return;}kasbon.push({id:generateId(kasbon),nama,catatan,jumlah,tgl});setData(KEYS.kasbon,kasbon);renderKasbon();updateSummary();showToast('Kasbon ditambahkan');});
 document.getElementById('btn-tambah-transaksi')?.addEventListener('click',()=>{const jenis=document.getElementById('jenis-transaksi').value,deskripsi=document.getElementById('deskripsi-transaksi').value.trim(),jumlah=parseInt(document.getElementById('jumlah-transaksi').value),tgl=document.getElementById('tanggal-transaksi').value||new Date().toISOString().slice(0,10);if(!deskripsi||!jumlah){showModal('Perhatian','Deskripsi dan jumlah harus diisi');return;}transaksi.push({id:generateId(transaksi),jenis,deskripsi,total:jumlah,laba_total:0,items:[],tgl});setData(KEYS.transaksi,transaksi);renderTransaksi();updateSummary();showToast('Transaksi ditambahkan');});
 document.getElementById('btn-tambah-supplier')?.addEventListener('click',()=>{const nama=document.getElementById('supplier-nama').value.trim(),telp=document.getElementById('supplier-telp').value.trim(),ket=document.getElementById('supplier-ket').value.trim();if(!nama||!telp){showModal('Perhatian','Nama dan telepon harus diisi');return;}supplier.push({id:generateId(supplier),nama,telp,ket});setData(KEYS.supplier,supplier);renderSupplier();updateSummary();showToast('Supplier ditambahkan');});
@@ -4321,6 +4938,20 @@ document.getElementById('btn-tambah-pelanggan')?.addEventListener('click',()=>{
 });
 document.getElementById('search-produk')?.addEventListener('input',renderKasir);
 document.getElementById('search-stok')?.addEventListener('input',renderStok);
+document.getElementById('search-stok')?.addEventListener('input',renderStok);
+// Filter & Sort di halaman Stok
+document.getElementById('stok-filter-container')?.addEventListener('click', function(e){
+  const btn = e.target.closest('.stok-filter-btn');
+  if(!btn) return;
+  stokFilter = btn.dataset.filter || 'semua';
+  document.querySelectorAll('#stok-filter-container .stok-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderStok();
+});
+document.getElementById('stok-sort')?.addEventListener('change', function(){
+  stokSort = this.value || 'nama';
+  renderStok();
+});
 document.getElementById('search-kasbon')?.addEventListener('input',renderKasbon);
 document.getElementById('search-supplier')?.addEventListener('input',renderSupplier);
 document.getElementById('search-hutang')?.addEventListener('input',renderHutang);
